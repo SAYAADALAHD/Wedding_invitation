@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Wedding Invitation</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <style>
+    .opening {
+      transition:
+        transform 1.4s cubic-bezier(0.77, 0, 0.18, 1),
+        opacity 1.1s ease;
+    }
+
+    /* Saat tombol ditekan */
+
+    body.opening-exit .opening {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    .sakura-falling {
+      transition: opacity 1.4s ease;
+    }
+
+    body.opening-exit .sakura-falling {
+      opacity: 0;
+    }
+  </style>
+  <body>
+    <!-- =========================================
+         INVITATION CANVAS
+    ========================================== -->
+
+    <main class="invitation-canvas">
+      <div class="sakura-falling"></div>
+      <!-- =====================================
+             OPENING
+        ====================================== -->
+
+      <section class="opening">
+        <!-- BACKGROUND IMAGE -->
+
+        <div class="opening-image">
+          <img src="assets/images/Foto-001.jpg" alt="Foto pengantin" />
+        </div>
+
+        <!-- COLOR / GRADIENT OVERLAY -->
+
+        <div class="opening-gradient"></div>
+
+        <!-- BOKEH OVERLAY  -->
+        <div class="opening-bokeh">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <!-- OPENING DECORATIONS -->
+        <div class="opening-decorations">
+          <div class="opening-decorations-right">
+            <img src="assets/decorations/Flowers 1.png" alt="Flowers" />
+          </div>
+          <div class="opening-decorations-left">
+            <img src="assets/decorations/Flowers 1.png" alt="Flowers" />
+          </div>
+        </div>
+
+        <!-- OPENING CONTENT -->
+        <div class="opening-content">
+          <!-- TITLE -->
+
+          <p class="opening-label">THE WEDDING OF</p>
+          <!-- NAMES -->
+
+          <div class="opening-names">
+            <h1>Ashrul</h1>
+
+            <span>&</span>
+
+            <h1>Diana</h1>
+          </div>
+
+          <!-- GUEST -->
+
+          <p class="opening-guest" id="openingGuest">
+            Kepada Yth. Bapak/Ibu tamu undangan
+          </p>
+
+          <!-- OPEN BUTTON -->
+
+          <button
+            id="open-invitation"
+            class="opening-button"
+            type="button"
+            href="fullpage.html"
+          >
+            Buka Undangan
+          </button>
+        </div>
+      </section>
+
+      <!-- =====================================
+             MUSIC CONTROL
+        ====================================== -->
+
+      <button class="music-button" type="button" aria-label="Putar musik">
+        ♪
+      </button>
+
+      <!-- =====================================
+             CONTENT SETELAH OPENING
+        ====================================== -->
+      <!-- OPENING TRANSITION OVERLAY -->
+
+      <section id="invitation-content" class="invitation-content">
+        <!-- Nanti kita isi:
+                 couple
+                 event
+                 gallery
+                 RSVP
+                 wishes
+                 etc.
+            -->
+      </section>
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/timoschaefer/jQuery-Sakura/jquery-sakura.min.js"></script>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

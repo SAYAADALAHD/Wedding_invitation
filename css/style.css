@@ -1,0 +1,1213 @@
+/* =====================================================
+   01. FONT
+===================================================== */
+
+@font-face {
+  font-family: "Great Vibes";
+  src: url("../assets/fonts/woff2/GreatVibes-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../assets/fonts/woff2/CormorantGaramond-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* =====================================================
+   02. COLOR VARIABLES
+===================================================== */
+
+:root {
+  --color-bg: #ffe6e8;
+  --color-pink: #ffb2c1;
+  --color-brown: #752c30;
+  --color-gold: #c0ad75;
+}
+
+/* =====================================================
+   03. RESET
+===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  background: var(--color-pink);
+
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* =====================================================
+   04. INVITATION CANVAS
+===================================================== */
+
+.invitation-canvas {
+  position: relative;
+
+  width: 100%;
+  max-width: 450px;
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  background: var(--color-bg);
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   05. OPENING
+===================================================== */
+
+.opening {
+  position: relative;
+
+  width: 100%;
+
+  /*
+    Opening selalu mengikuti
+    tinggi layar HP.
+  */
+
+  height: 100svh;
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   06. OPENING IMAGE
+===================================================== */
+
+.opening-image {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+}
+
+.opening-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+/* =====================================================
+   07. COLOR / GRADIENT OVERLAY
+===================================================== */
+
+.opening-gradient {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(232, 240, 247, 0) 0%,
+    rgba(255, 233, 239, 0.66) 35%,
+    rgba(255, 201, 214, 0.93) 65%,
+    rgba(255, 230, 232, 1) 100%
+  );
+}
+
+/* =====================================================
+   08. BOKEH
+===================================================== */
+
+.opening-bokeh {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.opening-bokeh span {
+  position: absolute;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.25);
+
+  filter: blur(6px);
+
+  animation: bokeh-float linear infinite;
+}
+
+/* =====================================================
+   09. OPENING DECORATIONS
+===================================================== */
+
+.opening-decorations {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 30%;
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+/* =====================================================
+   10. DECORATION RIGHT
+===================================================== */
+
+.opening-decorations-right {
+  position: absolute;
+
+  width: 100%;
+
+  left: 80%;
+  bottom: -10%;
+
+  z-index: 1;
+
+  animation: decoration-right-in 2.5s ease-out forwards;
+}
+
+@keyframes decoration-right-in {
+  from {
+    opacity: 0;
+
+    transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateX(0);
+  }
+}
+
+/* =====================================================
+   11. DECORATION LEFT
+===================================================== */
+
+.opening-decorations-left {
+  position: absolute;
+
+  width: 100%;
+
+  left: -20%;
+  bottom: -10%;
+
+  z-index: 1;
+
+  animation: decoration-left-in 2.5s ease-out forwards;
+}
+
+.opening-decorations-left img {
+  transform: scaleX(-1);
+}
+
+@keyframes decoration-left-in {
+  from {
+    opacity: 0;
+
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateX(0);
+  }
+}
+
+/* =====================================================
+   12. OPENING CONTENT
+===================================================== */
+
+.opening-content {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 4;
+
+  text-align: center;
+
+  pointer-events: none;
+}
+
+/* =====================================================
+   13. OPENING LABEL
+===================================================== */
+
+.opening-label {
+  position: absolute;
+
+  top: 42%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: max-content;
+
+  color: var(--color-brown);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 16px;
+
+  letter-spacing: 3px;
+
+  text-shadow:
+    0 2px 4px rgba(117, 44, 48, 0.3),
+    0 4px 10px rgba(117, 44, 48, 0.15);
+
+  animation: text-entrance 1.2s ease-out forwards;
+}
+
+/* =====================================================
+   14. OPENING NAMES
+===================================================== */
+
+.opening-names {
+  position: absolute;
+
+  top: 46%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  animation: names-entrance 2s ease-out forwards;
+}
+
+.opening-names h1 {
+  color: var(--color-brown);
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(48px, 14vw, 58px);
+
+  font-weight: 400;
+
+  line-height: 0.9;
+
+  text-shadow:
+    0 2px 4px rgba(117, 44, 48, 0.3),
+    0 4px 10px rgba(117, 44, 48, 0.15);
+}
+
+.opening-names span {
+  margin: 8px 0;
+
+  color: var(--color-brown);
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: 32px;
+
+  line-height: 1;
+
+  text-shadow: 0 2px 4px rgba(117, 44, 48, 0.25);
+}
+
+/* =====================================================
+   15. GUEST TEXT
+===================================================== */
+
+.opening-guest {
+  position: absolute;
+
+  top: 70%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 80%;
+  max-width: 280px;
+
+  color: var(--color-brown);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 16px;
+
+  line-height: 1.4;
+
+  text-align: center;
+
+  text-shadow: 0 2px 4px rgba(117, 44, 48, 0.25);
+
+  animation: text-entrance 1.2s 1.2s ease-out forwards;
+
+  opacity: 0;
+}
+
+/* =====================================================
+   16. OPENING BUTTON
+===================================================== */
+
+.opening-button {
+  position: absolute;
+
+  top: 75%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  min-width: 150px;
+
+  padding: 10px 24px;
+
+  border: 1.5px solid var(--color-brown);
+
+  border-radius: 999px;
+
+  background: rgba(255, 230, 232, 0.15);
+
+  color: var(--color-brown);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  opacity: 0;
+
+  animation: button-entrance 1.2s 1.8s ease-out forwards;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* =====================================================
+   17. BUTTON HOVER
+===================================================== */
+
+.opening-button:hover {
+  background: var(--color-brown);
+
+  color: var(--color-bg);
+
+  box-shadow: 0 4px 12px rgba(117, 44, 48, 0.25);
+}
+
+.opening-button:active {
+  transform: translateX(-50%) translateY(1px);
+}
+
+/* =====================================================
+   18. MUSIC BUTTON
+===================================================== */
+
+.music-button {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  width: 48px;
+  height: 48px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: var(--color-brown);
+
+  color: white;
+
+  cursor: pointer;
+
+  z-index: 100;
+}
+
+/* =====================================================
+   19. ANIMATIONS
+===================================================== */
+
+@keyframes text-entrance {
+  from {
+    opacity: 0;
+
+    transform: translate(-50%, 20px);
+
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(-50%, 0);
+
+    filter: blur(0);
+  }
+}
+
+@keyframes names-entrance {
+  0% {
+    opacity: 0;
+
+    transform: translate(-50%, 20px);
+
+    filter: blur(8px);
+  }
+
+  60% {
+    opacity: 0.8;
+
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translate(-50%, 0);
+
+    filter: blur(0);
+  }
+}
+
+@keyframes button-entrance {
+  from {
+    opacity: 0;
+
+    transform: translate(-50%, 20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes bokeh-float {
+  0% {
+    top: 110%;
+
+    transform: translateX(0) scale(1);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    top: -10%;
+
+    transform: translateX(20px) scale(1.2);
+
+    opacity: 0;
+  }
+}
+
+.opening-bokeh span:nth-child(1) {
+  width: 18px;
+  height: 18px;
+  left: 10%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+  opacity: 0.6;
+}
+.opening-bokeh span:nth-child(2) {
+  width: 10px;
+  height: 10px;
+  left: 25%;
+  animation-duration: 10s;
+  animation-delay: 1.5s;
+  opacity: 0.4;
+}
+.opening-bokeh span:nth-child(3) {
+  width: 24px;
+  height: 24px;
+  left: 40%;
+  animation-duration: 7s;
+  animation-delay: 3s;
+  opacity: 0.5;
+}
+.opening-bokeh span:nth-child(4) {
+  width: 14px;
+  height: 14px;
+  left: 55%;
+  animation-duration: 12s;
+  animation-delay: 0.5s;
+  opacity: 0.35;
+}
+.opening-bokeh span:nth-child(5) {
+  width: 20px;
+  height: 20px;
+  left: 70%;
+  animation-duration: 9s;
+  animation-delay: 2s;
+  opacity: 0.5;
+}
+.opening-bokeh span:nth-child(6) {
+  width: 8px;
+  height: 8px;
+  left: 85%;
+  animation-duration: 11s;
+  animation-delay: 4s;
+  opacity: 0.45;
+}
+.opening-bokeh span:nth-child(7) {
+  width: 16px;
+  height: 16px;
+  left: 18%;
+  animation-duration: 6s;
+  animation-delay: 1s;
+  opacity: 0.3;
+}
+.opening-bokeh span:nth-child(8) {
+  width: 22px;
+  height: 22px;
+  left: 60%;
+  animation-duration: 13s;
+  animation-delay: 2.5s;
+  opacity: 0.4;
+}
+.opening-bokeh span:nth-child(9) {
+  width: 12px;
+  height: 12px;
+  left: 78%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+  opacity: 0.55;
+}
+.opening-bokeh span:nth-child(10) {
+  width: 26px;
+  height: 26px;
+  left: 5%;
+  animation-duration: 10s;
+  animation-delay: 3.5s;
+  opacity: 0.3;
+}
+
+@keyframes bokeh-float {
+  0% {
+    top: 110%;
+    transform: translateX(0) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    top: -10%;
+    transform: translateX(20px) scale(1.2);
+    opacity: 0;
+  }
+}
+/* =====================================================
+   20. MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+  .invitation-canvas {
+    max-width: 100%;
+  }
+
+  .music-button {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* =====================================================
+   21. REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =====================================================
+   OPENING TRANSITION
+===================================================== */
+
+.opening-transition {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 999;
+
+  pointer-events: none;
+}
+
+@-webkit-keyframes fall {
+  0% {
+    opacity: 0.9;
+    top: 0;
+  }
+  100% {
+    opacity: 0.2;
+    top: 100%;
+  }
+}
+
+@keyframes fall {
+  0% {
+    opacity: 0.9;
+    top: 0;
+  }
+  100% {
+    opacity: 0.2;
+    top: 100%;
+  }
+}
+
+@-webkit-keyframes blow-soft-left {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -50%;
+  }
+}
+
+@keyframes blow-soft-left {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -50%;
+  }
+}
+
+@-webkit-keyframes blow-medium-left {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -100%;
+  }
+}
+
+@keyframes blow-medium-left {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -100%;
+  }
+}
+
+@-webkit-keyframes blow-soft-right {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 50%;
+  }
+}
+
+@keyframes blow-soft-right {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 50%;
+  }
+}
+
+@-webkit-keyframes blow-medium-right {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@keyframes blow-medium-right {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@-webkit-keyframes sway-0 {
+  0% {
+    -webkit-transform: rotate(-5deg);
+  }
+  40% {
+    -webkit-transform: rotate(28deg);
+  }
+  100% {
+    -webkit-transform: rotate(3deg);
+  }
+}
+
+@keyframes sway-0 {
+  0% {
+    -ms-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+  }
+  40% {
+    -ms-transform: rotate(28deg);
+    transform: rotate(28deg);
+  }
+  100% {
+    -ms-transform: rotate(3deg);
+    transform: rotate(3deg);
+  }
+}
+
+@-webkit-keyframes sway-1 {
+  0% {
+    -webkit-transform: rotate(10deg);
+  }
+  40% {
+    -webkit-transform: rotate(43deg);
+  }
+  100% {
+    -webkit-transform: rotate(15deg);
+  }
+}
+
+@keyframes sway-1 {
+  0% {
+    -ms-transform: rotate(10deg);
+    transform: rotate(10deg);
+  }
+  40% {
+    -ms-transform: rotate(43deg);
+    transform: rotate(43deg);
+  }
+  100% {
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+}
+
+@-webkit-keyframes sway-2 {
+  0% {
+    -webkit-transform: rotate(15deg);
+  }
+  40% {
+    -webkit-transform: rotate(56deg);
+  }
+  100% {
+    -webkit-transform: rotate(22deg);
+  }
+}
+
+@keyframes sway-2 {
+  0% {
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+  40% {
+    -ms-transform: rotate(56deg);
+    transform: rotate(56deg);
+  }
+  100% {
+    -ms-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+}
+
+@-webkit-keyframes sway-3 {
+  0% {
+    -webkit-transform: rotate(25deg);
+  }
+  40% {
+    -webkit-transform: rotate(74deg);
+  }
+  100% {
+    -webkit-transform: rotate(37deg);
+  }
+}
+
+@keyframes sway-3 {
+  0% {
+    -ms-transform: rotate(25deg);
+    transform: rotate(25deg);
+  }
+  40% {
+    -ms-transform: rotate(74deg);
+    transform: rotate(74deg);
+  }
+  100% {
+    -ms-transform: rotate(37deg);
+    transform: rotate(37deg);
+  }
+}
+
+@-webkit-keyframes sway-4 {
+  0% {
+    -webkit-transform: rotate(40deg);
+  }
+  40% {
+    -webkit-transform: rotate(68deg);
+  }
+  100% {
+    -webkit-transform: rotate(25deg);
+  }
+}
+
+@keyframes sway-4 {
+  0% {
+    -ms-transform: rotate(40deg);
+    transform: rotate(40deg);
+  }
+  40% {
+    -ms-transform: rotate(68deg);
+    transform: rotate(68deg);
+  }
+  100% {
+    -ms-transform: rotate(25deg);
+    transform: rotate(25deg);
+  }
+}
+
+@-webkit-keyframes sway-5 {
+  0% {
+    -webkit-transform: rotate(50deg);
+  }
+  40% {
+    -webkit-transform: rotate(78deg);
+  }
+  100% {
+    -webkit-transform: rotate(40deg);
+  }
+}
+
+@keyframes sway-5 {
+  0% {
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+  }
+  40% {
+    -ms-transform: rotate(78deg);
+    transform: rotate(78deg);
+  }
+  100% {
+    -ms-transform: rotate(40deg);
+    transform: rotate(40deg);
+  }
+}
+
+@-webkit-keyframes sway-6 {
+  0% {
+    -webkit-transform: rotate(65deg);
+  }
+  40% {
+    -webkit-transform: rotate(92deg);
+  }
+  100% {
+    -webkit-transform: rotate(58deg);
+  }
+}
+
+@keyframes sway-6 {
+  0% {
+    -ms-transform: rotate(65deg);
+    transform: rotate(65deg);
+  }
+  40% {
+    -ms-transform: rotate(92deg);
+    transform: rotate(92deg);
+  }
+  100% {
+    -ms-transform: rotate(58deg);
+    transform: rotate(58deg);
+  }
+}
+
+@-webkit-keyframes sway-7 {
+  0% {
+    -webkit-transform: rotate(72deg);
+  }
+  40% {
+    -webkit-transform: rotate(118deg);
+  }
+  100% {
+    -webkit-transform: rotate(68deg);
+  }
+}
+
+@keyframes sway-7 {
+  0% {
+    -ms-transform: rotate(72deg);
+    transform: rotate(72deg);
+  }
+  40% {
+    -ms-transform: rotate(118deg);
+    transform: rotate(118deg);
+  }
+  100% {
+    -ms-transform: rotate(68deg);
+    transform: rotate(68deg);
+  }
+}
+
+@-webkit-keyframes sway-8 {
+  0% {
+    -webkit-transform: rotate(94deg);
+  }
+  40% {
+    -webkit-transform: rotate(136deg);
+  }
+  100% {
+    -webkit-transform: rotate(82deg);
+  }
+}
+
+@keyframes sway-8 {
+  0% {
+    -ms-transform: rotate(94deg);
+    transform: rotate(94deg);
+  }
+  40% {
+    -ms-transform: rotate(136deg);
+    transform: rotate(136deg);
+  }
+  100% {
+    -ms-transform: rotate(82deg);
+    transform: rotate(82deg);
+  }
+}
+
+.sakura {
+  /* background: -webkit-linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9));
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9));*/
+  background: red;
+  pointer-events: none;
+  position: absolute;
+  z-index: 5;
+}
+
+.sakura {
+  background: #ffb2c1;
+}
+
+/* ANIMASI REVEAL */
+/* =========================================================
+   GLOBAL REVEAL ON SCROLL
+========================================================= */
+/* =========================================================
+   GLOBAL REVEAL
+   AMAN UNTUK DIV, IMG, ICON, BUTTON, CONTAINER, DLL
+========================================================= */
+
+.reveal-scroll {
+  opacity: 0;
+
+  transition: opacity 0.8s ease;
+
+  transition-delay: var(--reveal-delay, 0s);
+
+  will-change: opacity;
+}
+
+/* =========================================================
+   VISIBLE
+========================================================= */
+
+.reveal-scroll.is-visible {
+  opacity: 1;
+}
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-scroll {
+    opacity: 1;
+
+    transition: none;
+  }
+}
+/* =========================================================
+   GLOBAL REVEAL UP
+   BOTTOM -> TOP
+========================================================= */
+
+/* =========================================================
+   REVEAL UP
+========================================================= */
+
+.reveal-up {
+  opacity: 0;
+  translate: 0 20px;
+
+  transition:
+    opacity 0.75s ease,
+    translate 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--reveal-delay, 0ms);
+
+  will-change: opacity, translate;
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* =========================================================
+   REVEAL LEFT
+========================================================= */
+
+.reveal-left {
+  opacity: 0;
+  translate: -20px 0;
+
+  transition:
+    opacity 0.75s ease,
+    translate 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--reveal-delay, 0ms);
+
+  will-change: opacity, translate;
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* =========================================================
+   REVEAL RIGHT
+========================================================= */
+
+.reveal-right {
+  opacity: 0;
+  translate: 20px 0;
+
+  transition:
+    opacity 0.75s ease,
+    translate 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--reveal-delay, 0ms);
+
+  will-change: opacity, translate;
+}
+
+.reveal-right.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* =========================================================
+   INLINE ELEMENT
+========================================================= */
+
+span.reveal-up,
+span.reveal-left,
+span.reveal-right,
+i.reveal-up,
+i.reveal-left,
+i.reveal-right,
+strong.reveal-up,
+strong.reveal-left,
+strong.reveal-right {
+  display: inline-block;
+}
+
+/* =========================================================
+   REVEAL DELAY
+========================================================= */
+
+.reveal-delay-1 {
+  --reveal-delay: 0ms;
+}
+
+.reveal-delay-2 {
+  --reveal-delay: 150ms;
+}
+
+.reveal-delay-3 {
+  --reveal-delay: 300ms;
+}
+
+.reveal-delay-4 {
+  --reveal-delay: 450ms;
+}
+
+.reveal-delay-5 {
+  --reveal-delay: 600ms;
+}
+
+.reveal-delay-6 {
+  --reveal-delay: 750ms;
+}
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
+}

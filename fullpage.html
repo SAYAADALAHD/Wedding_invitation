@@ -1,0 +1,6522 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ahmad & Diana</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..700,0..1,0"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      /* =====================================================
+       HERO
+    ===================================================== */
+
+      .hero {
+        position: relative;
+
+        width: 100%;
+
+        height: 100vh;
+
+        overflow: visible;
+      }
+
+      /* =====================================================
+       HERO IMAGE
+    ===================================================== */
+
+      .hero .opening-image {
+        position: absolute;
+
+        inset: 0;
+
+        z-index: 0;
+
+        opacity: 0;
+
+        transform: scale(1.05);
+
+        animation: hero-image-in 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .hero .opening-image img {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        object-position: center;
+      }
+
+      /* =====================================================
+       HERO IMAGE ANIMATION
+    ===================================================== */
+
+      @keyframes hero-image-in {
+        from {
+          opacity: 0;
+
+          transform: scale(1.05);
+        }
+
+        to {
+          opacity: 1;
+
+          transform: scale(1);
+        }
+      }
+
+      /* =====================================================
+       HERO LABEL
+    ===================================================== */
+
+      .hero-label {
+        position: absolute;
+
+        top: 55%;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        z-index: 2;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        white-space: nowrap;
+      }
+
+      .hero-label span {
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        letter-spacing: 3px;
+
+        text-shadow: 0 2px 4px rgba(117, 44, 48, 0.25);
+      }
+
+      /* =====================================================
+       HERO NAMES
+    ===================================================== */
+
+      .hero-names {
+        position: absolute;
+
+        top: 60%;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        z-index: 2;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        white-space: nowrap;
+      }
+
+      .hero-names h1 {
+        margin: 0;
+
+        color: var(--color-brown);
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: clamp(48px, 14vw, 58px);
+
+        font-weight: 400;
+
+        line-height: 0.9;
+
+        text-shadow:
+          0 2px 4px rgba(117, 44, 48, 0.3),
+          0 4px 10px rgba(117, 44, 48, 0.15);
+      }
+
+      /* =====================================================
+       HERO COUNTDOWN
+    ===================================================== */
+
+      .hero-countdown {
+        position: absolute;
+
+        left: 0;
+
+        bottom: 9%;
+
+        z-index: 3;
+
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 35px 20px 30px;
+
+        color: var(--color-brown);
+
+        text-align: center;
+      }
+
+      /* =====================================================
+       COUNTDOWN
+    ===================================================== */
+
+      .countdown {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: flex-start;
+
+        gap: 30px;
+      }
+
+      /* =====================================================
+       COUNTDOWN ITEM
+    ===================================================== */
+
+      .countdown-item {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: flex-start;
+
+        min-width: 50px;
+
+        text-align: center;
+      }
+
+      /* =====================================================
+       COUNTDOWN NUMBER
+    ===================================================== */
+
+      .countdown-item span {
+        display: block;
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 42px;
+
+        font-weight: 400;
+
+        line-height: 1;
+
+        text-shadow: 0 2px 4px rgba(117, 44, 48, 0.15);
+      }
+
+      /* =====================================================
+       COUNTDOWN LABEL
+    ===================================================== */
+
+      .countdown-item p {
+        margin: 8px 0 0;
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 17px;
+
+        font-weight: 400;
+
+        line-height: 1;
+      }
+
+      /* =====================================================
+       CALENDAR BUTTON
+    ===================================================== */
+
+      .calendar-button {
+        margin-top: 25px;
+
+        padding: 7px 18px;
+
+        border: 1.5px solid var(--color-brown);
+
+        border-radius: 16px;
+
+        background: rgba(255, 230, 232, 0.2);
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 18px;
+
+        font-weight: 400;
+
+        line-height: 1.2;
+
+        text-align: center;
+
+        cursor: pointer;
+
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      /* =====================================================
+       CALENDAR BUTTON HOVER
+    ===================================================== */
+
+      .calendar-button:hover {
+        background: var(--color-brown);
+
+        color: var(--color-bg);
+
+        transform: translateY(-2px);
+
+        box-shadow: 0 5px 15px rgba(117, 44, 48, 0.2);
+      }
+
+      /* =====================================================
+       CALENDAR BUTTON ACTIVE
+    ===================================================== */
+
+      .calendar-button:active {
+        transform: translateY(0);
+
+        box-shadow: none;
+      }
+
+      .hero,
+      .kutipan {
+        margin: 0;
+      }
+      /* =====================================================
+   KUTIPAN
+===================================================== */
+
+      .kutipan {
+        position: relative;
+
+        width: 100%;
+        margin: 0;
+
+        background: var(--color-brown);
+
+        overflow: hidden;
+
+        padding-bottom: 45px;
+      }
+
+      /* =====================================================
+   TOP PINK AREA
+===================================================== */
+
+      .kutipan::before {
+        content: "";
+
+        display: block;
+
+        top: -25px;
+        left: 0;
+
+        width: 100%;
+        height: 90px;
+
+        background: var(--color-bg);
+        border-radius: 0 0 50% 50%;
+      }
+
+      /* =====================================================
+   SEAL
+===================================================== */
+
+      .kutipan-seal {
+        position: absolute;
+
+        bottom: 65%;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: 210px;
+
+        z-index: 5;
+      }
+
+      .kutipan-seal img {
+        display: block;
+
+        width: 100%;
+        height: auto;
+      }
+
+      /* =====================================================
+   SLIDER
+===================================================== */
+
+      .kutipan-slider {
+        width: 100%;
+
+        overflow: hidden;
+
+        padding-top: 65px;
+      }
+
+      .kutipan-slider-track {
+        display: flex;
+
+        width: max-content;
+
+        gap: 8px;
+
+        animation: kutipan-slider-move 30s linear infinite;
+      }
+
+      /* =====================================================
+   SLIDE
+===================================================== */
+
+      .kutipan-slide {
+        flex: 0 0 190px;
+
+        width: 190px;
+        height: 145px;
+
+        overflow: hidden;
+
+        border-radius: 10px;
+      }
+
+      .kutipan-slide img {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+      }
+
+     .kutipan-slide img[src$="Foto-002.jpg"] {
+  object-position: 50% 20%;
+}
+
+  .kutipan-slide img[src$="Foto-002.jpg"] {
+  object-position: 50% 20%;
+}
+
+  .kutipan-slide img[src$="Foto-006.jpg"] {
+  object-position: 50% 20%;
+}
+
+      /* =====================================================
+   INFINITE SLIDER
+===================================================== */
+
+      @keyframes kutipan-slider-move {
+        from {
+          transform: translateX(calc(-50% - 4px));
+        }
+
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      /* =====================================================
+   KUTIPAN CONTENT
+===================================================== */
+
+      .kutipan-content {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        padding: 22px 25px 0;
+      }
+
+      /* =====================================================
+   ARABIC
+===================================================== */
+
+      .kutipan-arabic {
+        margin: 0 0 12px;
+
+        color: var(--color-gold);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 25px;
+
+        line-height: 1.5;
+
+        direction: rtl;
+      }
+
+      /* =====================================================
+   QUOTE
+===================================================== */
+
+      .kutipan-text {
+        max-width: 380px;
+
+        margin: 0;
+
+        color: #ffffff;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 18px;
+
+        line-height: 1.4;
+      }
+
+      /* =====================================================
+   SOURCE
+===================================================== */
+
+      .kutipan-source {
+        margin: 2px 0 0;
+
+        color: #ffffff;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 17px;
+
+        line-height: 1;
+      }
+
+      /* =====================================================
+   GROOM & BRIDE
+===================================================== */
+
+      .groom-bride {
+        position: relative;
+
+        width: 100%;
+
+        padding: 45px 20px 60px;
+
+        background: var(--color-bg);
+
+        color: var(--color-brown);
+
+        text-align: center;
+
+        overflow: hidden;
+      }
+
+      /* =====================================================
+   ORNAMENT
+===================================================== */
+
+      .groom-bride-ornament,
+      .groom-bride-small-ornament,
+      .groom-ornament,
+      .bride-ornament {
+        display: flex;
+
+        justify-content: center;
+
+        width: 100%;
+      }
+
+      .groom-bride-ornament img {
+        width: 270px;
+
+        max-width: 80%;
+
+        height: auto;
+      }
+
+      .groom-bride-small-ornament img,
+      .groom-ornament img,
+      .bride-ornament img {
+        width: 100px;
+
+        height: auto;
+      }
+
+      /* =====================================================
+   INTRO
+===================================================== */
+
+      .groom-bride-intro {
+        max-width: 370px;
+
+        margin: 18px auto 0;
+      }
+
+      .groom-bride-intro h2 {
+        margin: 0 0 12px;
+
+        color: var(--color-brown);
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: 36px;
+
+        font-weight: 400;
+
+        line-height: 1;
+      }
+
+      .groom-bride-intro p {
+        margin: 0;
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 17px;
+
+        line-height: 1.35;
+      }
+
+      /* =====================================================
+   ORNAMENT INTRO
+===================================================== */
+
+      .groom-bride-intro + .groom-bride-small-ornament {
+        margin-top: 22px;
+      }
+
+      /* =====================================================
+   GROOM / BRIDE
+===================================================== */
+
+      .groom,
+      .bride {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+      }
+
+      /* =====================================================
+   PHOTO
+===================================================== */
+
+      .groom-photo,
+      .bride-photo {
+        width: 262px;
+
+        height: 385px;
+
+        overflow: hidden;
+
+        border-radius: 6px;
+      }
+
+      .groom-photo img,
+      .bride-photo img {
+        display: block;
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+      }
+
+      /* =====================================================
+   ORNAMENT BELOW PHOTO
+===================================================== */
+
+      .groom-ornament,
+      .bride-ornament {
+        margin-top: 10px;
+      }
+
+      /* =====================================================
+   NAME
+===================================================== */
+
+      .groom-name,
+      .bride-name {
+        margin: 12px 0 10px;
+
+        color: var(--color-brown);
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: 40px;
+
+        font-weight: 400;
+
+        line-height: 1.15;
+      }
+
+      /* =====================================================
+   PARENTS
+===================================================== */
+
+      .groom-parent,
+      .bride-parent {
+        max-width: 360px;
+
+        margin: 0 auto;
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        line-height: 1.25;
+      }
+
+      /* =====================================================
+   GROOM
+===================================================== */
+
+      .groom {
+        margin-top: 5px;
+      }
+
+      /* =====================================================
+   DIVIDER
+===================================================== */
+
+      .couple-divider {
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+
+        margin: 30px 0;
+
+        gap: 20px;
+      }
+
+      .couple-divider span {
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--color-brown);
+      }
+
+      .couple-divider strong {
+        color: var(--color-gold);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 34px;
+
+        font-weight: 400;
+      }
+
+      /* =====================================================
+   BRIDE
+===================================================== */
+      /* =====================================================
+   PINK GLOW OBJECT
+===================================================== */
+
+      .pink-glow {
+        position: absolute;
+
+        display: block;
+
+        width: 180px;
+        height: 180px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 120, 156, 0.57);
+
+        filter: blur(45px);
+
+        pointer-events: none;
+
+        z-index: 0;
+      }
+
+      /* =====================================================
+   GLOW 1
+===================================================== */
+
+      .pink-glow-1 {
+        top: 5%;
+        left: -70px;
+      }
+
+      /* =====================================================
+   GLOW 2
+===================================================== */
+
+      .pink-glow-2 {
+        top: 40%;
+        right: -70px;
+
+        width: 220px;
+        height: 220px;
+
+        opacity: 0.8;
+      }
+
+      /* =====================================================
+   GLOW 3
+===================================================== */
+
+      .pink-glow-3 {
+        bottom: 5%;
+        left: 50%;
+
+        width: 260px;
+        height: 180px;
+
+        transform: translateX(-50%);
+
+        opacity: 0.7;
+      }
+
+      /* =====================================================
+   OUR STORY
+===================================================== */
+      /* =========================================================
+   OUR STORY
+========================================================= */
+
+      .our-story {
+        width: 100%;
+        min-height: 100vh;
+        padding: 20px 14px 28px;
+
+        background: var(--color-bg);
+      }
+
+      /* =========================================================
+   HEADER
+========================================================= */
+
+      .story-header {
+        width: 100%;
+        max-width: 380px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+      }
+
+      .story-header h1 {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 35px;
+        font-weight: 400;
+
+        line-height: 1;
+
+        color: var(--color-brown);
+
+        white-space: nowrap;
+      }
+
+      .story-header h1 span {
+        font-family: "Great Vibes", cursive;
+
+        color: var(--color-gold);
+
+        margin-right: 1px;
+      }
+
+      .header-line {
+        height: 1px;
+
+        background: var(--color-brown);
+
+        flex: 1;
+
+        opacity: 0.7;
+      }
+
+      /* =========================================================
+   STORY CONTAINER
+========================================================= */
+
+      .story-container {
+        position: relative;
+
+        width: 100%;
+        max-width: 374px;
+
+        margin: 0 auto;
+
+        background: var(--color-brown);
+
+        border-radius: 76px;
+
+        padding: 40px 32px 70px;
+
+        overflow: hidden;
+      }
+
+      /* =========================================================
+   ORNAMENT
+========================================================= */
+
+      .story-ornament {
+        display: block;
+
+        width: 190px;
+        height: auto;
+
+        margin: 0 auto 20px;
+
+        object-fit: contain;
+      }
+
+      /* =========================================================
+   TIMELINE
+========================================================= */
+
+      .timeline {
+        position: relative;
+
+        width: 100%;
+
+        /*
+    Nilai ini akan diubah oleh JavaScript.
+
+    0    = garis belum muncul
+    0.5  = garis 50%
+    1    = garis penuh
+  */
+
+        --timeline-progress: 0;
+      }
+
+      /* =========================================================
+   TIMELINE LINE
+========================================================= */
+
+      .timeline-line {
+        position: absolute;
+
+        left: 0;
+        top: 20px;
+
+        width: 2px;
+        height: calc(100% - 303px);
+
+        background: var(--color-gold);
+
+        /*
+    Garis tumbuh berdasarkan nilai
+    --timeline-progress dari JavaScript.
+  */
+
+        transform-origin: top center;
+
+        transform: scaleY(var(--timeline-progress));
+
+        border-radius: 999px;
+
+        z-index: 1;
+
+        /*
+    Browser diberitahu bahwa transform
+    akan sering berubah ketika scroll.
+  */
+
+        will-change: transform;
+      }
+
+      /* =========================================================
+   STORY ITEM
+========================================================= */
+
+      .story-item {
+        position: relative;
+
+        padding-left: 42px;
+
+        margin-bottom: 48px;
+
+        z-index: 2;
+      }
+
+      .story-item:last-of-type {
+        margin-bottom: 0;
+      }
+
+      /* =========================================================
+   TIMELINE DOT
+========================================================= */
+
+      .timeline-dot {
+        position: absolute;
+
+        left: -7px;
+        top: 0;
+
+        width: 16px;
+        height: 16px;
+
+        background: var(--color-gold);
+
+        border-radius: 50%;
+
+        z-index: 5;
+
+        /*
+    Keadaan awal.
+  */
+
+        opacity: 0.35;
+
+        transform: scale(0.8);
+
+        box-shadow: 0 0 0 0 rgba(192, 173, 117, 0.4);
+
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease,
+          box-shadow 0.25s ease;
+
+        will-change: transform;
+      }
+
+      /*
+    Dot ketika garis mencapai titiknya.
+*/
+
+      .timeline-dot.active {
+        opacity: 1;
+
+        transform: scale(1.15);
+
+        box-shadow: 0 0 0 5px rgba(192, 173, 117, 0.15);
+      }
+
+      /*
+    Setelah garis benar-benar melewati titik.
+*/
+
+      .timeline-dot.reached {
+        opacity: 1;
+
+        transform: scale(1);
+
+        box-shadow: 0 0 0 0 rgba(192, 173, 117, 0);
+      }
+
+      /* =========================================================
+   STORY IMAGE
+========================================================= */
+
+      .story-image {
+        display: block;
+
+        width: 100%;
+
+        aspect-ratio: 245 / 170;
+
+        object-fit: cover;
+
+        border-radius: 4px;
+
+        margin-bottom: 13px;
+      }
+
+      /* =========================================================
+   STORY TITLE
+========================================================= */
+
+      .story-title {
+        display: flex;
+
+        align-items: baseline;
+
+        justify-content: space-between;
+
+        gap: 10px;
+      }
+
+      .story-title h2 {
+        font-family: "Great Vibes", cursive;
+
+        font-size: 37px;
+
+        font-weight: 400;
+
+        line-height: 1;
+
+        color: var(--color-gold);
+
+        white-space: nowrap;
+      }
+
+      .story-title span {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        color: var(--color-gold);
+
+        white-space: nowrap;
+      }
+
+      /* =========================================================
+   STORY DESCRIPTION
+========================================================= */
+
+      .story-info p {
+        margin-top: 8px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 13px;
+
+        line-height: 1.15;
+
+        color: #fff;
+
+        opacity: 0.95;
+      }
+
+      /* =========================================================
+   LOVE ENDING
+========================================================= */
+
+      .timeline-ending {
+        position: relative;
+
+        height: 56px;
+
+        margin-left: -3.6rem;
+        top: 30px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-start;
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   LOVE CIRCLE
+========================================================= */
+
+      .love-circle {
+        position: relative;
+
+        width: 34px;
+        height: 34px;
+
+        border-radius: 50%;
+
+        background: var(--color-gold);
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        /*
+    Keadaan sebelum garis mencapai love.
+  */
+
+        opacity: 0.3;
+
+        transform: scale(0.7);
+
+        box-shadow: 0 0 0 0 rgba(192, 173, 117, 0.45);
+
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+
+        will-change: transform;
+      }
+
+      /*
+    Ketika garis sudah mencapai love.
+*/
+
+      .love-circle.active {
+        opacity: 1;
+
+        transform: scale(1.15);
+
+        box-shadow: 0 0 0 7px rgba(192, 173, 117, 0.12);
+      }
+
+      /* =========================================================
+   LOVE ICON
+========================================================= */
+
+      .love-circle i {
+        font-size: 17px;
+
+        color: var(--color-brown);
+
+        line-height: 1;
+
+        display: block;
+      }
+
+      /*
+    Heart hanya berdetak setelah
+    love-circle sudah tercapai.
+*/
+
+      .love-circle.beating i {
+        animation: heart-beat 1s ease-in-out infinite;
+      }
+
+      /* =========================================================
+   HEART BEAT
+========================================================= */
+
+      @keyframes heart-beat {
+        0% {
+          transform: scale(1);
+        }
+
+        15% {
+          transform: scale(1.25);
+        }
+
+        30% {
+          transform: scale(1);
+        }
+
+        45% {
+          transform: scale(1.2);
+        }
+
+        60% {
+          transform: scale(1);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+      @media (max-width: 360px) {
+        .story-container {
+          padding-left: 28px;
+          padding-right: 28px;
+
+          border-radius: 65px;
+        }
+
+        .story-item {
+          padding-left: 36px;
+        }
+
+        .timeline-ending {
+          margin-left: -36px;
+        }
+
+        .story-title h2 {
+          font-size: 33px;
+        }
+
+        .story-info p {
+          font-size: 12px;
+        }
+      }
+
+      /* =========================================================
+   WEDDING EVENT
+========================================================= */
+      /* =========================================================
+   WEDDING EVENT
+========================================================= */
+
+      .wedding-event {
+        position: relative;
+
+        width: 100%;
+
+        min-height: 200px;
+
+        padding: 14px 14px 32px;
+
+        background: var(--color-bg);
+
+        overflow: hidden;
+
+        box-sizing: border-box;
+      }
+
+      /* =========================================================
+   HEADER
+========================================================= */
+
+      .event-header {
+        position: relative;
+
+        width: 100%;
+
+        height: 70px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 10px;
+
+        z-index: 10;
+      }
+
+      /* =========================================================
+   HEADER LINE
+========================================================= */
+
+      .event-header-line {
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--color-brown);
+
+        opacity: 0.65;
+      }
+
+      /* =========================================================
+   HEADER TITLE
+========================================================= */
+
+      .event-heading {
+        width: 145px;
+
+        height: 65px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        flex-shrink: 0;
+      }
+
+      .event-heading h2 {
+        margin: 0;
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: 42px;
+
+        font-weight: 400;
+
+        line-height: 0.85;
+
+        color: var(--color-gold);
+
+        white-space: nowrap;
+      }
+
+      .event-heading span {
+        margin-top: 5px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 35px;
+
+        transform: translateY(-9px);
+
+        color: var(--color-brown);
+
+        white-space: nowrap;
+      }
+
+      /* =========================================================
+   FLOWERS
+========================================================= */
+
+      .event-flowers-right {
+        position: absolute;
+
+        /*
+    Posisi bunga terhadap section.
+  */
+
+        top: 55px;
+
+        left: 72%;
+
+        width: 150px;
+
+        transform: scalex(-1) rotate(-15deg);
+
+        z-index: 1;
+
+        pointer-events: none;
+      }
+
+      .event-flowers-right img {
+        display: block;
+
+        width: 100%;
+
+        height: auto;
+      }
+
+      .event-flowers-left {
+        position: absolute;
+
+        /*
+    Posisi bunga terhadap section.
+  */
+
+        top: 55px;
+
+        left: -10%;
+
+        width: 150px;
+
+        transform: scalex(1) rotate(-17deg);
+
+        z-index: 1;
+
+        pointer-events: none;
+      }
+
+      .event-flowers-left img {
+        display: block;
+
+        width: 100%;
+
+        height: auto;
+      }
+
+      /* =========================================================
+   EVENT CONTENT
+========================================================= */
+
+      .event-content {
+        position: relative;
+
+        width: 100%;
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   PHOTO GALLERY
+========================================================= */
+
+      .event-gallery {
+        position: relative;
+
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+          minmax(0, 1fr)
+          minmax(0, 1fr);
+
+        gap: 7px;
+      }
+
+      /* =========================================================
+   PHOTO
+========================================================= */
+
+      .event-photo {
+        position: relative;
+
+        width: 100%;
+
+        height: 237px;
+
+        overflow: hidden;
+
+        background: #ddd;
+      }
+
+      /* =========================================================
+   PHOTO LEFT
+========================================================= */
+
+      .event-photo-left {
+        border-radius: 55px 0 0 0;
+      }
+
+      /* =========================================================
+   PHOTO RIGHT
+========================================================= */
+
+      .event-photo-right {
+        border-radius: 0 55px 0 0;
+      }
+
+      /* =========================================================
+   PHOTO IMAGE
+========================================================= */
+
+      .event-photo img {
+        display: block;
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+      }
+
+      /* =========================================================
+   PHOTO CROP
+========================================================= */
+
+      .event-photo-left img {
+        object-position: center;
+      }
+
+      .event-photo-right img {
+        object-position: center;
+      }
+
+      /* =========================================================
+   EVENT CARD
+========================================================= */
+
+      .event-card {
+        position: relative;
+
+        width: 100%;
+
+        margin-top: 7px;
+
+        background: rgb(138, 65, 69);
+
+        color: white;
+      }
+
+      /* =========================================================
+   CARD HEADER
+========================================================= */
+
+      .event-card-header {
+        width: 100%;
+
+        min-height: 66px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 8px 10px;
+
+        box-sizing: border-box;
+
+        background: var(--color-brown);
+      }
+
+      .event-card-header h3 {
+        margin: 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 29px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        letter-spacing: 0.3px;
+
+        color: var(--color-gold);
+
+        text-align: center;
+      }
+
+      /* =========================================================
+   CARD BODY
+========================================================= */
+
+      .event-card-body {
+        position: relative;
+
+        display: grid;
+
+        grid-template-columns:
+          1fr
+          1.25fr;
+
+        column-gap: 20px;
+
+        row-gap: 0;
+
+        padding: 27px 24px 20px;
+
+        box-sizing: border-box;
+      }
+
+      /* =========================================================
+   DATE
+========================================================= */
+
+      .event-date {
+        grid-column: 1;
+
+        grid-row: 1;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: start;
+
+        justify-content: flex-start;
+
+        text-align: center;
+
+        padding-top: 2px;
+      }
+
+      .event-date-main {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 30px;
+
+        font-weight: 600;
+
+        line-height: 0.95;
+
+        color: var(--color-gold);
+
+        white-space: nowrap;
+      }
+
+      .event-date-month {
+        margin-top: 2px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 24px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        color: var(--color-gold);
+      }
+
+      /* =========================================================
+   SCHEDULE
+========================================================= */
+
+      .event-schedule {
+        display: flex;
+
+        flex-direction: column;
+      }
+
+      .event-schedule h4 {
+        margin: 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 25px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        color: var(--color-gold);
+      }
+
+      .event-schedule p {
+        margin: 6px 0 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 400;
+
+        line-height: 1.1;
+
+        color: white;
+
+        white-space: nowrap;
+      }
+
+      /* =========================================================
+   AKAD
+========================================================= */
+
+      .event-schedule-akad {
+        grid-column: 2;
+
+        grid-row: 1;
+      }
+
+      /* =========================================================
+   LOCATION
+========================================================= */
+
+      .event-location {
+        grid-column: 1;
+
+        grid-row: 2;
+
+        margin-top: 18px;
+
+        padding-right: 4px;
+      }
+
+      .event-location-title {
+        margin-bottom: 3px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        line-height: 1.15;
+
+        color: var(--color-gold);
+      }
+
+      .event-location p {
+        margin: 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 12px;
+
+        font-weight: 400;
+
+        line-height: 1.2;
+
+        color: white;
+      }
+
+      /* =========================================================
+   RESEPSI
+========================================================= */
+
+      .event-schedule-resepsi {
+        grid-column: 2;
+
+        grid-row: 2;
+
+        margin-top: 18px;
+      }
+
+      /* =========================================================
+   GOOGLE MAPS BUTTON
+========================================================= */
+
+      .event-maps-button {
+        grid-column: 1;
+
+        grid-row: 3;
+
+        justify-self: start;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        min-width: 141px;
+
+        height: 30px;
+
+        margin-top: 20px;
+
+        padding: 4px 12px;
+
+        box-sizing: border-box;
+
+        border-radius: 5px;
+
+        background: var(--color-gold);
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        text-decoration: none;
+
+        white-space: nowrap;
+
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .event-maps-button:hover {
+        opacity: 0.9;
+      }
+
+      .event-maps-button:active {
+        transform: scale(0.96);
+      }
+
+      /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+      @media (max-width: 360px) {
+        .wedding-event {
+          padding-left: 10px;
+
+          padding-right: 10px;
+        }
+
+        .event-header {
+          height: 66px;
+        }
+
+        .event-heading {
+          width: 135px;
+        }
+
+        .event-heading h2 {
+          font-size: 38px;
+        }
+
+        .event-heading span {
+          font-size: 25px;
+        }
+
+        .event-photo {
+          height: 220px;
+        }
+
+        .event-photo-left {
+          border-radius: 48px 0 0 0;
+        }
+
+        .event-photo-right {
+          border-radius: 0 48px 0 0;
+        }
+
+        .event-card-header {
+          min-height: 62px;
+        }
+
+        .event-card-header h3 {
+          font-size: 26px;
+        }
+
+        .event-card-body {
+          column-gap: 14px;
+
+          padding: 25px 20px 18px;
+        }
+
+        .event-date-main {
+          font-size: 27px;
+        }
+
+        .event-date-month {
+          font-size: 22px;
+        }
+
+        .event-schedule h4 {
+          font-size: 23px;
+        }
+
+        .event-schedule p {
+          font-size: 14px;
+        }
+
+        .event-location-title {
+          font-size: 11px;
+        }
+
+        .event-location p {
+          font-size: 11px;
+        }
+
+        .event-maps-button {
+          min-width: 135px;
+
+          font-size: 12px;
+        }
+      }
+
+      /* =========================================================
+   OUR GALLERY
+========================================================= */
+
+      .our-gallery {
+        position: relative;
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 8px 14px 45px;
+
+        box-sizing: border-box;
+
+        background: var(--color-bg);
+
+        overflow: hidden;
+      }
+
+      /* =========================================================
+   HEADER
+========================================================= */
+
+      .gallery-header {
+        position: relative;
+
+        width: 100%;
+
+        height: 48px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 10px;
+
+        margin-bottom: 7px;
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   HEADER LINE
+========================================================= */
+
+      .gallery-header-line {
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--color-brown);
+
+        opacity: 0.7;
+      }
+
+      /* =========================================================
+   HEADER TITLE
+========================================================= */
+
+      .gallery-header h2 {
+        margin: 0;
+
+        display: flex;
+
+        align-items: baseline;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 32px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        color: var(--color-brown);
+
+        white-space: nowrap;
+      }
+
+      .gallery-header h2 span {
+        margin-right: 1px;
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: 36px;
+
+        font-weight: 400;
+
+        color: var(--color-gold);
+      }
+
+      /* =========================================================
+   GALLERY CONTAINER
+========================================================= */
+
+      .gallery-container {
+        position: relative;
+
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0 auto;
+      }
+
+      /* =========================================================
+   ROW 2 COLUMN
+========================================================= */
+
+      .gallery-row {
+        display: grid;
+
+        grid-template-columns:
+          minmax(0, 1fr)
+          minmax(0, 1fr);
+
+        gap: 15px;
+
+        width: 100%;
+
+        margin-bottom: 12px;
+      }
+
+      /* =========================================================
+   GALLERY ITEM
+========================================================= */
+
+      .gallery-item {
+        position: relative;
+
+        width: 100%;
+
+        overflow: hidden;
+
+        background: #ddd;
+      }
+
+      /* =========================================================
+   TWO COLUMN IMAGE
+========================================================= */
+
+      .gallery-row-two .gallery-item {
+        aspect-ratio: 171 / 228;
+      }
+
+      /* =========================================================
+   WIDE IMAGE
+========================================================= */
+
+      .gallery-wide {
+        aspect-ratio: 358 / 229;
+
+        margin-bottom: 7px;
+      }
+
+
+      /* =========================================================
+   IMAGE
+========================================================= */
+
+      .gallery-item img {
+        display: block;
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+      }
+
+      /* =========================================================
+   IMAGE POSITION
+========================================================= */
+
+      .gallery-row-two .gallery-item img {
+        object-position: center;
+      }
+
+      .gallery-wide img {
+        object-position: 50% 25%;
+      }
+
+      /* =========================================================
+   SPACING AFTER WIDE
+========================================================= */
+
+      .gallery-wide + .gallery-row {
+        margin-top: 0;
+      }
+
+      /* =========================================================
+   VIDEO
+========================================================= */
+
+      .gallery-video {
+        position: relative;
+
+        width: 100%;
+
+        aspect-ratio: 358 / 220;
+
+        margin-top: 7px;
+
+        overflow: hidden;
+
+        background: #eeeeee;
+      }
+
+      /* =========================================================
+   VIDEO
+========================================================= */
+
+      .gallery-video {
+        position: relative;
+
+        width: 100%;
+        aspect-ratio: 358 / 220;
+
+        margin-top: 7px;
+
+        overflow: hidden;
+
+        background: #1c1c1c;
+      }
+
+      /* =========================================================
+   VIDEO ELEMENT
+========================================================= */
+
+      .gallery-video-element {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        background: #1c1c1c;
+      }
+
+      /* =========================================================
+   VIDEO BOTTOM GRADIENT
+========================================================= */
+
+      .gallery-video::after {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        height: 90px;
+
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.72),
+          rgba(0, 0, 0, 0)
+        );
+
+        pointer-events: none;
+
+        z-index: 2;
+      }
+
+      /* =========================================================
+   PLAY BUTTON
+========================================================= */
+
+      .gallery-play-button {
+        position: absolute;
+
+        left: 50%;
+        top: 50%;
+
+        width: 66px;
+        height: 66px;
+
+        padding: 0;
+
+        transform: translate(-50%, -50%);
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.82);
+
+        backdrop-filter: blur(5px);
+
+        -webkit-backdrop-filter: blur(5px);
+
+        cursor: pointer;
+
+        z-index: 5;
+
+        transition:
+          transform 0.25s ease,
+          background 0.25s ease,
+          opacity 0.25s ease;
+      }
+
+      /* =========================================================
+   PLAY ICON
+========================================================= */
+      /* =========================================================
+   PLAY / PAUSE ICON
+========================================================= */
+
+      .gallery-play-button i {
+        font-size: 38px;
+        line-height: 1;
+
+        color: var(--color-brown);
+
+        margin: 0;
+      }
+
+      /* PLAY sedikit digeser ke kanan karena bentuk segitiga */
+      .gallery-play-button .bi-play-fill {
+        margin-left: 4px;
+      }
+
+      /* PAUSE benar-benar di tengah */
+      .gallery-play-button .bi-pause-fill {
+        margin-left: 0;
+      }
+      /* =========================================================
+   PLAY BUTTON HOVER
+========================================================= */
+
+      .gallery-play-button:hover {
+        transform: translate(-50%, -50%) scale(1.08);
+
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      /* =========================================================
+   PLAY BUTTON ACTIVE
+========================================================= */
+
+      .gallery-play-button:active {
+        transform: translate(-50%, -50%) scale(0.94);
+      }
+
+      /* =========================================================
+   VIDEO PLAYING
+========================================================= */
+
+      /* =========================================================
+   VIDEO CONTROLS
+========================================================= */
+
+      .gallery-video-controls {
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
+        z-index: 4;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 7px;
+
+        padding: 0 12px 10px;
+
+        box-sizing: border-box;
+
+        color: #ffffff;
+
+        pointer-events: auto;
+      }
+
+      /* =========================================================
+   VIDEO CONTROLS VISIBILITY
+========================================================= */
+
+      .gallery-video-controls {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      /* Controls muncul */
+
+      .gallery-video.controls-visible .gallery-video-controls {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      /* =========================================================
+   CENTER PLAY / PAUSE BUTTON
+========================================================= */
+
+      .gallery-play-button {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease,
+          transform 0.25s ease,
+          background 0.25s ease;
+      }
+
+      /* Saat video berjalan dan controls disembunyikan */
+
+      .gallery-video.is-playing:not(.controls-visible) .gallery-play-button {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      /* Saat controls muncul ketika video berjalan */
+
+      .gallery-video.is-playing.controls-visible .gallery-play-button {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      /* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+      .gallery-video-progress {
+        --progress: 0%;
+
+        width: 100%;
+        height: 18px;
+
+        margin: 0;
+
+        padding: 0;
+
+        appearance: none;
+        -webkit-appearance: none;
+
+        background: transparent;
+
+        cursor: pointer;
+
+        touch-action: manipulation;
+      }
+
+      /* =========================================================
+   PROGRESS TRACK - CHROME / EDGE / SAFARI
+========================================================= */
+
+      .gallery-video-progress::-webkit-slider-runnable-track {
+        width: 100%;
+
+        height: 3px;
+
+        border-radius: 999px;
+
+        background: linear-gradient(
+          to right,
+
+          var(--color-gold) 0%,
+
+          var(--color-gold) var(--progress),
+          rgba(255, 255, 255, 0.45) var(--progress),
+          rgba(255, 255, 255, 0.45) 100%
+        );
+      }
+
+      /* =========================================================
+   PROGRESS THUMB
+========================================================= */
+
+      .gallery-video-progress::-webkit-slider-thumb {
+        width: 13px;
+        height: 13px;
+
+        margin-top: -5px;
+
+        appearance: none;
+        -webkit-appearance: none;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: var(--color-gold);
+
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35);
+      }
+
+      /* =========================================================
+   FIREFOX TRACK
+========================================================= */
+
+      .gallery-video-progress::-moz-range-track {
+        height: 3px;
+
+        border: none;
+
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.45);
+      }
+
+      /* =========================================================
+   FIREFOX PROGRESS
+========================================================= */
+
+      .gallery-video-progress::-moz-range-progress {
+        height: 3px;
+
+        border-radius: 999px;
+
+        background: var(--color-gold);
+      }
+
+      /* =========================================================
+   FIREFOX THUMB
+========================================================= */
+
+      .gallery-video-progress::-moz-range-thumb {
+        width: 13px;
+        height: 13px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: var(--color-gold);
+      }
+
+      /* =========================================================
+   BOTTOM ROW
+========================================================= */
+
+      .gallery-video-control-bottom {
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+      }
+
+      /* =========================================================
+   VIDEO TIME
+========================================================= */
+
+      .gallery-video-time {
+        display: flex;
+
+        align-items: center;
+
+        gap: 4px;
+
+        color: #ffffff;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 13px;
+
+        font-weight: 500;
+
+        line-height: 1;
+
+        letter-spacing: 0.3px;
+
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+      }
+
+      .gallery-video-time-divider {
+        opacity: 0.7;
+      }
+
+      /* =========================================================
+   VIDEO ACTIONS
+========================================================= */
+
+      .gallery-video-actions {
+        display: flex;
+
+        align-items: center;
+
+        gap: 4px;
+      }
+
+      /* =========================================================
+   SOUND BUTTON
+========================================================= */
+
+      .gallery-video-sound {
+        width: 30px;
+        height: 30px;
+
+        padding: 0;
+
+        display: flex;
+
+        align-items: end;
+        justify-content: end;
+        margin-bottom: 8px;
+        margin-left: 240px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: transparent;
+
+        color: #ffffff;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .gallery-video-sound i {
+        font-size: 19px;
+
+        line-height: 1;
+      }
+
+      .gallery-video-sound:active {
+        transform: scale(0.88);
+
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      @media (max-width: 460px) {
+        .gallery-video-sound {
+          width: 30px;
+          height: 30px;
+
+          padding: 0;
+
+          display: flex;
+
+          align-items: end;
+          justify-content: end;
+          margin-bottom: 10px;
+          margin-left: 190px;
+
+          border: none;
+
+          border-radius: 50%;
+
+          background: transparent;
+
+          color: #ffffff;
+
+          cursor: pointer;
+
+          transition:
+            transform 0.2s ease,
+            background 0.2s ease;
+        }
+      }
+      /* =========================================================
+   FULLSCREEN BUTTON
+========================================================= */
+
+      .gallery-video-fullscreen {
+        width: 30px;
+        height: 30px;
+
+        padding: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border: none;
+
+        background: transparent;
+
+        color: #ffffff;
+
+        cursor: pointer;
+
+        border-radius: 50%;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .gallery-video-fullscreen i {
+        font-size: 18px;
+
+        line-height: 1;
+      }
+
+      /* =========================================================
+   FULLSCREEN ACTIVE
+========================================================= */
+
+      .gallery-video-fullscreen:active {
+        transform: scale(0.88);
+
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      /* =========================================================
+   FULLSCREEN VIDEO
+========================================================= */
+
+      .gallery-video:fullscreen {
+        width: 100vw;
+        height: 100vh;
+
+        aspect-ratio: auto;
+
+        background: #000000;
+      }
+
+      .gallery-video:fullscreen .gallery-video-element {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+      }
+
+      /* SAFARI */
+
+      .gallery-video:-webkit-full-screen {
+        width: 100vw;
+        height: 100vh;
+
+        background: #000000;
+      }
+
+      .gallery-video:-webkit-full-screen .gallery-video-element {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+      }
+
+      /* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+      @media (max-width: 360px) {
+        .gallery-video {
+          aspect-ratio: 358 / 220;
+        }
+
+        .gallery-play-button {
+          width: 58px;
+          height: 58px;
+        }
+
+        .gallery-play-button i {
+          font-size: 33px;
+        }
+
+        .gallery-video-controls {
+          padding: 0 10px 8px;
+        }
+
+        .gallery-video-time {
+          font-size: 12px;
+        }
+
+        .gallery-video-fullscreen {
+          width: 28px;
+          height: 28px;
+        }
+
+        .gallery-video-fullscreen i {
+          font-size: 17px;
+        }
+      }
+
+      /* =========================================================
+   SMOOTH REVEAL
+========================================================= */
+
+      .gallery-reveal {
+        opacity: 0;
+
+        transform: translateY(35px) scale(0.98);
+
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* =========================================================
+   REVEAL ACTIVE
+========================================================= */
+
+      .gallery-reveal.is-visible {
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+      }
+
+      /* =========================================================
+   STAGGER ANIMATION
+========================================================= */
+
+      .gallery-row:nth-child(1) .gallery-item:nth-child(1) {
+        transition-delay: 0s;
+      }
+
+      .gallery-row:nth-child(1) .gallery-item:nth-child(2) {
+        transition-delay: 0.12s;
+      }
+
+      .gallery-container .gallery-item:nth-child(2) {
+        transition-delay: 0.08s;
+      }
+
+      .gallery-container .gallery-item:nth-child(3) {
+        transition-delay: 0.12s;
+      }
+
+      .gallery-container .gallery-item:nth-child(4) {
+        transition-delay: 0.08s;
+      }
+
+      /* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+      @media (prefers-reduced-motion: reduce) {
+        .gallery-reveal {
+          opacity: 1;
+
+          transform: none;
+
+          transition: none;
+        }
+      }
+
+      /* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+      @media (max-width: 360px) {
+        .our-gallery {
+          padding-left: 10px;
+
+          padding-right: 10px;
+        }
+
+        .gallery-header {
+          height: 46px;
+
+          gap: 8px;
+        }
+
+        .gallery-header h2 {
+          font-size: 29px;
+        }
+
+        .gallery-header h2 span {
+          font-size: 33px;
+        }
+
+        .gallery-row {
+          gap: 12px;
+        }
+
+        .gallery-row-two .gallery-item {
+          aspect-ratio: 171 / 228;
+        }
+
+        .gallery-video {
+          aspect-ratio: 358 / 220;
+        }
+
+        .gallery-play-button {
+          width: 60px;
+
+          height: 60px;
+        }
+
+        .gallery-play-button i {
+          font-size: 34px;
+        }
+      }
+
+      /* =========================================================
+   WEDDING GIFT
+========================================================= */
+
+      .wedding-gift {
+        position: relative;
+
+        width: 100%;
+
+        padding: 18px 14px 55px;
+
+        box-sizing: border-box;
+
+        background: var(--color-bg);
+
+        overflow: hidden;
+      }
+
+      /* =========================================================
+   HEADER
+========================================================= */
+
+      .gift-header {
+        position: relative;
+
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   HEADER LINE
+========================================================= */
+
+      .gift-header-line {
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--color-brown);
+
+        opacity: 0.65;
+      }
+
+      /* =========================================================
+   HEADING
+========================================================= */
+
+      .gift-heading {
+        width: 160px;
+
+        height: 72px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        text-align: center;
+      }
+
+      .gift-heading h1 {
+        margin: 0;
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: 44px;
+
+        font-weight: 400;
+
+        line-height: 0.8;
+
+        color: var(--color-gold);
+      }
+
+      .gift-heading h2 {
+        margin: 0;
+
+        transform: translateY(-1px);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 32px;
+
+        font-weight: 600;
+
+        line-height: 0.85;
+
+        color: var(--color-brown);
+      }
+
+      /* =========================================================
+   DESCRIPTION
+========================================================= */
+
+      .gift-description {
+        position: relative;
+
+        width: 100%;
+
+        max-width: 340px;
+
+        margin: 18px auto 38px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        font-weight: 400;
+
+        line-height: 1.2;
+
+        text-align: center;
+
+        color: var(--color-brown);
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   CARDS WRAPPER
+========================================================= */
+
+      .gift-cards {
+        position: relative;
+
+        width: 100%;
+
+        max-width: 390px;
+
+        margin: 0 auto;
+      }
+
+      /* =========================================================
+   GIFT ITEM
+========================================================= */
+
+      .gift-item {
+        position: relative;
+
+        width: 100%;
+
+        margin-bottom: 34px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+      }
+
+      .gift-item:last-child {
+        margin-bottom: 0;
+      }
+
+      /* =========================================================
+   FLOWERS
+========================================================= */
+
+      .gift-flower {
+        position: absolute;
+
+        top: 50%;
+
+        width: 145px;
+
+        height: auto;
+
+        pointer-events: none;
+
+        z-index: 1;
+      }
+
+      /*
+  File asli Flowers 2.png
+  menghadap ke kanan.
+*/
+
+      .gift-flower-right {
+        right: -48px;
+
+        transform: translateY(-50%) scaleX(1);
+      }
+
+      /*
+  Sisi kiri dibuat mirror.
+*/
+
+      .gift-flower-left {
+        left: -48px;
+
+        transform: translateY(-50%) scaleX(-1);
+      }
+
+      /* =========================================================
+   CARD
+========================================================= */
+
+      .gift-card {
+        position: relative;
+
+        width: calc(100% - 48px);
+
+        max-width: 340px;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   PAYMENT CARD
+========================================================= */
+
+      .gift-payment-card {
+        height: 180px;
+      }
+
+      /* =========================================================
+   CARD BACKGROUND
+========================================================= */
+
+      .gift-card-background {
+        position: absolute;
+
+        inset: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: fill;
+
+        pointer-events: none;
+
+        z-index: 0;
+      }
+
+      /* =========================================================
+   PAYMENT CONTENT
+========================================================= */
+
+      .gift-card-content {
+        position: relative;
+
+        width: 100%;
+
+        height: 100%;
+
+        padding: 19px 18px 14px;
+
+        box-sizing: border-box;
+
+        z-index: 2;
+      }
+
+      /* =========================================================
+   CARD TOP
+========================================================= */
+
+      .gift-card-top {
+        width: 100%;
+
+        min-height: 42px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+      }
+
+      /* =========================================================
+   WALLET TOP
+========================================================= */
+
+      .gift-card-top-wallet {
+        justify-content: flex-end;
+      }
+
+      /* =========================================================
+   GENERIC PROVIDER LOGO
+   BANK / E-WALLET
+========================================================= */
+
+      .gift-provider-logo {
+        width: 95px;
+
+        height: 42px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-end;
+
+        flex-shrink: 0;
+      }
+
+      /* =========================================================
+   PROVIDER IMAGE
+========================================================= */
+
+      .gift-provider-logo img {
+        display: block;
+
+        width: auto;
+
+        height: auto;
+
+        max-width: 100%;
+
+        max-height: 100%;
+
+        object-fit: contain;
+      }
+
+      /*
+  Karena image memakai max-width dan max-height,
+  logo dengan ukuran berbeda akan tetap proporsional.
+
+  Contoh:
+
+  BRI
+  BCA
+  Mandiri
+  BNI
+  DANA
+  OVO
+  GoPay
+  ShopeePay
+
+  Tidak perlu mengubah CSS.
+*/
+
+      /* =========================================================
+   BANK CHIP
+========================================================= */
+
+      .gift-chip {
+        position: relative;
+
+        width: 36px;
+
+        height: 28px;
+
+        flex-shrink: 0;
+
+        border-radius: 5px;
+
+        border: 1px solid rgba(145, 93, 10, 0.4);
+
+        background: linear-gradient(135deg, #f4b72e, #ffd873, #e69c1b);
+
+        overflow: hidden;
+      }
+
+      /* CHIP VERTICAL */
+
+      .gift-chip::before {
+        content: "";
+
+        position: absolute;
+
+        left: 50%;
+
+        top: 0;
+
+        width: 1px;
+
+        height: 100%;
+
+        transform: translateX(-50%);
+
+        background: rgba(140, 85, 5, 0.4);
+      }
+
+      /* CHIP HORIZONTAL */
+
+      .gift-chip::after {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+
+        top: 50%;
+
+        width: 100%;
+
+        height: 1px;
+
+        transform: translateY(-50%);
+
+        background: rgba(140, 85, 5, 0.4);
+      }
+
+      /* =========================================================
+   PAYMENT INFO
+========================================================= */
+
+      .gift-payment-info {
+        position: absolute;
+
+        left: 18px;
+
+        right: 18px;
+
+        bottom: 46px;
+      }
+
+      /* =========================================================
+   ACCOUNT NUMBER
+========================================================= */
+
+      .gift-number {
+        margin: 0;
+
+        max-width: 100%;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 22px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        letter-spacing: 0.6px;
+
+        color: #111111;
+
+        overflow-wrap: anywhere;
+      }
+
+      /* =========================================================
+   OWNER
+========================================================= */
+
+      .gift-owner {
+        margin: 5px 0 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        font-weight: 500;
+
+        line-height: 1;
+
+        color: #111111;
+      }
+
+      /* =========================================================
+   COPY BUTTON
+========================================================= */
+
+      .gift-copy-button {
+        position: absolute;
+
+        left: 18px;
+
+        bottom: 12px;
+
+        min-width: 102px;
+
+        height: 28px;
+
+        padding: 3px 13px;
+
+        box-sizing: border-box;
+
+        border: none;
+
+        border-radius: 8px;
+
+        background: rgba(225, 225, 225, 0.92);
+
+        color: #111111;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 500;
+
+        line-height: 1;
+
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      /* =========================================================
+   COPY HOVER
+========================================================= */
+
+      .gift-copy-button:hover {
+        background: rgba(210, 210, 210, 0.95);
+      }
+
+      /* =========================================================
+   COPY ACTIVE
+========================================================= */
+
+      .gift-copy-button:active {
+        transform: scale(0.95);
+      }
+
+      /* =========================================================
+   ADDRESS CARD
+========================================================= */
+
+      .gift-address-card {
+        min-height: 180px;
+
+        height: auto;
+
+        overflow: hidden;
+      }
+
+      /* =========================================================
+   ADDRESS CONTENT
+========================================================= */
+
+      .gift-address-content {
+        position: relative;
+
+        width: 100%;
+
+        min-height: 180px;
+
+        padding: 18px 22px 16px;
+
+        box-sizing: border-box;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        z-index: 2;
+      }
+
+      /* =========================================================
+   WEDDING GIFT ICON
+========================================================= */
+
+      .gift-icon {
+        display: block;
+
+        width: 47px;
+
+        height: 47px;
+
+        flex-shrink: 0;
+
+        object-fit: contain;
+
+        margin-bottom: 12px;
+      }
+
+      /* =========================================================
+   ADDRESS WRAPPER
+========================================================= */
+
+      .gift-address {
+        width: 100%;
+
+        margin-bottom: 18px;
+
+        box-sizing: border-box;
+      }
+
+      /* =========================================================
+   ADDRESS ROW
+========================================================= */
+
+      .gift-address-row {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+          55px
+          minmax(0, 1fr);
+
+        column-gap: 5px;
+
+        margin-bottom: 4px;
+      }
+
+      /* =========================================================
+   ADDRESS LABEL
+========================================================= */
+
+      .gift-address-label {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 500;
+
+        line-height: 1.3;
+
+        color: #111111;
+      }
+
+      .gift-address-label::after {
+        content: " :";
+      }
+
+      /* =========================================================
+   ADDRESS VALUE
+========================================================= */
+
+      .gift-address-value {
+        min-width: 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 500;
+
+        line-height: 1.3;
+
+        color: #111111;
+
+        overflow-wrap: anywhere;
+
+        word-break: normal;
+      }
+
+      /*
+  Contoh alamat panjang:
+
+  Jalan Basuki Rahmat KM 10,
+  Kompleks Permata Indah Blok C Nomor 17,
+  Kota Sorong, Papua Barat Daya
+
+  otomatis turun ke baris berikutnya.
+*/
+
+      /* =========================================================
+   ADDRESS COPY BUTTON
+========================================================= */
+
+      .gift-address-copy {
+        position: relative;
+
+        left: auto;
+
+        bottom: auto;
+
+        margin-top: auto;
+
+        align-self: center;
+
+        transform: none;
+      }
+
+      .gift-address-copy:active {
+        transform: scale(0.95);
+      }
+
+      /* =========================================================
+   COPY NOTIFICATION
+========================================================= */
+
+      .gift-copy-message {
+        position: fixed;
+
+        left: 50%;
+
+        bottom: 30px;
+
+        transform: translate(-50%, 20px);
+
+        min-width: 190px;
+
+        padding: 10px 18px;
+
+        box-sizing: border-box;
+
+        border-radius: 999px;
+
+        background: var(--color-brown);
+
+        color: #ffffff;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 14px;
+
+        font-weight: 500;
+
+        text-align: center;
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        pointer-events: none;
+
+        z-index: 9999;
+
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease,
+          visibility 0.25s ease;
+      }
+
+      /* =========================================================
+   COPY MESSAGE ACTIVE
+========================================================= */
+
+      .gift-copy-message.show {
+        opacity: 1;
+
+        visibility: visible;
+
+        transform: translate(-50%, 0);
+      }
+
+      /* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+      @media (max-width: 360px) {
+        .wedding-gift {
+          padding-left: 10px;
+
+          padding-right: 10px;
+        }
+
+        .gift-heading {
+          width: 145px;
+        }
+
+        .gift-heading h1 {
+          font-size: 40px;
+        }
+
+        .gift-heading h2 {
+          font-size: 29px;
+        }
+
+        .gift-description {
+          max-width: 315px;
+
+          font-size: 15px;
+        }
+
+        .gift-card {
+          width: calc(100% - 42px);
+        }
+
+        .gift-payment-card {
+          height: 170px;
+        }
+
+        .gift-provider-logo {
+          width: 85px;
+
+          height: 38px;
+        }
+
+        .gift-number {
+          font-size: 20px;
+        }
+
+        .gift-owner {
+          font-size: 15px;
+        }
+
+        .gift-flower {
+          width: 130px;
+        }
+
+        .gift-flower-left {
+          left: -44px;
+        }
+
+        .gift-flower-right {
+          right: -44px;
+        }
+
+        .gift-address-row {
+          grid-template-columns:
+            50px
+            minmax(0, 1fr);
+        }
+
+        .gift-address-label,
+        .gift-address-value {
+          font-size: 14px;
+        }
+      }
+      /* =====================================================
+   WISHES
+===================================================== */
+      /* =====================================================
+   WISHES / RSVP SECTION
+===================================================== */
+
+      .wishes-section {
+        position: relative;
+
+        width: 100%;
+        min-height: 100vh;
+
+        padding: 20px 14px 55px;
+
+        box-sizing: border-box;
+
+        background: var(--color-bg);
+
+        overflow: hidden;
+      }
+
+      /* =====================================================
+   BACKGROUND DECORATION
+===================================================== */
+
+      .wishes-section::before {
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        left: -130px;
+        top: 180px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 178, 193, 0.55);
+
+        filter: blur(55px);
+
+        pointer-events: none;
+
+        z-index: 0;
+      }
+
+      .wishes-section::after {
+        content: "";
+
+        position: absolute;
+
+        width: 190px;
+        height: 190px;
+
+        right: -115px;
+        bottom: 140px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 178, 193, 0.4);
+
+        filter: blur(55px);
+
+        pointer-events: none;
+
+        z-index: 0;
+      }
+
+      /* =====================================================
+   HEADER
+===================================================== */
+
+      .wishes-header {
+        position: relative;
+
+        width: 100%;
+        max-width: 380px;
+
+        margin: 0 auto 22px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 11px;
+
+        z-index: 2;
+      }
+
+      .wishes-header-line {
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--color-brown);
+
+        opacity: 0.65;
+      }
+
+      /* =====================================================
+   TITLE
+===================================================== */
+
+      .wishes-title {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        white-space: nowrap;
+      }
+
+      .wishes-title h1 {
+        margin: 0;
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: 40px;
+
+        font-weight: 400;
+
+        line-height: 0.9;
+
+        color: var(--color-gold);
+      }
+
+      .wishes-title h2 {
+        margin: 4px 0 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 28px;
+
+        font-weight: 600;
+
+        line-height: 1;
+
+        color: var(--color-brown);
+      }
+
+      /* =====================================================
+   SUBTITLE
+===================================================== */
+
+      .wishes-subtitle {
+        position: relative;
+
+        max-width: 320px;
+
+        margin: 0 auto 28px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 400;
+
+        line-height: 1.35;
+
+        text-align: center;
+
+        color: var(--color-brown);
+
+        z-index: 2;
+      }
+
+      /* =====================================================
+   WRAPPER
+===================================================== */
+
+      .wishes-wrapper {
+        position: relative;
+
+        width: 100%;
+        max-width: 349px;
+
+        margin: 0 auto;
+
+        z-index: 2;
+      }
+
+      /* =====================================================
+   FORM
+===================================================== */
+
+      .wish-form {
+        position: relative;
+
+        width: 100%;
+
+        padding: 28px 25px 28px;
+
+        box-sizing: border-box;
+
+        border-radius: 18px;
+
+        background: var(--color-brown);
+
+        overflow: hidden;
+
+        box-shadow: 0 8px 22px rgba(117, 44, 48, 0.12);
+      }
+
+      /* =====================================================
+   GUEST IDENTITY
+===================================================== */
+
+      .wish-guest {
+        position: relative;
+
+        width: 100%;
+
+        margin-bottom: 25px;
+
+        text-align: center;
+
+        z-index: 2;
+      }
+
+      .wish-guest-small {
+        display: block;
+
+        margin-bottom: 5px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 12px;
+
+        font-weight: 500;
+
+        letter-spacing: 1.8px;
+
+        text-transform: uppercase;
+
+        color: #ffffff;
+
+        opacity: 0.7;
+      }
+
+      .wish-guest-name {
+        min-height: 25px;
+
+        padding: 0 5px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 21px;
+
+        font-weight: 600;
+
+        line-height: 1.2;
+
+        color: var(--color-gold);
+      }
+
+      /* =====================================================
+   GUEST DIVIDER
+===================================================== */
+
+      .wish-guest-divider {
+        width: 100px;
+
+        margin: 11px auto 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 7px;
+      }
+
+      .wish-guest-divider span {
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--color-gold);
+
+        opacity: 0.45;
+      }
+
+      .wish-guest-divider i {
+        color: var(--color-gold);
+
+        font-size: 8px;
+
+        opacity: 0.9;
+      }
+
+      /* =====================================================
+   FIELD
+===================================================== */
+
+      .wish-field {
+        position: relative;
+
+        width: 100%;
+
+        margin-bottom: 23px;
+
+        z-index: 2;
+      }
+
+      .wish-field label,
+      .wish-field-label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 500;
+
+        line-height: 1;
+
+        color: #ffffff;
+      }
+
+      /* =====================================================
+   TEXTAREA WRAPPER
+===================================================== */
+
+      .wish-textarea-wrapper {
+        position: relative;
+
+        width: 100%;
+      }
+
+      /* =====================================================
+   TEXTAREA
+===================================================== */
+
+      .wish-field textarea {
+        display: block;
+
+        width: 100%;
+        height: 105px;
+
+        padding: 13px 14px 27px;
+
+        box-sizing: border-box;
+
+        border: 1px solid transparent;
+
+        border-radius: 7px;
+
+        outline: none;
+
+        resize: none;
+
+        background: #f5f3f2;
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        line-height: 1.3;
+
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .wish-field textarea::placeholder {
+        color: #958989;
+
+        opacity: 0.75;
+      }
+
+      .wish-field textarea:focus {
+        background: #ffffff;
+
+        border-color: var(--color-gold);
+
+        box-shadow: 0 0 0 3px rgba(192, 173, 117, 0.13);
+      }
+
+      /* =====================================================
+   CHARACTER COUNT
+===================================================== */
+
+      .wish-character-count {
+        position: absolute;
+
+        right: 11px;
+        bottom: 8px;
+
+        display: flex;
+
+        align-items: center;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 11px;
+
+        line-height: 1;
+
+        color: var(--color-brown);
+
+        opacity: 0.55;
+
+        pointer-events: none;
+      }
+
+      /* =====================================================
+   ATTENDANCE
+===================================================== */
+
+      .wish-attendance {
+        position: relative;
+
+        width: 100%;
+
+        margin-bottom: 25px;
+
+        z-index: 2;
+      }
+
+      .attendance {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+
+        width: 100%;
+
+        margin: 0;
+      }
+
+      /* =====================================================
+   ATTENDANCE OPTION
+===================================================== */
+
+      .attendance-option {
+        position: relative;
+
+        display: block;
+
+        cursor: pointer;
+
+        user-select: none;
+      }
+
+      .attendance-option input {
+        position: absolute;
+
+        width: 1px;
+        height: 1px;
+
+        opacity: 0;
+
+        pointer-events: none;
+      }
+
+      /* =====================================================
+   ATTENDANCE BOX
+===================================================== */
+
+      .attendance-box {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 7px;
+
+        width: 100%;
+        height: 38px;
+
+        padding: 0 8px;
+
+        box-sizing: border-box;
+
+        border: 1px solid rgba(255, 255, 255, 0.16);
+
+        border-radius: 7px;
+
+        background: rgba(255, 255, 255, 0.08);
+
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease,
+          transform 0.2s ease;
+      }
+
+      .attendance-option:active .attendance-box {
+        transform: scale(0.97);
+      }
+
+      /* =====================================================
+   SELECTED ATTENDANCE
+===================================================== */
+
+      .attendance-option input:checked + .attendance-box {
+        background: var(--color-gold);
+
+        border-color: var(--color-gold);
+      }
+
+      .attendance-option input:checked + .attendance-box .attendance-text {
+        color: var(--color-brown);
+      }
+
+      /* =====================================================
+   RADIO
+===================================================== */
+
+      .custom-radio {
+        position: relative;
+
+        width: 14px;
+        height: 14px;
+
+        flex-shrink: 0;
+
+        border-radius: 50%;
+
+        border: 1px solid rgba(255, 255, 255, 0.75);
+
+        box-sizing: border-box;
+      }
+
+      .attendance-option input:checked + .attendance-box .custom-radio {
+        border-color: var(--color-brown);
+      }
+
+      .attendance-option input:checked + .attendance-box .custom-radio::after {
+        content: "";
+
+        position: absolute;
+
+        left: 50%;
+        top: 50%;
+
+        width: 6px;
+        height: 6px;
+
+        transform: translate(-50%, -50%);
+
+        border-radius: 50%;
+
+        background: var(--color-brown);
+      }
+
+      /* =====================================================
+   ATTENDANCE TEXT
+===================================================== */
+
+      .attendance-text {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 14px;
+
+        font-weight: 500;
+
+        line-height: 1;
+
+        color: #ffffff;
+
+        white-space: nowrap;
+      }
+
+      /* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+      .wish-submit {
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        min-width: 137px;
+        height: 39px;
+
+        margin: 0 auto;
+
+        padding: 0 22px;
+
+        border: none;
+
+        border-radius: 7px;
+
+        background: var(--color-gold);
+
+        color: var(--color-brown);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        z-index: 2;
+
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .wish-submit:active {
+        transform: scale(0.96);
+      }
+
+      .wish-submit:disabled {
+        opacity: 0.6;
+
+        cursor: wait;
+
+        transform: none;
+      }
+
+      /* =====================================================
+   SUBMIT LOADING
+===================================================== */
+
+      .submit-loading {
+        display: none;
+      }
+
+      .wish-submit.loading .submit-text {
+        display: none;
+      }
+
+      .wish-submit.loading .submit-loading {
+        display: inline;
+      }
+
+      /* =====================================================
+   MESSAGE
+===================================================== */
+
+      .wish-message {
+        position: relative;
+
+        min-height: 18px;
+
+        margin-top: 13px;
+
+        padding: 0 5px;
+
+        text-align: center;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 13px;
+
+        line-height: 1.25;
+
+        color: #ffffff;
+
+        opacity: 0;
+
+        transform: translateY(4px);
+
+        z-index: 2;
+
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .wish-message.show {
+        opacity: 1;
+
+        transform: translateY(0);
+      }
+
+      /* =====================================================
+   WISH LIST HEADING
+===================================================== */
+
+      /* =====================================================
+   WISH LIST - MOBILE SCROLL CONTAINER
+===================================================== */
+
+      .wish-list {
+        border-radius: 10px;
+        margin-top: 12px;
+        padding: 20px 9px 15px;
+        background-color: #ffffff;
+
+        width: 100%;
+
+        max-height: 360px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 9px;
+
+        padding-right: 3px;
+
+        box-sizing: border-box;
+
+        overflow-y: auto;
+
+        overflow-x: hidden;
+
+        -webkit-overflow-scrolling: touch;
+
+        scroll-behavior: smooth;
+
+        touch-action: pan-y;
+
+        scrollbar-width: thin;
+
+        scrollbar-color: var(--color-gold) transparent;
+      }
+
+      /* =====================================================
+   SCROLLBAR
+===================================================== */
+
+      .wish-list::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .wish-list::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .wish-list::-webkit-scrollbar-thumb {
+        background: var(--color-gold);
+
+        border-radius: 999px;
+      }
+
+      /* =====================================================
+   WISH CARD
+===================================================== */
+
+      .wish-card {
+        flex-shrink: 0;
+
+        width: 100%;
+
+        min-height: 78px;
+
+        padding: 13px 14px;
+
+        box-sizing: border-box;
+
+        border: 1px solid rgba(117, 44, 48, 0.08);
+
+        border-radius: 10px;
+
+        background: rgba(255, 255, 255, 0.58);
+
+        box-shadow: 0 3px 10px rgba(117, 44, 48, 0.05);
+
+        opacity: 0;
+
+        transform: translateY(10px);
+
+        animation: wish-card-in 0.5s ease forwards;
+      }
+
+      /* =====================================================
+   WISH CARD ANIMATION
+===================================================== */
+
+      @keyframes wish-card-in {
+        from {
+          opacity: 0;
+
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+
+          transform: translateY(0);
+        }
+      }
+
+      /* =====================================================
+   WISH CARD TOP
+===================================================== */
+
+      .wish-card-top {
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 8px;
+      }
+
+      /* =====================================================
+   WISH IDENTITY
+===================================================== */
+
+      .wish-identity {
+        min-width: 0;
+
+        display: flex;
+
+        align-items: baseline;
+
+        flex-wrap: wrap;
+
+        gap: 3px;
+      }
+
+      .wish-panggilan {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 12px;
+
+        line-height: 1;
+
+        color: var(--color-brown);
+      }
+
+      .wish-name {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        font-weight: 600;
+
+        line-height: 1.05;
+
+        color: var(--color-brown);
+      }
+
+      /* =====================================================
+   WISH STATUS
+===================================================== */
+
+      .wish-status {
+        flex-shrink: 0;
+
+        padding: 3px 7px;
+
+        border-radius: 999px;
+
+        background: var(--color-gold);
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 10px;
+
+        line-height: 1;
+
+        color: var(--color-bg);
+      }
+
+      .wish-status.absent {
+        background: rgba(117, 44, 48, 0.08);
+
+        color: #8b7373;
+      }
+
+      /* =====================================================
+   WISH COMMENT
+===================================================== */
+
+      .wish-comment {
+        margin: 9px 0 0;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 13px;
+
+        line-height: 1.3;
+
+        color: var(--color-brown);
+
+        overflow-wrap: anywhere;
+
+        word-break: break-word;
+      }
+
+      /* =====================================================
+   LOADING / EMPTY / ERROR
+===================================================== */
+
+      .wish-loading,
+      .wish-empty,
+      .wish-error {
+        padding: 18px 10px;
+
+        text-align: center;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 14px;
+
+        line-height: 1.3;
+
+        color: var(--color-brown);
+
+        opacity: 0.75;
+      }
+
+      /* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+      @media (max-width: 360px) {
+        .wishes-section {
+          padding-left: 11px;
+
+          padding-right: 11px;
+        }
+
+        .wishes-title h1 {
+          font-size: 36px;
+        }
+
+        .wishes-title h2 {
+          font-size: 25px;
+        }
+
+        .wishes-subtitle {
+          max-width: 300px;
+
+          font-size: 14px;
+        }
+
+        .wish-form {
+          padding: 26px 21px 27px;
+        }
+
+        .wish-guest-name {
+          font-size: 19px;
+        }
+
+        .wish-field textarea {
+          height: 100px;
+        }
+
+        .attendance {
+          gap: 7px;
+        }
+
+        .attendance-box {
+          height: 37px;
+
+          padding: 0 6px;
+        }
+
+        .attendance-text {
+          font-size: 13px;
+        }
+
+        .wish-list {
+          max-height: 340px;
+        }
+
+        .wish-card {
+          min-height: 75px;
+
+          padding: 12px 13px;
+        }
+
+        .wish-name {
+          font-size: 15px;
+        }
+
+        .wish-comment {
+          font-size: 12.5px;
+        }
+      }
+      /* =========================================================
+   END SECTION
+========================================================= */
+
+      .end-section {
+        position: relative;
+
+        width: 100%;
+
+        background: var(--color-bg);
+
+        overflow: hidden;
+      }
+
+      /* =========================================================
+   END SLIDER
+========================================================= */
+
+      .end-slider {
+        position: relative;
+
+        width: 100%;
+
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        background: var(--color-bg);
+
+        z-index: 5;
+      }
+
+      /*
+  Slider tetap menggunakan:
+
+  .kutipan-slider-track
+  .kutipan-slide
+
+  dari CSS Anda sebelumnya.
+*/
+
+      /* =========================================================
+   MAIN CLOSING AREA
+========================================================= */
+
+      .end-main {
+        position: relative;
+
+        width: 100%;
+
+        height: 430px;
+
+        overflow: hidden;
+
+        background: var(--color-bg);
+      }
+
+      /* =========================================================
+   MAIN IMAGE
+========================================================= */
+
+      .end-main-image {
+        position: absolute;
+
+        inset: 0;
+
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        object-position: 50% 0%;
+
+        z-index: 0;
+      }
+
+      /* =========================================================
+   TOP GRADIENT
+========================================================= */
+
+      .end-main-gradient {
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        top: 0;
+
+        height: 155px;
+
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 230, 232, 0.96) 0%,
+          rgba(255, 230, 232, 0.72) 45%,
+          rgba(255, 230, 232, 0) 100%
+        );
+
+        pointer-events: none;
+
+        z-index: 1;
+      }
+
+      /* =========================================================
+   CLOSING TEXT
+========================================================= */
+
+      .end-closing-text {
+        position: absolute;
+
+        top: 18px;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: calc(100% - 42px);
+
+        max-width: 360px;
+
+        text-align: center;
+
+        color: #111111;
+
+        z-index: 3;
+      }
+
+      /* =========================================================
+   CLOSING PARAGRAPH
+========================================================= */
+
+      .end-closing-text p {
+        max-width: 335px;
+
+        margin: 0 auto 2px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 16px;
+
+        font-weight: 400;
+
+        line-height: 1.2;
+      }
+
+      /* =========================================================
+   ASSALAMUALAIKUM
+========================================================= */
+
+      .end-closing-text h2 {
+        margin: 0;
+
+        font-family: "Great Vibes", cursive;
+
+        font-size: clamp(35px, 10vw, 20px);
+
+        margin-top: 20px;
+        font-weight: 400;
+
+        line-height: 1;
+
+        white-space: nowrap;
+
+        color: #111111;
+      }
+
+      /* =========================================================
+   COUPLE CARD
+========================================================= */
+/* =========================================================
+   END COUPLE CARD
+========================================================= */
+
+.end-couple-card {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform: translateX(-50%);
+
+  width: calc(100% - 50px);
+  max-width: 340px;
+
+  min-height: 78px;
+
+  padding: 10px 18px 14px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  border-radius: 42px 42px 0 0;
+
+  background: rgba(117, 44, 48, 0.92);
+
+  color: #fff;
+
+  z-index: 4;
+}
+
+
+/* =========================================================
+   SMALL TEXT
+========================================================= */
+
+.end-couple-card span {
+  margin-bottom: 4px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   COUPLE NAME
+========================================================= */
+
+.end-couple-card h1 {
+  width: 100%;
+
+  margin: 0;
+
+  padding: 2px 0;
+
+  box-sizing: border-box;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: clamp(
+    22px,
+    6.5vw,
+    28px
+  );
+
+  font-weight: 400;
+
+  line-height: 1.15;
+
+  letter-spacing: 0.5px;
+
+  text-align: center;
+
+  white-space: normal;
+
+  overflow-wrap: break-word;
+}
+
+      /* =========================================================
+   FOOTER
+========================================================= */
+
+      .end-footer {
+        position: relative;
+
+        width: 100%;
+
+        min-height: 48px;
+
+        padding: 8px 15px;
+
+        box-sizing: border-box;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        background: var(--color-bg);
+
+        color: var(--color-brown);
+
+        z-index: 5;
+      }
+
+      /* =========================================================
+   FOOTER BRAND
+========================================================= */
+
+      .end-footer-brand {
+        display: flex;
+
+        align-items: baseline;
+
+        gap: 3px;
+
+        font-family: "Cormorant Garamond", serif;
+
+        color: var(--color-brown);
+      }
+
+      .end-footer-brand span {
+        font-size: 14px;
+
+        font-weight: 400;
+      }
+
+      .end-footer-brand strong {
+        font-size: 14px;
+
+        font-weight: 600;
+      }
+
+      /* =========================================================
+   SOCIAL WRAPPER
+========================================================= */
+
+      .end-footer-social {
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+      }
+
+      /* =========================================================
+   SOCIAL BUTTON
+========================================================= */
+
+      .end-social-link {
+        width: 29px;
+        height: 29px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 50%;
+
+        background: var(--color-brown);
+
+        color: var(--color-bg);
+
+        text-decoration: none;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      /* =========================================================
+   SOCIAL ICON
+========================================================= */
+
+      .end-social-link i {
+        display: block;
+
+        font-size: 16px;
+
+        line-height: 1;
+
+        color: inherit;
+      }
+
+      /* =========================================================
+   SOCIAL HOVER
+========================================================= */
+
+      .end-social-link:hover {
+        transform: translateY(-2px);
+
+        opacity: 0.9;
+      }
+
+      /* =========================================================
+   SOCIAL ACTIVE
+========================================================= */
+
+      .end-social-link:active {
+        transform: scale(0.9);
+      }
+
+      /* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+      @media (max-width: 360px) {
+        .end-main {
+          height: 415px;
+        }
+
+        .end-closing-text {
+          width: calc(100% - 30px);
+        }
+
+        .end-closing-text p {
+          font-size: 15px;
+        }
+
+        .end-closing-text h2 {
+          font-size: 35px;
+        }
+
+        .end-couple-card {
+          width: calc(100% - 80px);
+        }
+
+        .end-couple-card h1 {
+          font-size: 24px;
+        }
+
+        .end-footer {
+          padding-left: 12px;
+
+          padding-right: 12px;
+        }
+      }
+
+/* =========================================================
+   BACKGROUND MUSIC
+========================================================= */
+
+/* Audio tidak perlu terlihat */
+#backgroundMusic {
+  display: none;
+}
+
+
+/* =========================================================
+   FLOATING MUSIC BUTTON
+========================================================= */
+
+.music-toggle {
+  position: fixed;
+
+  top: 80%;
+  right: 14px;
+
+  /* Posisi vertikal tetap di tengah */
+  translate: 0 -50%;
+
+  width: 44px;
+  height: 44px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--color-brown);
+
+  color: var(--color-gold);
+
+  box-shadow:
+    0 4px 12px rgba(117, 44, 48, 0.25);
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  transition:
+    scale 0.2s ease,
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.music-toggle i {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+
+  font-size: 20px;
+
+  line-height: 1;
+
+  color: inherit;
+
+  transform-origin: center;
+}
+
+
+/* =========================================================
+   MUSIC PLAYING
+========================================================= */
+
+.music-toggle.is-playing i {
+  animation:
+    music-icon-spin
+    4s
+    linear
+    infinite;
+}
+
+
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
+.music-toggle:hover {
+  scale: 1.06;
+}
+
+
+/* =========================================================
+   BUTTON ACTIVE
+========================================================= */
+
+.music-toggle:active {
+  scale: 0.9;
+}
+
+
+/* =========================================================
+   MUSIC ICON ANIMATION
+========================================================= */
+
+@keyframes music-icon-spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .music-toggle {
+    right: 10px;
+
+    width: 40px;
+    height: 40px;
+  }
+
+
+  .music-toggle i {
+    font-size: 18px;
+  }
+
+}
+    </style>
+  </head>
+
+<!-- =====================================================
+     BACKGROUND MUSIC
+===================================================== -->
+
+<audio
+  id="backgroundMusic"
+  autoplay
+  loop
+  preload="auto"
+>
+  <source
+    src="assets/music/ANDMESH  - ANUGERAH TERINDAH (OFFICIAL MUSIC VIDEO).mp3"
+    type="audio/mpeg"
+  />
+</audio>
+
+
+<button
+  id="musicToggle"
+  class="music-toggle"
+  type="button"
+  aria-label="Pause music"
+>
+  <i class="bi bi-disc-fill"></i>
+</button>
+
+  <body>
+    <main class="invitation-canvas">
+      <!-- =================================================
+         HERO
+    ================================================== -->
+
+      <section class="hero">
+        <span class="pink-glow pink-glow-1"></span>
+        <span class="pink-glow pink-glow-2"></span>
+        <span class="pink-glow pink-glow-3"></span>
+        <!-- =================================================
+         SAKURA
+    ================================================== -->
+
+        <div class="sakura-falling"></div>
+
+        <!-- =================================================
+           HERO IMAGE
+      ================================================== -->
+
+        <div class="opening-image">
+          <img src="assets/images/webp/Foto-011.webp" alt="Foto pengantin" />
+        </div>
+
+        <!-- =================================================
+           COLOR / GRADIENT OVERLAY
+      ================================================== -->
+
+        <div class="opening-gradient"></div>
+
+        <!-- =================================================
+           BOKEH OVERLAY
+      ================================================== -->
+
+        <div class="opening-bokeh">
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+        </div>
+
+        <!-- =================================================
+           HERO LABEL
+      ================================================== -->
+
+        <div class="hero-label reveal-scroll ">
+          <span class="reveal-up" style="--reveal-delay: 0ms;"> THE WEDDING OF </span>
+        </div>
+
+        <!-- =================================================
+           HERO NAMES
+      ================================================== -->
+
+        <div class="hero-names reveal-scroll reveal-up">
+          <h1 class="reveal-up" style="--reveal-delay: 120ms;">Ashrul & Diana</h1>
+        </div>
+
+        <!-- =================================================
+           COUNTDOWN
+      ================================================== -->
+
+        <div class="hero-countdown" >
+          <!-- COUNTDOWN NUMBERS -->
+
+          <div class="countdown">
+            <!-- DAY -->
+
+            <div class="countdown-item reveal-up" style="--reveal-delay: 200ms;">
+              <span id="days"> 00 </span>
+
+              <p>Day</p>
+            </div>
+
+            <!-- HOUR -->
+
+            <div class="countdown-item reveal-up" style="--reveal-delay: 200ms;">
+              <span id="hours"> 00 </span>
+
+              <p>Hour</p>
+            </div>
+
+            <!-- MINUTE -->
+
+            <div class="countdown-item reveal-up" style="--reveal-delay: 200ms;">
+              <span id="minutes"> 00 </span>
+
+              <p>Min</p>
+            </div>
+
+            <!-- SECOND -->
+
+            <div class="countdown-item reveal-up" style="--reveal-delay: 200ms;">
+              <span id="seconds"> 00 </span>
+
+              <p>Sec</p>
+            </div>
+          </div>
+
+          <!-- SAVE TO CALENDAR -->
+
+          <button id="calendar-button" class="calendar-button reveal-up reveal-delay-3"  type="button">
+            Save to Calendar
+          </button>
+        </div>
+      </section>
+
+      <!-- =================================================
+         INVITATION CONTENT
+    ================================================== -->
+
+      <!-- =================================================
+     KUTIPAN SECTION
+================================================= -->
+
+      <section class="kutipan">
+        <span class="pink-glow pink-glow-2"></span>
+        <span class="pink-glow pink-glow-3"></span>
+        <!-- WAX SEAL -->
+        <div class="kutipan-seal reveal-up">
+          <img src="assets/decorations/Wax Weal.png" alt="Wedding Seal" />
+        </div>
+
+        <!-- FOTO SLIDER -->
+        <div class="kutipan-slider">
+          <div class="kutipan-slider-track">
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-002.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-003.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-004.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-005.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-006.jpg" alt="Foto pasangan" />
+            </div>
+
+            <!-- DUPLIKASI UNTUK INFINITE LOOP -->
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-002.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-003.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-004.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-005.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-006.jpg" alt="Foto pasangan" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ISI KUTIPAN -->
+
+        <div class="kutipan-content">
+          <p class="kutipan-arabic reveal-up" style="--reveal-delay: 400ms;">وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+
+          <p class="kutipan-text reveal-up" style="--reveal-delay: 500ms;">
+            “Dan Dia menjadikan di antaramu rasa kasih dan sayang.”
+          </p>
+
+          <p class="kutipan-source reveal-up" style="--reveal-delay: 500ms;">— QS. Ar-Rum: 21</p>
+        </div>
+      </section>
+
+      <!-- =================================================
+     GROOM & BRIDE
+================================================= -->
+
+      <section class="groom-bride">
+        <span class="pink-glow pink-glow-2"></span>
+        <span class="pink-glow pink-glow-3"></span>
+        <!-- ORNAMEN ATAS -->
+        <div class="groom-bride-ornament">
+          <img src="assets/decorations/Ornament_bingkai_1.png" alt="" />
+        </div>
+
+        <!-- GREETING -->
+        <div class="groom-bride-intro">
+          <h2 class="reveal-up" style="--reveal-delay: 500ms;">Assalamualaikum Wr. Wb.</h2>
+
+          <p class="reveal-up" style="--reveal-delay: 600ms;">
+            Atas Rahmat dan Ridho Allah SWT, dengan penuh sukacita kami
+            mengundang Bapak/Ibu/Saudara/i sekalian untuk turut hadir
+            menyaksikan momen sakral pernikahan kami.
+          </p>
+        </div>
+
+         <!-- ORNAMEN -->
+        <div class="groom-bride-small-ornament reveal-scroll reveal-delay-3">
+          <img src="assets/decorations/Ornament_bingkai.png" style="margin-bottom: -15px;"  alt="" />
+        </div>
+
+        <!-- =========================
+       GROOM
+  ========================== -->
+
+        <div class="groom">
+          <div class="groom-photo">
+            <img
+              src="assets/images/webp/Foto_pride.webp"
+              alt="Ahmad Hamkal Lajura"
+              class="reveal-scroll reveal-delay-3"
+            />
+          </div>
+
+          <h2 class="groom-name reveal-up"  style="--reveal-delay: 700ms;">
+            Briptu Ahmad Ashrul<br />
+            Hamkal Lajura
+          </h2>
+
+          <p class="groom-parent reveal-up"  style="--reveal-delay: 800ms;">
+            Putra pertama dari<br />
+            Bapak Jura Hamkal, S.Pd., M.Si &amp; Ibu Aska, S.Pd., M.Si
+          </p>
+        </div>
+
+        <!-- =========================
+       PEMISAH
+  ========================== -->
+
+        <div class="couple-divider">
+          <span class="reveal-left reveal-delay-5"></span>
+
+          <strong class="reveal-up reveal-delay-5">&amp;</strong>
+
+          <span class="reveal-right reveal-delay-5"></span>
+        </div>
+
+        <!-- ORNAMEN -->
+        <div class="groom-bride-small-ornament reveal-scroll reveal-delay-3">
+          <img src="assets/decorations/Ornament_bingkai.png" style="margin-bottom: -10px; margin-top: 10px;" alt="" />
+        </div>
+
+        <!-- =========================
+       BRIDE
+  ========================== -->
+
+        <div class="bride">
+          <div class="bride-photo">
+            <img
+              src="assets/images/webp/Foto_bridge.webp"
+              alt="Bripda Ros Diana Sari"
+             class="reveal-scroll reveal-delay-3
+            />
+          </div>
+
+      
+
+          <h2 class="bride-name reveal-up" style="--reveal-delay: 700ms;"">
+            Bripda Ros<br />
+            Diana Sari
+          </h2>
+
+          <p class="bride-parent reveal-up" style="--reveal-delay: 800ms;">
+            Putri kedua dari<br />
+            Bapak Sarifudin (Alm) &amp; Ibu Ros
+          </p>
+        </div>
+      </section>
+      <!-- =====================================================
+     OUR STORY
+===================================================== -->
+      <section class="our-story">
+        <!-- HEADER -->
+        <div class="story-header">
+          <div class="header-line reveal-left reveal-delay-3"></div>
+
+          <h1 class="reveal-up reveal-delay-3"><span>Our</span>Story</h1>
+
+          <div class="header-line reveal-right reveal-delay-3"></div>
+        </div>
+
+            <!-- ORNAMENT -->
+          <img
+            src="assets/decorations/Ornament_bingkai_1.png"
+            class="story-ornament"
+            alt=""
+            style="margin-bottom: -25px;"
+          />
+        <!-- STORY CONTAINER -->
+        <div class="story-container reveal-scroll">
+          <span class="pink-glow pink-glow-2"></span>
+          <span class="pink-glow pink-glow-3"></span>
+      
+
+          <!-- TIMELINE -->
+          <div class="timeline">
+            <!-- ANIMATED LINE -->
+            <div class="timeline-line"></div>
+
+            <!-- STORY 1 -->
+            <article class="story-item story-item-1">
+              <div class="timeline-dot"></div>
+
+              <div class="story-content">
+                <img
+                  src="assets/images/webp/Foto-005.webp"
+                  class="story-image reveal-up reveal-delay-3"
+                  alt="Our Story 2022"
+                />
+
+                <div class="story-info reveal-scroll">
+                  <div class="story-title">
+                    <h2 class="reveal-left reveal-delay-3" >Awal Bertemu</h2>
+                    <span class="reveal-right reveal-delay-3">2022</span>
+                  </div>
+
+                  <p class="reveal-up reveal-delay-3">
+                    Lorem ipsum dolor sit amet, sint nulla laboris id do. Dolor
+                    nim ut minim nisi dolore fugiat ex magna nulla. Exercitation
+                    proident occaecat ut incididunt exercitation ullamco sint.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- STORY 2 -->
+            <article class="story-item story-item-2">
+              <div class="timeline-dot"></div>
+
+              <div class="story-content">
+                <img
+                  src="assets/images/webp/Foto-003.webp"
+                  class="story-image reveal-up reveal-delay-3"
+                  alt="Our Story 2025"
+                />
+
+                <div class="story-info">
+                  <div class="story-title">
+                    <h2 class="reveal-left reveal-delay-3">Komitmen</h2>
+                    <span class="reveal-right reveal-delay-3">2025</span>
+                  </div>
+
+                  <p class="reveal-up reveal-delay-6">
+                    Lorem ipsum dolor sit amet, sint nulla laboris id do. Dolor
+                    nim ut minim nisi dolore fugiat ex magna nulla. Exercitation
+                    proident occaecat ut incididunt exercitation ullamco sint.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- STORY 3 -->
+            <article class="story-item story-item-3">
+              <!-- LOVE ENDING -->
+              <div class="timeline-ending">
+                <div class="love-circle">
+                  <i class="bi bi-heart-fill"></i>
+                </div>
+              </div>
+
+              <div class="story-content">
+                <img
+                  src="assets/images/webp/Foto-008.webp"
+                  class="story-image reveal-up reveal-delay-7"
+                  alt="Our Story 2026"
+                />
+
+                <div class="story-info">
+                  <div class="story-title">
+                    <h2 class="reveal-left reveal-delay-3">Akhir Cerita</h2>
+                    <span class="reveal-right reveal-delay-3">2026</span>
+                  </div>
+
+                  <p class="reveal-scroll reveal-up reveal-delay-5">
+                    Lorem ipsum dolor sit amet, sint nulla laboris id do. Dolor
+                    nim ut minim nisi dolore fugiat ex magna nulla. Exercitation
+                    proident occaecat ut incididunt exercitation ullamco sint.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <!-- =====================================================
+     WEDDING EVENT
+===================================================== -->
+
+      <section class="wedding-event">
+        <span class="pink-glow pink-glow-2"></span>
+        <span class="pink-glow pink-glow-3"></span>
+        <!-- ===================================================
+       HEADER
+  ==================================================== -->
+
+        <div class="event-header">
+          <div class="event-header-line reveal-left reveal-delay-3"></div>
+
+          <div class="event-heading">
+            <h2 class="reveal-up reveal-delay-3">Wedding</h2>
+            <span class="reveal-up reveal-delay-3">Event</span>
+          </div>
+
+          <div class="event-header-line reveal-right reveal-delay-3"></div>
+        </div>
+
+        <!-- ===================================================
+       FLOWERS DECORATION
+       Berada di belakang content
+  ==================================================== -->
+
+        <div class="event-flowers-right">
+          <img src="assets/decorations/Flowers 1.png" alt="flowers" class="reveal-left reveal-delay-1" />
+        </div>
+
+        <div class="event-flowers-left reveal-left reveal-delay-1">
+          <img src="assets/decorations/Flowers 1.png" alt="flowers" />
+        </div>
+
+        <!-- ===================================================
+       MAIN CONTENT
+  ==================================================== -->
+
+        <div class="event-content ">
+          <!-- =================================================
+         PHOTO GALLERY
+    ================================================== -->
+
+          <div class="event-gallery">
+            <!-- PHOTO 1 -->
+            <div class="event-photo event-photo-left">
+              <img src="assets/images/webp/Foto-008.webp" alt="Wedding Event" />
+            </div>
+
+            <!-- PHOTO 2 -->
+            <div class="event-photo event-photo-right">
+              <img src="assets/images/webp/Foto-007.webp" alt="Wedding Event" />
+            </div>
+          </div>
+
+          <!-- =================================================
+         EVENT CARD
+    ================================================== -->
+
+          <div class="event-card reveal-scroll">
+            <!-- ===============================================
+           CARD HEADER
+      ================================================ -->
+
+            <div class="event-card-header">
+              <h3 class="reveal-up reveal-delay-3">AKAD &amp; RESEPSI</h3>
+            </div>
+
+            <!-- ===============================================
+           EVENT BODY
+      ================================================ -->
+
+            <div class="event-card-body">
+              <!-- =============================================
+             DATE
+        ============================================== -->
+
+              <div class="event-date reveal-left reveal-delay-3">
+                <div class="event-date-main">16, Rabu</div>
+
+                <div class="event-date-month">September</div>
+              </div>
+
+              <!-- =============================================
+             AKAD
+        ============================================== -->
+
+              <div class="event-schedule event-schedule-akad reveal-right reveal-delay-3">
+                <h4>Akad</h4>
+
+                <p>09.00 WIT - 10.30 WIT</p>
+              </div>
+
+              <!-- =============================================
+             LOCATION
+        ============================================== -->
+
+              <div class="event-location reveal-left reveal-delay-3">
+                <div class="event-location-title">
+                  GEDUNG POLTEKES KOTA SORONG
+                </div>
+
+                <p>Jl. Basuki Rahmat Km. 11,5 Kota Sorong</p>
+              </div>
+
+              <!-- =============================================
+             RESEPSI
+        ============================================== -->
+
+              <div class="event-schedule event-schedule-resepsi reveal-right reveal-delay-3">
+                <h4>Resepsi</h4>
+
+                <p>12.30 WIT - Selesai</p>
+              </div>
+
+              <!-- =============================================
+             GOOGLE MAPS
+        ============================================== -->
+
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=GEDUNG+POLTEKES+KOTA+SORONG"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="event-maps-button reveal-up reveal-delay-5"
+              >
+                Open with Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+     OUR GALLERY
+===================================================== -->
+
+      <section class="our-gallery reveal-scroll">
+        <!-- ===================================================
+       HEADER
+  ==================================================== -->
+
+        <div class="gallery-header">
+          <div class="gallery-header-line"></div>
+
+          <h2><span>Our</span>Moment</h2>
+
+          <div class="gallery-header-line"></div>
+        </div>
+
+        <!-- ===================================================
+       GALLERY
+  ==================================================== -->
+
+        <div class="gallery-container">
+          <!-- =================================================
+         ROW 1
+    ================================================== -->
+
+          <div class="gallery-row gallery-row-two">
+            <div class="gallery-item gallery-reveal">
+              <img src="assets/images/webp/Foto-001.webp" alt="Our Moment" />
+            </div>
+
+            <div class="gallery-item gallery-reveal">
+              <img src="assets/images/webp/Foto-005.webp" alt="Our Moment" />
+            </div>
+          </div>
+
+          <!-- =================================================
+         ROW 2 - WIDE
+    ================================================== -->
+
+          <div class="gallery-item gallery-wide gallery-reveal">
+            <img src="assets/images/webp/Foto-004.webp" alt="Our Moment" />
+          </div>
+
+          <!-- =================================================
+         ROW 3
+    ================================================== -->
+
+          <div class="gallery-row gallery-row-two">
+            <div class="gallery-item gallery-reveal">
+              <img src="assets/images/webp/Foto-010.webp" alt="Our Moment" />
+            </div>
+
+            <div class="gallery-item gallery-reveal">
+              <img src="assets/images/webp/Foto-009.webp" alt="Our Moment" />
+            </div>
+          </div>
+
+          <!-- =================================================
+         ROW 4 - WIDE
+    ================================================== -->
+
+          <div class="gallery-item gallery-wide gallery-reveal">
+            <img src="assets/images/webp/Foto-011.webp" alt="Our Moment" />
+          </div>
+
+          <!-- =================================================
+         ROW 5
+    ================================================== -->
+
+          <div class="gallery-row gallery-row-two">
+            <div class="gallery-item gallery-reveal">
+              <img src="assets/images/webp/Foto-007.webp" alt="Our Moment" />
+            </div>
+
+            <div class="gallery-item gallery-reveal">
+              <img src="assets/images/webp/Foto-008.webp" alt="Our Moment" />
+            </div>
+          </div>
+
+          <!-- =================================================
+         ROW 6 - WIDE
+    ================================================== -->
+
+          <div class="gallery-item gallery-wide gallery-reveal">
+            <img src="assets/images/webp/Foto-007.webp" alt="Our Moment" />
+          </div>
+
+          <!-- =================================================
+         VIDEO
+    ================================================== -->
+
+          <!-- =================================================
+     VIDEO
+================================================== -->
+
+          <div class="gallery-video gallery-reveal">
+            <!-- VIDEO -->
+            <video class="gallery-video-element" preload="metadata" playsinline>
+              <source
+                src="https://www.dropbox.com/scl/fi/dseibzddean68kvztzl9z/Prewedding-Film-Diana-Ashrul-3.mp4?rlkey=9dgy1opf29gkmbe382fl60dsw&st=j1787008&raw=1"
+      type="video/mp4"
+              />
+
+              Browser Anda tidak mendukung video.
+            </video>
+
+            <!-- =================================================
+       PLAY BUTTON TENGAH
+  ================================================== -->
+
+            <button
+              class="gallery-play-button"
+              type="button"
+              aria-label="Play video"
+            >
+              <i class="bi bi-play-fill"></i>
+            </button>
+
+            <!-- =================================================
+       VIDEO CONTROLS
+  ================================================== -->
+
+            <div class="gallery-video-controls">
+              <!-- PROGRESS -->
+              <input
+                class="gallery-video-progress"
+                type="range"
+                min="0"
+                max="1000"
+                value="0"
+                step="1"
+                aria-label="Video progress"
+              />
+
+              <!-- BOTTOM CONTROL -->
+              <div class="gallery-video-control-bottom">
+                <!-- TIME -->
+                <div class="gallery-video-time">
+                  <span class="gallery-video-current"> 00:00 </span>
+
+                  <span class="gallery-video-time-divider"> / </span>
+
+                  <span class="gallery-video-duration"> 00:00 </span>
+                </div>
+
+                <!-- SOUND -->
+                <button
+                  class="gallery-video-sound"
+                  type="button"
+                  aria-label="Matikan suara"
+                >
+                  <i class="bi bi-volume-up-fill"></i>
+                </button>
+
+                <!-- FULLSCREEN -->
+                <button
+                  class="gallery-video-fullscreen"
+                  type="button"
+                  aria-label="Fullscreen video"
+                >
+                  <i class="bi bi-fullscreen"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+     WEDDING GIFT
+===================================================== -->
+
+      <section class="wedding-gift reveal-scroll">
+        <!-- =================================================
+       HEADER
+  ================================================== -->
+
+        <div class="gift-header">
+          <span class="gift-header-line"></span>
+
+          <div class="gift-heading">
+            <h1>Wedding</h1>
+            <h2>Gift</h2>
+          </div>
+
+          <span class="gift-header-line"></span>
+        </div>
+
+        <!-- =================================================
+       DESCRIPTION
+  ================================================== -->
+
+        <p class="gift-description">
+          Kehadiran serta doa restu Bapak/Ibu/Saudara/i merupakan kebahagiaan
+          yang sangat kami syukuri. Sebagai alternatif bagi yang ingin
+          memberikan tanda kasih, tersedia pula pilihan secara cashless.
+        </p>
+
+        <!-- =================================================
+       GIFT CARDS WRAPPER
+  ================================================== -->
+
+        <div class="gift-cards">
+          <!-- =================================================
+         BANK CARD
+    ================================================== -->
+
+          <div class="gift-item">
+            <!-- FLOWER LEFT -->
+            <img
+              src="assets/decorations/Flowers 2.png"
+              class="gift-flower gift-flower-left"
+              alt=""
+            />
+
+            <!-- FLOWER RIGHT -->
+            <img
+              src="assets/decorations/Flowers 2.png"
+              class="gift-flower gift-flower-right"
+              alt=""
+            />
+
+            <div class="gift-card gift-payment-card">
+              <!-- CARD BACKGROUND -->
+              <img
+                src="assets/decorations/Card.png"
+                class="gift-card-background"
+                alt=""
+              />
+
+              <!-- CARD CONTENT -->
+              <div class="gift-card-content">
+                <!-- =========================================
+               TOP
+          ========================================== -->
+
+                <div class="gift-card-top">
+                  <!-- CHIP -->
+                  <div class="gift-chip">
+                    <span></span>
+                  </div>
+
+                  <!-- PROVIDER LOGO -->
+                  <div class="gift-provider-logo">
+                    <img src="assets/decorations/Bank Logo.png" alt="Bank" />
+                  </div>
+                </div>
+
+                <!-- =========================================
+               ACCOUNT INFO
+          ========================================== -->
+
+                <div class="gift-payment-info">
+                  <p class="gift-number">1356 5678 9093 1235 6</p>
+
+                  <p class="gift-owner">Sari Wulanti</p>
+                </div>
+
+                <!-- =========================================
+               COPY BUTTON
+          ========================================== -->
+
+                <button
+                  class="gift-copy-button"
+                  type="button"
+                  data-copy="13565678909312356"
+                  data-message="Nomor rekening berhasil disalin"
+                >
+                  Salin no Rek
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- =================================================
+         E-WALLET CARD
+    ================================================== -->
+
+          <div class="gift-item">
+            <!-- FLOWER LEFT -->
+            <img
+              src="assets/decorations/Flowers 2.png"
+              class="gift-flower gift-flower-left"
+              alt=""
+            />
+
+            <!-- FLOWER RIGHT -->
+            <img
+              src="assets/decorations/Flowers 2.png"
+              class="gift-flower gift-flower-right"
+              alt=""
+            />
+
+            <div class="gift-card gift-payment-card">
+              <!-- CARD BACKGROUND -->
+              <img
+                src="assets/decorations/Card.png"
+                class="gift-card-background"
+                alt=""
+              />
+
+              <!-- CARD CONTENT -->
+              <div class="gift-card-content">
+                <!-- =========================================
+               PROVIDER
+          ========================================== -->
+
+                <div class="gift-card-top gift-card-top-wallet">
+                  <div class="gift-provider-logo">
+                    <img src="assets/decorations/Dana Logo.png" alt="DANA" />
+                  </div>
+                </div>
+
+                <!-- =========================================
+               WALLET INFO
+          ========================================== -->
+
+                <div class="gift-payment-info">
+                  <p class="gift-number">08123456821211</p>
+
+                  <p class="gift-owner">Sari Wulianti</p>
+                </div>
+
+                <!-- =========================================
+               COPY BUTTON
+          ========================================== -->
+
+                <button
+                  class="gift-copy-button"
+                  type="button"
+                  data-copy="08123456821211"
+                  data-message="Nomor e-wallet berhasil disalin"
+                >
+                  Salin Nomor
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- =================================================
+         ADDRESS CARD
+    ================================================== -->
+
+          <div class="gift-item">
+            <!-- FLOWER LEFT -->
+            <img
+              src="assets/decorations/Flowers 2.png"
+              class="gift-flower gift-flower-left"
+              alt=""
+            />
+
+            <!-- FLOWER RIGHT -->
+            <img
+              src="assets/decorations/Flowers 2.png"
+              class="gift-flower gift-flower-right"
+              alt=""
+            />
+
+            <div class="gift-card gift-address-card">
+              <!-- CARD BACKGROUND -->
+              <img
+                src="assets/decorations/Card.png"
+                class="gift-card-background"
+                alt=""
+              />
+
+              <!-- CARD CONTENT -->
+              <div class="gift-address-content">
+                <!-- =========================================
+               ICON
+          ========================================== -->
+
+                <img
+                  src="assets/decorations/wedding gift.png"
+                  class="gift-icon"
+                  alt="Wedding Gift"
+                />
+
+                <!-- =========================================
+               ADDRESS DATA
+          ========================================== -->
+
+                <div class="gift-address">
+                  <!-- NAME -->
+                  <div class="gift-address-row">
+                    <span class="gift-address-label"> Nama </span>
+
+                    <span class="gift-address-value"> Ros Diana Sari </span>
+                  </div>
+
+                  <!-- ADDRESS -->
+                  <div class="gift-address-row">
+                    <span class="gift-address-label"> Alamat </span>
+
+                    <span class="gift-address-value">
+                      Jalan Basuki Rahmat Kilometer 7, Kota Sorong, Papua Barat
+                      Daya
+                    </span>
+                  </div>
+                </div>
+
+                <!-- =========================================
+               COPY ADDRESS
+          ========================================== -->
+
+                <button
+                  class="gift-copy-button gift-address-copy"
+                  type="button"
+                  data-copy="Ros Diana Sari, Jalan Basuki Rahmat Kilometer 7, Kota Sorong, Papua Barat Daya"
+                  data-message="Alamat berhasil disalin"
+                >
+                  Salin Alamat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =================================================
+       COPY NOTIFICATION
+  ================================================== -->
+
+        <div class="gift-copy-message" id="giftCopyMessage">
+          Berhasil disalin
+        </div>
+      </section>
+
+      <!-- =====================================================
+     WISHES / RSVP
+===================================================== -->
+
+      <section class="wishes-section reveal-scroll">
+        <!-- =================================================
+       HEADER
+  ================================================== -->
+
+        <div class="wishes-header">
+          <div class="wishes-header-line"></div>
+
+          <div class="wishes-title">
+            <h1>Wishes</h1>
+            <h2>Doa &amp; Restu</h2>
+          </div>
+
+          <div class="wishes-header-line"></div>
+        </div>
+
+        <!-- =================================================
+       SUBTITLE
+  ================================================== -->
+
+        <p class="wishes-subtitle">
+          Berikan ucapan terbaik untuk kedua mempelai dan konfirmasi kehadiran
+          Anda.
+        </p>
+
+        <!-- =================================================
+       WRAPPER
+  ================================================== -->
+  
+        <div class="wishes-wrapper">
+          <!-- =================================================
+         RSVP / WISH FORM
+    ================================================== -->
+
+     <div class="wish-guest-divider">
+                <img
+                  src="assets/decorations/Ornament_bingkai_1.png"
+                  class="story-ornament"
+                  alt=""
+                  width="100%"
+                  style="margin-bottom: -27px;"
+                />
+              </div>
+          <form id="wishForm" class="wish-form reveal-scroll">
+            <!-- ===============================================
+           GUEST IDENTITY
+      ================================================ -->
+
+            <div class="wish-guest">
+              <span class="wish-guest-small"> Kepada </span>
+
+              <div class="wish-guest-name" id="rsvpGuestName">
+                Memuat nama tamu...
+              </div>
+
+              
+            </div>
+
+            <!-- ===============================================
+           HIDDEN GUEST DATA
+      ================================================ -->
+
+            <input type="hidden" id="guestId" name="guestId" />
+
+            <input type="hidden" id="nama" name="nama" />
+
+            <input type="hidden" id="panggilan" name="panggilan" />
+
+            <!-- ===============================================
+           WISH
+      ================================================ -->
+
+            <div class="wish-field">
+              <label for="komentar"> Ucapan &amp; Doa </label>
+
+              <div class="wish-textarea-wrapper">
+                <textarea
+                  id="komentar"
+                  name="komentar"
+                  placeholder="Tuliskan ucapan dan doa terbaik Anda..."
+                  maxlength="300"
+                  required
+                ></textarea>
+
+                <div class="wish-character-count">
+                  <span id="wishCharacterCount">0</span>
+                  <span>/300</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===============================================
+           ATTENDANCE
+      ================================================ -->
+
+            <div class="wish-attendance">
+              <span class="wish-field-label"> Konfirmasi Kehadiran </span>
+
+              <div class="attendance">
+                <!-- HADIR -->
+
+                <label class="attendance-option">
+                  <input type="radio" name="kehadiran" value="Hadir" checked />
+
+                  <span class="attendance-box">
+                    <span class="custom-radio"></span>
+
+                    <span class="attendance-text"> Hadir </span>
+                  </span>
+                </label>
+
+                <!-- TIDAK HADIR -->
+
+                <label class="attendance-option">
+                  <input type="radio" name="kehadiran" value="Tidak Hadir" />
+
+                  <span class="attendance-box">
+                    <span class="custom-radio"></span>
+
+                    <span class="attendance-text"> Tidak Hadir </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- ===============================================
+           SUBMIT
+      ================================================ -->
+
+            <button type="submit" class="wish-submit" id="wishSubmit">
+              <span class="submit-text"> Kirim Ucapan </span>
+
+              <span class="submit-loading"> Mengirim... </span>
+            </button>
+
+            <!-- ===============================================
+           RESPONSE MESSAGE
+      ================================================ -->
+
+            <div id="wishMessage" class="wish-message" aria-live="polite"></div>
+          </form>
+
+               <div class="groom-bride-small-ornament " >
+          <img src="assets/decorations/Ornament_bingkai.png" style="margin-top: 20px; margin-bottom: -20px;" alt="" />
+        </div>
+
+          <!-- =================================================
+         WISHES LIST
+    ================================================== -->
+
+          <div id="wishList" class="wish-list reveal-scroll">
+            <div id="wishLoading" class="wish-loading">Memuat ucapan...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+     END SECTION
+===================================================== -->
+
+      <section class="end-section">
+        <!-- =================================================
+       FOTO SLIDER
+       Menggunakan slider yang sudah ada
+  ================================================== -->
+
+        <div class="kutipan-slider end-slider">
+          <div class="kutipan-slider-track">
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-002.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-003.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-004.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-005.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-006.jpg" alt="Foto pasangan" />
+            </div>
+
+            <!-- =============================================
+           DUPLIKASI UNTUK INFINITE LOOP
+      ============================================== -->
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-002.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-003.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-004.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-005.jpg" alt="Foto pasangan" />
+            </div>
+
+            <div class="kutipan-slide">
+              <img src="assets/images/Foto-006.jpg" alt="Foto pasangan" />
+            </div>
+          </div>
+        </div>
+
+        <!-- =================================================
+       MAIN CLOSING
+  ================================================== -->
+
+        <div class="end-main">
+          <!-- ===============================================
+         MAIN PHOTO
+    ================================================ -->
+
+          <img
+            src="assets/images/Foto-012.jpg"
+            class="end-main-image"
+            alt="Ahmad dan Diana"
+          />
+    <div class="sakura-falling"></div>
+          <!-- ===============================================
+         TOP GRADIENT
+    ================================================ -->
+
+          <div class="end-main-gradient"></div>
+
+          <!-- ===============================================
+         CLOSING TEXT
+    ================================================ -->
+
+          <div class="end-closing-text">
+            <p>
+              Dengan Rahmat Allah SWT, kami mengundang Bapak/Ibu/Saudara/i
+              menghadiri pernikahan kami
+            </p>
+
+            <h2>Assalamualaikum Wr.Wb.</h2>
+          </div>
+
+          <!-- ===============================================
+         COUPLE CLOSING CARD
+    ================================================ -->
+
+          <div class="end-couple-card">
+            <span> Kami yang berbahagia </span>
+
+            <h1>ASHRUL &amp; DIANA</h1>
+          </div>
+        </div>
+
+        <!-- =================================================
+       FOOTER
+  ================================================== -->
+
+        <footer class="end-footer">
+          <!-- ===============================================
+         BRAND
+    ================================================ -->
+
+          <div class="end-footer-brand">
+            <span> MadeBy </span>
+
+            <strong> dhndysyrf<strong>
+          </div>
+
+          <!-- ===============================================
+         SOCIAL MEDIA
+    ================================================ -->
+
+          <div class="end-footer-social">
+            <!-- INSTAGRAM -->
+
+            <a
+              href="https://www.instagram.com/dhndysyrf/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="end-social-link"
+              aria-label="Instagram @dhndysyrf"
+            >
+              <i class="bi bi-instagram"></i>
+            </a>
+
+            <!-- WHATSAPP -->
+
+            <a
+              href="https://wa.me/6281344703884"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="end-social-link"
+              aria-label="WhatsApp"
+            >
+              <i class="bi bi-whatsapp"></i>
+            </a>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <!-- =================================================
+       JAVASCRIPT
+  ================================================== -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/timoschaefer/jQuery-Sakura/jquery-sakura.min.js"></script>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
