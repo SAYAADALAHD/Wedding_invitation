@@ -118,10 +118,6 @@ async function loadGuest() {
 
 loadGuest();
 
-const fullpageParams = new URLSearchParams(window.location.search);
-const fullpageGuestId = fullpageParams.get("guest");
-
-console.log("Guest ID di fullpage:", fullpageGuestId);
 // =====================================================
 // WEDDING DATA
 // =====================================================
@@ -456,24 +452,52 @@ function requestTimelineUpdate() {
 }
 
 // =========================================================
-// SCROLL EVENT
+// TIMELINE - AKTIF HANYA SAAT DEKAT VIEWPORT
 // =========================================================
 
-window.addEventListener("scroll", requestTimelineUpdate, {
-  passive: true,
-});
+let timelineListenerActive = false;
 
-// =========================================================
-// RESIZE EVENT
-// =========================================================
+function enableTimelineListener() {
+  if (timelineListenerActive) return;
 
-window.addEventListener("resize", requestTimelineUpdate);
+  timelineListenerActive = true;
 
-// =========================================================
-// INITIAL UPDATE
-// =========================================================
+  window.addEventListener("scroll", requestTimelineUpdate, {
+    passive: true,
+  });
 
-updateTimeline();
+  window.addEventListener("resize", requestTimelineUpdate);
+  requestTimelineUpdate();
+}
+
+function disableTimelineListener() {
+  if (!timelineListenerActive) return;
+
+  timelineListenerActive = false;
+
+  window.removeEventListener("scroll", requestTimelineUpdate);
+  window.removeEventListener("resize", requestTimelineUpdate);
+}
+
+if (timeline) {
+  const timelineVisibilityObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          enableTimelineListener();
+        } else {
+          disableTimelineListener();
+        }
+      });
+    },
+    {
+      threshold: 0,
+      rootMargin: "400px 0px",
+    },
+  );
+
+  timelineVisibilityObserver.observe(timeline);
+}
 
 // =================================================
 // OUR GALLERY
@@ -914,25 +938,6 @@ if (galleryVideo && videoElement && playButton) {
 
 const RSVP_API =
   "https://script.google.com/macros/s/AKfycbzezxM8zLkNqc5uAPK51456dXSI_FLVLAnhemT11pToJX_9Sefa2Pa5x_G1RA0MDI6gbg/exec";
-
-// =================================================
-// TEST GET
-// =================================================
-
-async function testRSVP() {
-  try {
-    ``;
-    const response = await fetch(RSVP_API);
-
-    const data = await response.json();
-
-    console.log("Data dari Apps Script:", data);
-  } catch (error) {
-    console.error("Gagal mengambil data:", error);
-  }
-}
-
-testRSVP();
 
 // =====================================================
 // WISHES / RSVP
@@ -1402,10 +1407,33 @@ function hideWishMessage() {
 }
 
 // =====================================================
-// LOAD SAAT WEBSITE DIBUKA
+// LAZY LOAD WISHES
+// Baru fetch ketika user mendekati section Wishes
 // =====================================================
 
-loadWishes();
+const wishesSection = document.querySelector(".wishes-section");
+
+if (wishesSection) {
+  let wishesLoaded = false;
+
+  const wishesObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !wishesLoaded) {
+          wishesLoaded = true;
+          loadWishes();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0,
+      rootMargin: "500px 0px",
+    },
+  );
+
+  wishesObserver.observe(wishesSection);
+}
 
 // =========================================================
 // WEDDING GIFT
@@ -1543,801 +1571,6 @@ giftCopyButtons.forEach((button) => {
     }
   });
 });
-
-// =========================================================
-// BACKGROUND MUSIC
-// START → FADE IN → FADE OUT → END → LOOP
-// =========================================================
-
-const backgroundMusic = document.getElementById("backgroundMusic");
-
-const musicToggle = document.getElementById("musicToggle");
-
-// =========================================================
-// MUSIC CONFIG
-// =========================================================
-
-/*
-  CONTOH:
-
-  START : 00:48
-  END   : 02:13
-
-  Artinya bagian yang dimainkan hanya:
-
-  00:48 ====================== 02:13
-*/
-
-// =========================================================
-// START TIME
-// =========================================================
-
-const MUSIC_START_MINUTE = 3;
-const MUSIC_START_SECOND = 0;
-
-// =========================================================
-// END TIME
-// =========================================================
-
-const MUSIC_END_MINUTE = 4;
-const MUSIC_END_SECOND = 35;
-
-// =========================================================
-// FADE
-// =========================================================
-
-// Fade-in 3 detik
-const MUSIC_FADE_IN_DURATION = 3000;
-
-// Fade-out 3 detik
-const MUSIC_FADE_OUT_DURATION = 3000;
-
-// =========================================================
-// MAX VOLUME
-// =========================================================
-
-// 1   = 100%
-// 0.8 = 80%
-// 0.7 = 70%
-// 0.5 = 50%
-
-const MUSIC_MAX_VOLUME = 0.7;
-
-// =========================================================
-// CONVERT TIME TO SECONDS
-// =========================================================
-
-const MUSIC_START_TIME = MUSIC_START_MINUTE * 60 + MUSIC_START_SECOND;
-
-const MUSIC_END_TIME = MUSIC_END_MINUTE * 60 + MUSIC_END_SECOND;
-
-// =========================================================
-// FADE OUT START TIME
-// =========================================================
-
-const MUSIC_FADE_OUT_START = MUSIC_END_TIME - MUSIC_FADE_OUT_DURATION / 1000;
-
-// =========================================================
-// MUSIC STATE
-// =========================================================
-
-let musicFadeFrame = null;
-
-let musicMonitorFrame = null;
-
-let musicPlayPromise = null;
-
-let musicInitialized = false;
-
-let musicIsFadingOut = false;
-
-let musicIsLooping = false;
-
-// =========================================================
-// WAIT FOR METADATA
-// =========================================================
-
-function waitForMusicMetadata() {
-  if (!backgroundMusic) {
-    return Promise.resolve();
-  }
-
-  if (backgroundMusic.readyState >= 1) {
-    return Promise.resolve();
-  }
-
-  return new Promise((resolve) => {
-    backgroundMusic.addEventListener("loadedmetadata", resolve, {
-      once: true,
-    });
-  });
-}
-
-// =========================================================
-// VALIDATE MUSIC RANGE
-// =========================================================
-
-function validateMusicRange() {
-  if (!backgroundMusic) {
-    return false;
-  }
-
-  const duration = backgroundMusic.duration;
-
-  // Durasi belum tersedia
-  if (!Number.isFinite(duration)) {
-    console.error("Durasi musik belum tersedia.");
-
-    return false;
-  }
-
-  // START tidak boleh negatif
-  if (MUSIC_START_TIME < 0) {
-    console.error("Waktu START tidak valid.");
-
-    return false;
-  }
-
-  // END harus lebih besar dari START
-  if (MUSIC_END_TIME <= MUSIC_START_TIME) {
-    console.error("Waktu END harus lebih besar dari START.");
-
-    return false;
-  }
-
-  // START tidak boleh melebihi lagu
-  if (MUSIC_START_TIME >= duration) {
-    console.error("Waktu START melewati durasi lagu.");
-
-    return false;
-  }
-
-  // END tidak boleh melebihi durasi lagu
-  if (MUSIC_END_TIME > duration) {
-    console.error("Waktu END melewati durasi lagu.");
-
-    return false;
-  }
-
-  // Pastikan segment cukup panjang
-  if (MUSIC_FADE_OUT_START <= MUSIC_START_TIME) {
-    console.error("Durasi potongan musik terlalu pendek untuk Fade Out.");
-
-    return false;
-  }
-
-  return true;
-}
-
-// =========================================================
-// CANCEL MUSIC FADE
-// =========================================================
-
-function cancelMusicFade() {
-  if (musicFadeFrame !== null) {
-    cancelAnimationFrame(musicFadeFrame);
-
-    musicFadeFrame = null;
-  }
-}
-
-// =========================================================
-// FADE IN
-// =========================================================
-
-function fadeInBackgroundMusic() {
-  if (!backgroundMusic) {
-    return;
-  }
-
-  // Hentikan fade sebelumnya
-  cancelMusicFade();
-
-  // Status fade-out reset
-  musicIsFadingOut = false;
-
-  // Mulai dari volume 0
-  backgroundMusic.volume = 0;
-
-  const startTime = performance.now();
-
-  function fade(currentTime) {
-    // Kalau user pause,
-    // hentikan proses fade.
-    if (backgroundMusic.paused) {
-      musicFadeFrame = null;
-
-      return;
-    }
-
-    const elapsed = currentTime - startTime;
-
-    const progress = Math.min(elapsed / MUSIC_FADE_IN_DURATION, 1);
-
-    backgroundMusic.volume = progress * MUSIC_MAX_VOLUME;
-
-    if (progress < 1) {
-      musicFadeFrame = requestAnimationFrame(fade);
-    } else {
-      backgroundMusic.volume = MUSIC_MAX_VOLUME;
-
-      musicFadeFrame = null;
-    }
-  }
-
-  musicFadeFrame = requestAnimationFrame(fade);
-}
-
-// =========================================================
-// FADE OUT
-// =========================================================
-
-function fadeOutBackgroundMusic() {
-  if (!backgroundMusic) {
-    return;
-  }
-
-  // Jangan menjalankan fade-out
-  // berkali-kali
-  if (musicIsFadingOut) {
-    return;
-  }
-
-  musicIsFadingOut = true;
-
-  // Hentikan fade lain
-  cancelMusicFade();
-
-  const startingVolume = backgroundMusic.volume;
-
-  const fadeStartTime = performance.now();
-
-  /*
-    Hitung sisa waktu sebenarnya
-    sebelum MUSIC_END_TIME.
-  */
-
-  const remainingTime = Math.max(
-    0,
-    (MUSIC_END_TIME - backgroundMusic.currentTime) * 1000,
-  );
-
-  /*
-    Biasanya sama dengan
-    MUSIC_FADE_OUT_DURATION.
-
-    Tetapi ini menjaga fade tetap aman
-    jika browser terlambat memulai.
-  */
-
-  const fadeDuration = Math.min(MUSIC_FADE_OUT_DURATION, remainingTime);
-
-  function fade(currentTime) {
-    if (backgroundMusic.paused) {
-      musicFadeFrame = null;
-
-      return;
-    }
-
-    const elapsed = currentTime - fadeStartTime;
-
-    const progress = Math.min(elapsed / Math.max(fadeDuration, 1), 1);
-
-    backgroundMusic.volume = startingVolume * (1 - progress);
-
-    if (progress < 1 && backgroundMusic.currentTime < MUSIC_END_TIME) {
-      musicFadeFrame = requestAnimationFrame(fade);
-    } else {
-      backgroundMusic.volume = 0;
-
-      musicFadeFrame = null;
-    }
-  }
-
-  musicFadeFrame = requestAnimationFrame(fade);
-}
-
-// =========================================================
-// UPDATE MUSIC BUTTON
-// =========================================================
-
-function updateMusicButton() {
-  if (!backgroundMusic || !musicToggle) {
-    return;
-  }
-
-  const icon = musicToggle.querySelector("i");
-
-  // =====================================================
-  // PLAYING
-  // =====================================================
-
-  if (!backgroundMusic.paused) {
-    musicToggle.classList.add("is-playing");
-
-    if (icon) {
-      icon.className = "bi bi-vinyl-fill";
-    }
-
-    musicToggle.setAttribute("aria-label", "Pause music");
-  }
-
-  // =====================================================
-  // PAUSED
-  // =====================================================
-  else {
-    musicToggle.classList.remove("is-playing");
-
-    if (icon) {
-      icon.className = "bi bi-vinyl-fill";
-    }
-
-    musicToggle.setAttribute("aria-label", "Play music");
-  }
-}
-
-// =========================================================
-// INITIALIZE MUSIC
-// =========================================================
-
-async function initializeBackgroundMusic() {
-  if (!backgroundMusic) {
-    return false;
-  }
-
-  try {
-    await waitForMusicMetadata();
-
-    if (!validateMusicRange()) {
-      return false;
-    }
-
-    // Hanya pertama kali
-    if (!musicInitialized) {
-      backgroundMusic.currentTime = MUSIC_START_TIME;
-
-      backgroundMusic.volume = 0;
-
-      musicInitialized = true;
-
-      console.log(
-        `Music Range: ${MUSIC_START_MINUTE}:${String(
-          MUSIC_START_SECOND,
-        ).padStart(2, "0")} - ${MUSIC_END_MINUTE}:${String(
-          MUSIC_END_SECOND,
-        ).padStart(2, "0")}`,
-      );
-    }
-
-    return true;
-  } catch (error) {
-    console.error("Music initialization error:", error);
-
-    return false;
-  }
-}
-
-// =========================================================
-// LOOP MUSIC
-// =========================================================
-
-async function loopBackgroundMusic() {
-  if (!backgroundMusic) {
-    return;
-  }
-
-  // Jangan loop dua kali sekaligus
-  if (musicIsLooping) {
-    return;
-  }
-
-  musicIsLooping = true;
-
-  // Hentikan fade-out lama
-  cancelMusicFade();
-
-  // Kembali ke START
-  backgroundMusic.currentTime = MUSIC_START_TIME;
-
-  // Volume kembali 0
-  backgroundMusic.volume = 0;
-
-  // Reset fade-out
-  musicIsFadingOut = false;
-
-  try {
-    /*
-      Biasanya audio masih dalam
-      kondisi PLAY karena kita seek
-      sebelum file benar-benar selesai.
-
-      Tetapi kalau ternyata paused,
-      jalankan play kembali.
-    */
-
-    if (backgroundMusic.paused) {
-      await backgroundMusic.play();
-    }
-
-    // Fade-in setiap loop
-    fadeInBackgroundMusic();
-
-    console.log("Music Loop →", MUSIC_START_TIME);
-  } catch (error) {
-    console.log("Music loop gagal:", error);
-  }
-
-  musicIsLooping = false;
-
-  updateMusicButton();
-}
-
-// =========================================================
-// MONITOR MUSIC POSITION
-// =========================================================
-
-function monitorMusicPosition() {
-  if (!backgroundMusic) {
-    return;
-  }
-
-  // Kalau pause, hentikan monitor
-  if (backgroundMusic.paused) {
-    musicMonitorFrame = null;
-
-    return;
-  }
-
-  const currentTime = backgroundMusic.currentTime;
-
-  // =====================================================
-  // START FADE OUT
-  // =====================================================
-
-  if (
-    currentTime >= MUSIC_FADE_OUT_START &&
-    currentTime < MUSIC_END_TIME &&
-    !musicIsFadingOut
-  ) {
-    fadeOutBackgroundMusic();
-  }
-
-  // =====================================================
-  // END / LOOP
-  // =====================================================
-
-  if (currentTime >= MUSIC_END_TIME) {
-    loopBackgroundMusic();
-  }
-
-  musicMonitorFrame = requestAnimationFrame(monitorMusicPosition);
-}
-
-// =========================================================
-// START MUSIC MONITOR
-// =========================================================
-
-function startMusicMonitor() {
-  if (musicMonitorFrame !== null) {
-    cancelAnimationFrame(musicMonitorFrame);
-  }
-
-  musicMonitorFrame = requestAnimationFrame(monitorMusicPosition);
-}
-
-// =========================================================
-// STOP MUSIC MONITOR
-// =========================================================
-
-function stopMusicMonitor() {
-  if (musicMonitorFrame !== null) {
-    cancelAnimationFrame(musicMonitorFrame);
-
-    musicMonitorFrame = null;
-  }
-}
-
-// =========================================================
-// PLAY BACKGROUND MUSIC
-// =========================================================
-
-async function playBackgroundMusic(useFade = true) {
-  if (!backgroundMusic) {
-    return;
-  }
-
-  // Mencegah play request ganda
-  if (musicPlayPromise) {
-    return;
-  }
-
-  try {
-    const ready = await initializeBackgroundMusic();
-
-    if (!ready) {
-      return;
-    }
-
-    // ===================================================
-    // JIKA POSISI DI LUAR POTONGAN
-    // ===================================================
-
-    if (
-      backgroundMusic.currentTime < MUSIC_START_TIME ||
-      backgroundMusic.currentTime >= MUSIC_END_TIME
-    ) {
-      backgroundMusic.currentTime = MUSIC_START_TIME;
-    }
-
-    // ===================================================
-    // SOUND ON
-    // ===================================================
-
-    backgroundMusic.muted = false;
-
-    // ===================================================
-    // INITIAL VOLUME
-    // ===================================================
-
-    if (useFade) {
-      backgroundMusic.volume = 0;
-    } else {
-      backgroundMusic.volume = MUSIC_MAX_VOLUME;
-    }
-
-    // ===================================================
-    // PLAY
-    // ===================================================
-
-    musicPlayPromise = backgroundMusic.play();
-
-    await musicPlayPromise;
-
-    // ===================================================
-    // FADE IN
-    // ===================================================
-
-    if (useFade) {
-      fadeInBackgroundMusic();
-    }
-
-    // ===================================================
-    // MONITOR
-    // ===================================================
-
-    startMusicMonitor();
-
-    console.log("Music Playing:", backgroundMusic.currentTime);
-  } catch (error) {
-    if (error.name === "NotAllowedError") {
-      console.log("Autoplay diblokir browser.");
-    } else if (error.name === "AbortError") {
-      console.log("Play music dibatalkan.");
-    } else {
-      console.error("Music play error:", error);
-    }
-  } finally {
-    musicPlayPromise = null;
-
-    updateMusicButton();
-  }
-}
-
-// =========================================================
-// PAUSE BACKGROUND MUSIC
-// =========================================================
-
-function pauseBackgroundMusic() {
-  if (!backgroundMusic) {
-    return;
-  }
-
-  cancelMusicFade();
-
-  stopMusicMonitor();
-
-  musicIsFadingOut = false;
-
-  backgroundMusic.pause();
-
-  updateMusicButton();
-}
-
-// =========================================================
-// MUSIC TOGGLE BUTTON
-// =========================================================
-
-if (backgroundMusic && musicToggle) {
-  musicToggle.addEventListener("click", async (event) => {
-    event.stopPropagation();
-
-    // =================================================
-    // PAUSED → PLAY
-    // =================================================
-
-    if (backgroundMusic.paused) {
-      await playBackgroundMusic(true);
-    }
-
-    // =================================================
-    // PLAYING → PAUSE
-    // =================================================
-    else {
-      pauseBackgroundMusic();
-    }
-  });
-}
-
-// =========================================================
-// AUDIO PLAY EVENT
-// =========================================================
-
-if (backgroundMusic) {
-  backgroundMusic.addEventListener("play", () => {
-    updateMusicButton();
-
-    startMusicMonitor();
-  });
-}
-
-// =========================================================
-// AUDIO PAUSE EVENT
-// =========================================================
-
-if (backgroundMusic) {
-  backgroundMusic.addEventListener("pause", () => {
-    updateMusicButton();
-  });
-}
-
-// =========================================================
-// FALLBACK: AUDIO FILE ENDED
-// =========================================================
-
-if (backgroundMusic) {
-  backgroundMusic.addEventListener("ended", async () => {
-    /*
-        Normalnya tidak akan sampai sini,
-        karena loop sudah terjadi pada
-        MUSIC_END_TIME.
-
-        Ini hanya sebagai pengaman.
-      */
-
-    await loopBackgroundMusic();
-  });
-}
-
-// =========================================================
-// INITIAL BUTTON STATE
-// =========================================================
-
-updateMusicButton();
-
-// =========================================================
-// TRY AUTOPLAY
-// =========================================================
-
-window.addEventListener(
-  "load",
-  async () => {
-    await playBackgroundMusic(true);
-  },
-  {
-    once: true,
-  },
-);
-
-// =========================================================
-// VIDEO + BACKGROUND MUSIC CONNECTION
-// =========================================================
-
-const galleryMainVideo = document.querySelector(".gallery-video-element");
-
-// =========================================================
-// MUSIC STATE BEFORE VIDEO
-// =========================================================
-
-let musicWasPlayingBeforeVideo = false;
-
-// =========================================================
-// VIDEO PLAY
-// =========================================================
-
-if (galleryMainVideo && backgroundMusic) {
-  galleryMainVideo.addEventListener("play", () => {
-    /*
-        Cek apakah background music
-        sedang berjalan sebelum video play.
-      */
-
-    musicWasPlayingBeforeVideo = !backgroundMusic.paused;
-
-    /*
-        Kalau musik memang sedang berjalan,
-        pause musik.
-      */
-
-    if (musicWasPlayingBeforeVideo) {
-      pauseBackgroundMusic();
-    }
-  });
-
-  // =====================================================
-  // VIDEO PAUSE
-  // =====================================================
-
-  galleryMainVideo.addEventListener("pause", async () => {
-    /*
-        Kalau pause terjadi karena video
-        sudah benar-benar selesai,
-        biarkan event ended yang menangani.
-      */
-
-    if (galleryMainVideo.ended) {
-      return;
-    }
-
-    await resumeMusicAfterVideo();
-  });
-
-  // =====================================================
-  // VIDEO ENDED
-  // =====================================================
-
-  galleryMainVideo.addEventListener("ended", async () => {
-    await resumeMusicAfterVideo();
-  });
-}
-
-// =========================================================
-// RESUME BACKGROUND MUSIC
-// =========================================================
-
-async function resumeMusicAfterVideo() {
-  /*
-    Kalau sebelum video dimulai
-    musik memang dalam keadaan pause,
-    jangan hidupkan otomatis.
-  */
-
-  if (!musicWasPlayingBeforeVideo) {
-    return;
-  }
-
-  /*
-    Reset dulu supaya tidak terjadi
-    pemanggilan dua kali.
-  */
-
-  musicWasPlayingBeforeVideo = false;
-
-  /*
-    Gunakan function music yang sudah
-    kita buat sebelumnya.
-
-    true = gunakan fade-in.
-  */
-
-  await playBackgroundMusic(true);
-}
-
-// =============================================
-// KODE BACKGROUND MUSIC ANDA
-// =============================================
-
-// playBackgroundMusic()
-// pauseBackgroundMusic()
-// fadeIn...
-// fadeOut...
-// loop...
-// dll
-
-// =============================================
-// VIDEO + BACKGROUND MUSIC CONNECTION
-// KODE YANG SAYA BERIKAN SEBELUMNYA
-// JANGAN DIHAPUS
-// =============================================
 
 // =========================================================
 // BACKGROUND MUSIC SYSTEM
@@ -2970,42 +2203,6 @@ const revealScrollObserver = new IntersectionObserver(
 
 revealScrollItems.forEach((item) => {
   revealScrollObserver.observe(item);
-});
-// =========================================================
-// GLOBAL REVEAL UP
-// =========================================================
-
-const revealUpElements = document.querySelectorAll(".reveal-up");
-
-const revealUpObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      // ===============================================
-      // MASUK VIEWPORT
-      // ===============================================
-
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-      }
-
-      // ===============================================
-      // KELUAR VIEWPORT
-      // ===============================================
-      else {
-        entry.target.classList.remove("is-visible");
-      }
-    });
-  },
-
-  {
-    threshold: 0.15,
-
-    rootMargin: "0px 0px -5% 0px",
-  },
-);
-
-revealUpElements.forEach((element) => {
-  revealUpObserver.observe(element);
 });
 // =========================================================
 // GLOBAL REVEAL ANIMATION
