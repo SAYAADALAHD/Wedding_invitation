@@ -9,11 +9,6 @@
 })(jQuery);
 
 // =====================================================
-// =====================================================
-// OPENING BUTTON
-// =====================================================
-
-// =====================================================
 // OPENING BUTTON
 // =====================================================
 
@@ -44,9 +39,7 @@ if (openButton) {
     }, 1400);
   });
 }
-// =====================================================
-// GUEST DATABASE
-// =====================================================
+
 // =====================================================
 // GUEST DATABASE
 // =====================================================
@@ -343,47 +336,17 @@ function updateTimeline() {
 
   const timelineRect = timeline.getBoundingClientRect();
 
-  /*
-    Titik kontrol berada pada 75%
-    dari tinggi viewport.
-
-    Artinya ketika sebuah bagian timeline
-    mencapai sekitar 75% tinggi layar,
-    garis akan mengikuti bagian tersebut.
-  */
-
   const triggerPoint = window.innerHeight * 0.75;
 
   // =======================================================
   // CALCULATE PROGRESS
   // =======================================================
 
-  /*
-    Menghitung jarak dari bagian atas timeline
-    menuju trigger point.
-  */
-
   const distance = triggerPoint - timelineRect.top;
-
-  /*
-    Tinggi keseluruhan timeline.
-  */
 
   const timelineHeight = timelineRect.height;
 
-  /*
-    Mengubah distance menjadi nilai 0 - 1.
-  */
-
   let progress = distance / timelineHeight;
-
-  /*
-    Batasi nilai supaya tidak:
-
-    < 0
-    atau
-    > 1
-  */
 
   progress = Math.max(0, Math.min(progress, 1));
 
@@ -398,26 +361,12 @@ function updateTimeline() {
   // =======================================================
 
   dots.forEach((dot) => {
-    /*
-      Posisi dot terhadap viewport.
-    */
-
     const dotRect = dot.getBoundingClientRect();
-
-    /*
-      Selisih posisi dot dengan
-      trigger point.
-    */
-
     const dotPosition = dotRect.top - triggerPoint;
 
     // -----------------------------------------------------
     // DOT ACTIVE
     // -----------------------------------------------------
-
-    /*
-      Ketika garis mencapai dot.
-    */
 
     if (dotPosition <= 0) {
       dot.classList.add("active");
@@ -428,11 +377,6 @@ function updateTimeline() {
     // -----------------------------------------------------
     // DOT REACHED
     // -----------------------------------------------------
-
-    /*
-      Ketika garis sudah sedikit
-      melewati dot.
-    */
 
     if (dotPosition <= -5) {
       dot.classList.add("reached");
@@ -447,11 +391,6 @@ function updateTimeline() {
 
   const loveRect = loveCircle.getBoundingClientRect();
 
-  /*
-    Menghitung posisi love terhadap
-    trigger point.
-  */
-
   const lovePosition = loveRect.top - triggerPoint;
 
   // =======================================================
@@ -459,23 +398,10 @@ function updateTimeline() {
   // =======================================================
 
   if (lovePosition <= 0) {
-    /*
-      Aktifkan lingkaran.
-    */
-
     loveCircle.classList.add("active");
-
-    /*
-      Mulai detak jantung.
-    */
 
     loveCircle.classList.add("beating");
   } else {
-    /*
-      Jika user scroll kembali ke atas,
-      matikan keadaan aktif.
-    */
-
     loveCircle.classList.remove("active");
 
     loveCircle.classList.remove("beating");
@@ -493,11 +419,6 @@ function updateTimeline() {
 // =========================================================
 
 function requestTimelineUpdate() {
-  /*
-    Jangan menjalankan update terlalu banyak
-    dalam satu frame.
-  */
-
   if (!ticking) {
     window.requestAnimationFrame(updateTimeline);
 
@@ -1010,11 +931,6 @@ const RSVP_FIELDS = {
 
 // =====================================================
 // WISHES API
-//
-// Untuk sementara dikosongkan.
-//
-// Nanti URL Apps Script baru untuk membaca
-// Google Sheets RSVP kita masukkan di sini.
 // =====================================================
 
 const WISHES_API =
@@ -1093,20 +1009,6 @@ async function loadWishes() {
     const data = await response.json();
 
     console.log("Wishes dari Apps Script:", data);
-
-    // =================================================
-    // DUKUNG DUA FORMAT RESPONSE
-    //
-    // [...]
-    //
-    // atau
-    //
-    // {
-    //   success: true,
-    //   wishes: [...]
-    // }
-    // =================================================
-
     const wishes = Array.isArray(data) ? data : data.wishes;
 
     renderWishes(wishes);
@@ -1211,8 +1113,6 @@ function renderWishes(wishes) {
 
 // =====================================================
 // ESCAPE HTML
-//
-// Mencegah input user dibaca sebagai HTML.
 // =====================================================
 
 function escapeHTML(value) {
@@ -1353,10 +1253,6 @@ if (wishForm) {
     try {
       // ===============================================
       // KIRIM KE GOOGLE FORM
-      //
-      // no-cors diperlukan karena Google Form
-      // tidak menyediakan response CORS untuk
-      // website eksternal.
       // ===============================================
 
       await fetch(RSVP_FORM_URL, {
@@ -1405,9 +1301,6 @@ if (wishForm) {
 
       // ===============================================
       // REFRESH WISHES
-      //
-      // Hanya berjalan setelah WISHES_API
-      // nanti sudah kita isi.
       // ===============================================
 
       if (WISHES_API) {
@@ -1473,9 +1366,6 @@ function hideWishMessage() {
 
 // =====================================================
 // LAZY LOAD WISHES
-//
-// Wishes baru dimuat ketika user
-// mendekati section Wishes.
 // =====================================================
 
 const wishesSection = document.querySelector(".wishes-section");
@@ -1548,13 +1438,6 @@ function fallbackGiftCopy(value) {
 
   textarea.setAttribute("readonly", "");
 
-  /*
-    Jangan diletakkan -9999px.
-
-    Beberapa browser mobile lebih konsisten
-    jika textarea tetap berada di viewport.
-  */
-
   textarea.style.position = "fixed";
   textarea.style.top = "0";
   textarea.style.left = "0";
@@ -1568,10 +1451,6 @@ function fallbackGiftCopy(value) {
   textarea.focus();
 
   textarea.select();
-
-  /*
-    Penting untuk Safari / iOS
-  */
 
   textarea.setSelectionRange(0, textarea.value.length);
 
@@ -1595,22 +1474,11 @@ function fallbackGiftCopy(value) {
 // =========================================================
 
 async function copyGiftValue(value) {
-  /*
-    Pertama coba fallback synchronous.
-
-    Karena masih berlangsung langsung
-    dari event CLICK pengguna.
-  */
-
   const fallbackSuccess = fallbackGiftCopy(value);
 
   if (fallbackSuccess) {
     return true;
   }
-
-  /*
-    Jika gagal, coba Clipboard API modern.
-  */
 
   if (navigator.clipboard && window.isSecureContext) {
     try {
@@ -2116,14 +1984,6 @@ giftCopyButtons.forEach((button) => {
     musicWasPlayingBeforeVideo = false;
 
     try {
-      /*
-        Musik akan lanjut dari posisi terakhir
-        sebelum video dimainkan.
-
-        Tidak kembali ke menit 3:00,
-        kecuali memang sudah keluar dari range.
-      */
-
       await playMusic(true);
     } catch (error) {
       console.log("Gagal melanjutkan background music:", error);
@@ -2150,11 +2010,6 @@ giftCopyButtons.forEach((button) => {
 
       console.log("Background music autoplay berhasil.");
     } catch (error) {
-      /*
-        Ini normal pada Chrome / Edge / Safari
-        jika browser belum menerima interaksi user.
-      */
-
       console.log("Autoplay diblokir browser.");
     }
   }
@@ -2177,11 +2032,6 @@ giftCopyButtons.forEach((button) => {
 
   async function unlockMusic(event) {
     const target = event.target;
-
-    /*
-      Pastikan target berupa Element
-      sebelum memakai closest().
-    */
 
     if (!(target instanceof Element)) {
       return;
