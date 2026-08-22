@@ -1488,7 +1488,6 @@ if (wishesSection) {
 
   wishesObserver.observe(wishesSection);
 }
-
 // =========================================================
 // WEDDING GIFT
 // COPY DATA
@@ -1509,27 +1508,11 @@ function showGiftCopyMessage(message) {
     return;
   }
 
-  // ===============================================
-  // SET MESSAGE
-  // ===============================================
-
   giftCopyMessage.textContent = message;
-
-  // ===============================================
-  // SHOW
-  // ===============================================
 
   giftCopyMessage.classList.add("show");
 
-  // ===============================================
-  // RESET OLD TIMER
-  // ===============================================
-
   clearTimeout(giftCopyTimer);
-
-  // ===============================================
-  // AUTO HIDE
-  // ===============================================
 
   giftCopyTimer = setTimeout(() => {
     giftCopyMessage.classList.remove("show");
@@ -1538,6 +1521,7 @@ function showGiftCopyMessage(message) {
 
 // =========================================================
 // FALLBACK COPY
+// Safari / browser mobile compatibility
 // =========================================================
 
 function fallbackGiftCopy(value) {
@@ -1545,11 +1529,22 @@ function fallbackGiftCopy(value) {
 
   textarea.value = value;
 
+  textarea.setAttribute("readonly", "");
+
+  /*
+    Jangan diletakkan -9999px.
+
+    Beberapa browser mobile lebih konsisten
+    jika textarea tetap berada di viewport.
+  */
+
   textarea.style.position = "fixed";
-
-  textarea.style.left = "-9999px";
-
-  textarea.style.top = "-9999px";
+  textarea.style.top = "0";
+  textarea.style.left = "0";
+  textarea.style.width = "1px";
+  textarea.style.height = "1px";
+  textarea.style.opacity = "0";
+  textarea.style.pointerEvents = "none";
 
   document.body.appendChild(textarea);
 
@@ -1557,9 +1552,60 @@ function fallbackGiftCopy(value) {
 
   textarea.select();
 
-  document.execCommand("copy");
+  /*
+    Penting untuk Safari / iOS
+  */
+
+  textarea.setSelectionRange(0, textarea.value.length);
+
+  let success = false;
+
+  try {
+    success = document.execCommand("copy");
+  } catch (error) {
+    console.log("Legacy copy gagal:", error);
+
+    success = false;
+  }
 
   textarea.remove();
+
+  return success;
+}
+
+// =========================================================
+// COPY FUNCTION
+// =========================================================
+
+async function copyGiftValue(value) {
+  /*
+    Pertama coba fallback synchronous.
+
+    Karena masih berlangsung langsung
+    dari event CLICK pengguna.
+  */
+
+  const fallbackSuccess = fallbackGiftCopy(value);
+
+  if (fallbackSuccess) {
+    return true;
+  }
+
+  /*
+    Jika gagal, coba Clipboard API modern.
+  */
+
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(value);
+
+      return true;
+    } catch (error) {
+      console.log("Clipboard API gagal:", error);
+    }
+  }
+
+  return false;
 }
 
 // =========================================================
@@ -1567,61 +1613,39 @@ function fallbackGiftCopy(value) {
 // =========================================================
 
 giftCopyButtons.forEach((button) => {
-  button.addEventListener("click", async () => {
-    // =============================================
-    // DATA YANG AKAN DISALIN
-    // =============================================
-
-    const copyValue = button.dataset.copy || "";
+  button.addEventListener("click", async (event) => {
+    event.preventDefault();
 
     // =============================================
-    // MESSAGE
+    // DATA COPY
+    // =============================================
+
+    const copyValue = String(button.dataset.copy || "").trim();
+
+    // =============================================
+    // SUCCESS MESSAGE
     // =============================================
 
     const copyMessage = button.dataset.message || "Berhasil disalin";
-
-    // =============================================
-    // EMPTY VALUE
-    // =============================================
 
     if (!copyValue) {
       return;
     }
 
-    try {
-      // ===========================================
-      // MODERN CLIPBOARD API
-      // ===========================================
+    // =============================================
+    // COPY
+    // =============================================
 
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(copyValue);
-      } else {
-        // =========================================
-        // FALLBACK
-        // =========================================
+    const success = await copyGiftValue(copyValue);
 
-        fallbackGiftCopy(copyValue);
-      }
+    // =============================================
+    // RESULT
+    // =============================================
 
-      // ===========================================
-      // SUCCESS MESSAGE
-      // ===========================================
-
+    if (success) {
       showGiftCopyMessage(copyMessage);
-    } catch (error) {
-      console.log("Gagal menyalin:", error);
-
-      // ===========================================
-      // SECOND FALLBACK
-      // ===========================================
-
-      try {
-        fallbackGiftCopy(copyValue);
-
-        showGiftCopyMessage(copyMessage);
-      } catch (fallbackError) {
-        console.log("Fallback copy gagal:", fallbackError);
-      }
+    } else {
+      showGiftCopyMessage("Gagal menyalin. Silakan salin secara manual.");
     }
   });
 });

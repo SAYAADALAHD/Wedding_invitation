@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" name="format-detection" content="telephone=no"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -3560,6 +3560,36 @@
       }
 
       /* =========================================================
+   WEDDING GIFT - BROWSER DATA DETECTOR FIX
+========================================================= */
+
+.wedding-gift a,
+.wedding-gift a:visited,
+.wedding-gift a:hover,
+.wedding-gift a:active {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Safari / iPhone automatic data detection */
+.wedding-gift a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  font: inherit !important;
+}
+
+/* Paksa data Wedding Gift mengikuti desain */
+.gift-number,
+.gift-owner,
+.gift-address-label,
+.gift-address-value {
+  color: #111111 !important;
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  -webkit-text-fill-color: #111111;
+}
+      /* =========================================================
    SMALL MOBILE
 ========================================================= */
 
@@ -6233,7 +6263,7 @@
 
                   <!-- PROVIDER LOGO -->
                   <div class="gift-provider-logo">
-                    <img src="assets/decorations/Bank Logo.png" alt="Bank" loading="lazy" decoding="async" />
+                    <img src="assets/decorations/Bank Logo.png" alt="Bank" decoding="async" />
                   </div>
                 </div>
 
@@ -6295,7 +6325,7 @@
 
                 <div class="gift-card-top gift-card-top-wallet">
                   <div class="gift-provider-logo">
-                    <img src="assets/decorations/Dana Logo.png" alt="DANA" loading="lazy" decoding="async" />
+                    <img src="assets/decorations/Dana Logo.png" alt="DANA" decoding="async" />
                   </div>
                 </div>
 
@@ -6358,7 +6388,7 @@
                 <img
                   src="assets/decorations/wedding gift.png"
                   class="gift-icon"
-                  alt="Wedding Gift" loading="lazy" decoding="async" />
+                  alt="Wedding Gift" decoding="async" />
 
                 <!-- =========================================
                ADDRESS DATA
