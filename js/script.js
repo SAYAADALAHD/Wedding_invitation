@@ -13,14 +13,34 @@
 // OPENING BUTTON
 // =====================================================
 
+// =====================================================
+// OPENING BUTTON
+// =====================================================
+
 const openButton = document.getElementById("open-invitation");
 
 if (openButton) {
   openButton.addEventListener("click", () => {
+    // Jalankan animasi opening
     document.body.classList.add("opening-exit");
 
+    // Tunggu animasi selesai
     setTimeout(() => {
-      window.location.href = "fullpage.html";
+      // Bawa semua parameter URL tamu
+      const queryString = window.location.search;
+
+      // Saat development dengan Live Server
+      if (
+        window.location.hostname === "127.0.0.1" ||
+        window.location.hostname === "localhost"
+      ) {
+        window.location.href = `fullpage.html${queryString}`;
+
+        return;
+      }
+
+      // Saat sudah online di Netlify
+      window.location.href = `/undangan${queryString}`;
     }, 1400);
   });
 }
@@ -746,9 +766,6 @@ if (galleryVideo && videoElement && playButton) {
     // tampilkan control terlebih dahulu
     showVideoControls();
   });
-  // =================================================
-  // EVENT PAUSE
-  // =================================================
 
   // =================================================
   // EVENT PAUSE
