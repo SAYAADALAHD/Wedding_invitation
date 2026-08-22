@@ -5,31 +5,31 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Wedding Invitation</title>
+    <title>Ashrul&Diana Wedding</title>
 
     <link rel="stylesheet" href="css/style.css" />
-      <style>
-        .opening {
-          transition:
-            transform 1.4s cubic-bezier(0.77, 0, 0.18, 1),
-            opacity 1.1s ease;
-        }
-    
-        /* Saat tombol ditekan */
-    
-        body.opening-exit .opening {
-          transform: translateY(-100%);
-          opacity: 0;
-        }
-    
-        .sakura-falling {
-          transition: opacity 1.4s ease;
-        }
-    
-        body.opening-exit .sakura-falling {
-          opacity: 0;
-        }
-      </style>
+    <style>
+      .opening {
+        transition:
+          transform 1.4s cubic-bezier(0.77, 0, 0.18, 1),
+          opacity 1.1s ease;
+      }
+
+      /* Saat tombol ditekan */
+
+      body.opening-exit .opening {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+
+      .sakura-falling {
+        transition: opacity 1.4s ease;
+      }
+
+      body.opening-exit .sakura-falling {
+        opacity: 0;
+      }
+    </style>
   </head>
   <body>
     <!-- =========================================
@@ -46,7 +46,11 @@
         <!-- BACKGROUND IMAGE -->
 
         <div class="opening-image">
-          <img src="assets/images/Foto-001.jpg" alt="Foto pengantin" fetchpriority="high" />
+          <img
+            src="assets/images/Foto-001.jpg"
+            alt="Foto pengantin"
+            fetchpriority="high"
+          />
         </div>
 
         <!-- COLOR / GRADIENT OVERLAY -->
@@ -70,10 +74,18 @@
         <!-- OPENING DECORATIONS -->
         <div class="opening-decorations">
           <div class="opening-decorations-right">
-            <img src="assets/decorations/Flowers 1.png" alt="Flowers" decoding="async" />
+            <img
+              src="assets/decorations/Flowers 1.png"
+              alt="Flowers"
+              decoding="async"
+            />
           </div>
           <div class="opening-decorations-left">
-            <img src="assets/decorations/Flowers 1.png" alt="Flowers" decoding="async" />
+            <img
+              src="assets/decorations/Flowers 1.png"
+              alt="Flowers"
+              decoding="async"
+            />
           </div>
         </div>
 
@@ -92,11 +104,12 @@
             <h1>Diana</h1>
           </div>
 
+          <!-- TANGGAL -->
+          <p class="tanggal">16 September 2026</p>
           <!-- GUEST -->
 
-          <p class="opening-guest" id="openingGuest">
-            Kepada Yth. Bapak/Ibu tamu undangan
-          </p>
+          <p class="opening-guest">Kepada Yth. Bapak/Ibu tamu undangan</p>
+          <h3 class="nama-tamu" id="nama-tamu">( nama tamu )</h3>
 
           <!-- OPEN BUTTON -->
 
@@ -110,14 +123,6 @@
           </button>
         </div>
       </section>
-
-      <!-- =====================================
-             MUSIC CONTROL
-        ====================================== -->
-
-      <button class="music-button" type="button" aria-label="Putar musik">
-        ♪
-      </button>
 
       <!-- =====================================
              CONTENT SETELAH OPENING

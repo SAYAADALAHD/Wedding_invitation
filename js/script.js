@@ -9,6 +9,7 @@
 })(jQuery);
 
 // =====================================================
+// =====================================================
 // OPENING BUTTON
 // =====================================================
 
@@ -16,108 +17,141 @@ const openButton = document.getElementById("open-invitation");
 
 if (openButton) {
   openButton.addEventListener("click", () => {
-    // Jalankan animasi opening
     document.body.classList.add("opening-exit");
 
-    // Tunggu animasi selesai
     setTimeout(() => {
-      if (guestId) {
-        window.location.href = `fullpage.html?guest=${encodeURIComponent(guestId)}`;
-      } else {
-        window.location.href = "fullpage.html";
-      }
+      window.location.href = "fullpage.html";
     }, 1400);
   });
 }
-
 // =====================================================
 // GUEST DATABASE
 // =====================================================
-
 // =====================================================
 // GUEST DATABASE
 // =====================================================
 
 const GUEST_API =
-  "https://script.google.com/macros/s/AKfycbzhVPfnvzJPZwt996SJgWfPWpeflPL2dNdGyzigz1I1zeEHiRow-YF0F3VWVTeOHq5pMg/exec";
+  "https://script.google.com/macros/s/AKfycbyecqm5stMny0MV3GLQggDpg4VhyYr412NIIQeY-dvq2Zj8wSuqgNhKeQezBwSsbA_bPQ/exec";
 
 // =====================================================
 // CURRENT GUEST
-// Disimpan global supaya bisa dipakai RSVP / Wishes
 // =====================================================
 
 let currentGuest = null;
 
 // =====================================================
-// AMBIL GUEST ID DARI URL
+// URL PARAMETER
 // =====================================================
 
 const urlParams = new URLSearchParams(window.location.search);
 
-const guestId = urlParams.get("guest");
+const guestSlug = urlParams.get("to");
+
+// =====================================================
+// CALLBACK JSONP
+// =====================================================
+
+window.handleGuestResponse = function (guest) {
+  const namaTamu = document.getElementById("nama-tamu");
+
+  console.log("Guest response:", guest);
+
+  // Element nama tamu tidak ada
+  if (!namaTamu) {
+    return;
+  }
+
+  // Guest tidak ditemukan
+  if (!guest || !guest.success) {
+    namaTamu.textContent = "Tamu Undangan";
+
+    console.warn(guest?.message || "Guest tidak ditemukan.");
+
+    return;
+  }
+
+  // Simpan guest
+  currentGuest = guest;
+
+  // =================================================
+  // TAMPILKAN NAMA TAMU
+  // =================================================
+
+  namaTamu.textContent = guest.displayName;
+};
 
 // =====================================================
 // LOAD GUEST
 // =====================================================
 
-async function loadGuest() {
-  const openingGuest = document.getElementById("openingGuest");
+function loadGuest() {
+  const namaTamu = document.getElementById("nama-tamu");
 
-  if (!guestId) {
-    console.warn("Guest ID tidak ditemukan di URL.");
+  // Guest hanya dipakai di halaman yang memiliki
+  // element #nama-tamu
+  if (!namaTamu) {
+    return;
+  }
+
+  // Tidak ada parameter ?to=
+  if (!guestSlug) {
+    namaTamu.textContent = "Tamu Undangan";
+
+    console.warn("Parameter ?to= tidak ditemukan.");
 
     return;
   }
 
-  try {
-    const response = await fetch(
-      `${GUEST_API}?guest=${encodeURIComponent(guestId)}`,
-    );
+  // =================================================
+  // BUAT JSONP SCRIPT
+  // =================================================
 
-    if (!response.ok) {
-      throw new Error("Gagal mengambil data guest.");
-    }
+  const guestScript = document.createElement("script");
 
-    const guest = await response.json();
+  guestScript.async = true;
 
-    console.log("Guest data:", guest);
+  guestScript.src =
+    `${GUEST_API}` +
+    `?to=${encodeURIComponent(guestSlug)}` +
+    `&callback=handleGuestResponse`;
 
-    if (!guest.success) {
-      console.warn("Guest tidak ditemukan.");
+  console.log("Memuat Guest API:", guestScript.src);
 
-      return;
-    }
+  // =================================================
+  // BERHASIL DIMUAT
+  // =================================================
 
-    // =================================================
-    // SIMPAN GUEST SECARA GLOBAL
-    // =================================================
+  guestScript.onload = function () {
+    console.log("Guest API berhasil dimuat.");
 
-    currentGuest = guest;
+    guestScript.remove();
+  };
 
-    // =================================================
-    // OPENING PAGE
-    // =================================================
+  // =================================================
+  // GAGAL DIMUAT
+  // =================================================
 
-    if (openingGuest) {
-      openingGuest.textContent = `Kepada Yth. ${guest.panggilan} ${guest.nama}`;
-    }
+  guestScript.onerror = function () {
+    console.error("Guest API gagal dimuat:", guestScript.src);
 
-    // =================================================
-    // MASUKKAN DATA KE RSVP / WISHES
-    // =================================================
+    namaTamu.textContent = "Tamu Undangan";
 
-    applyGuestToWishes(guest);
-  } catch (error) {
-    console.error("Gagal mengambil data guest:", error);
-  }
+    guestScript.remove();
+  };
+
+  // =================================================
+  // REQUEST API
+  // =================================================
+
+  document.head.appendChild(guestScript);
 }
 
 // =====================================================
-// JALANKAN GUEST DATABASE
+// START
 // =====================================================
 
 loadGuest();
-
 // =====================================================
 // WEDDING DATA
 // =====================================================
@@ -934,14 +968,40 @@ if (galleryVideo && videoElement && playButton) {
   }
 }
 
-// LINK GOOGLE DRIVE//
-
-const RSVP_API =
-  "https://script.google.com/macros/s/AKfycbzezxM8zLkNqc5uAPK51456dXSI_FLVLAnhemT11pToJX_9Sefa2Pa5x_G1RA0MDI6gbg/exec";
-
-// =====================================================
+/// =====================================================
 // WISHES / RSVP
 // =====================================================
+
+// =====================================================
+// GOOGLE FORM
+// =====================================================
+
+const RSVP_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSd9DZk0rwhd5qEx19rnWC9bsynIlzRlxKR34ZHScomasKLNsA/formResponse";
+
+// =====================================================
+// GOOGLE FORM FIELD ID
+// =====================================================
+
+const RSVP_FIELDS = {
+  nama: "entry.723494919",
+
+  komentar: "entry.1856950076",
+
+  kehadiran: "entry.955070318",
+};
+
+// =====================================================
+// WISHES API
+//
+// Untuk sementara dikosongkan.
+//
+// Nanti URL Apps Script baru untuk membaca
+// Google Sheets RSVP kita masukkan di sini.
+// =====================================================
+
+const WISHES_API =
+  "https://script.google.com/macros/s/AKfycbx0Wmc4Pd3TVJzgRr_xPMpXywpaJ4xCx9stPjVymIyumnNT0J1-5v3-Pq-cxWiZGHqt_g/exec";
 
 // =====================================================
 // ELEMENT
@@ -957,59 +1017,11 @@ const wishSubmit = document.getElementById("wishSubmit");
 
 const wishMessage = document.getElementById("wishMessage");
 
+const namaInput = document.getElementById("nama");
+
 const komentarInput = document.getElementById("komentar");
 
 const wishCharacterCount = document.getElementById("wishCharacterCount");
-
-const rsvpGuestName = document.getElementById("rsvpGuestName");
-
-const guestIdInput = document.getElementById("guestId");
-
-const namaInput = document.getElementById("nama");
-
-const panggilanInput = document.getElementById("panggilan");
-
-// =====================================================
-// APPLY GUEST DATA KE RSVP
-// =====================================================
-
-function applyGuestToWishes(guest) {
-  if (!guest || !guest.success) {
-    return;
-  }
-
-  // ===============================================
-  // GUEST ID
-  // ===============================================
-
-  if (guestIdInput) {
-    guestIdInput.value = guest.guestId || "";
-  }
-
-  // ===============================================
-  // NAMA
-  // ===============================================
-
-  if (namaInput) {
-    namaInput.value = guest.nama || "";
-  }
-
-  // ===============================================
-  // PANGGILAN
-  // ===============================================
-
-  if (panggilanInput) {
-    panggilanInput.value = guest.panggilan || "";
-  }
-
-  // ===============================================
-  // TAMPILKAN NAMA TAMU
-  // ===============================================
-
-  if (rsvpGuestName) {
-    rsvpGuestName.textContent = `${guest.panggilan} ${guest.nama}`;
-  }
-}
 
 // =====================================================
 // CHARACTER COUNTER
@@ -1026,20 +1038,59 @@ if (komentarInput && wishCharacterCount) {
 // =====================================================
 
 async function loadWishes() {
+  // ===================================================
+  // API BELUM DIBUAT
+  // ===================================================
+
+  if (!WISHES_API) {
+    if (wishLoading) {
+      wishLoading.style.display = "none";
+    }
+
+    if (wishList) {
+      wishList.innerHTML = `
+        <div class="wish-empty">
+          Belum ada ucapan.
+        </div>
+      `;
+    }
+
+    return;
+  }
+
+  // ===================================================
+  // LOAD DATA
+  // ===================================================
+
   try {
     if (wishLoading) {
       wishLoading.style.display = "block";
     }
 
-    const response = await fetch(RSVP_API);
+    const response = await fetch(WISHES_API);
 
     if (!response.ok) {
-      throw new Error("Gagal mengambil data.");
+      throw new Error("Gagal mengambil data ucapan.");
     }
 
-    const wishes = await response.json();
+    const data = await response.json();
 
-    console.log("Wishes dari Apps Script:", wishes);
+    console.log("Wishes dari Apps Script:", data);
+
+    // =================================================
+    // DUKUNG DUA FORMAT RESPONSE
+    //
+    // [...]
+    //
+    // atau
+    //
+    // {
+    //   success: true,
+    //   wishes: [...]
+    // }
+    // =================================================
+
+    const wishes = Array.isArray(data) ? data : data.wishes;
 
     renderWishes(wishes);
   } catch (error) {
@@ -1068,6 +1119,10 @@ function renderWishes(wishes) {
     return;
   }
 
+  // ===================================================
+  // RESET LIST
+  // ===================================================
+
   wishList.innerHTML = "";
 
   // ===================================================
@@ -1094,7 +1149,7 @@ function renderWishes(wishes) {
     card.className = "wish-card";
 
     // =================================================
-    // STATUS
+    // STATUS KEHADIRAN
     // =================================================
 
     const statusClass = wish.kehadiran === "Tidak Hadir" ? "absent" : "";
@@ -1104,36 +1159,28 @@ function renderWishes(wishes) {
     // =================================================
 
     card.innerHTML = `
-      <div class="wish-card-top">
-      
 
-        <div class="wish-identity">
+        <div class="wish-card-top">
 
-          <span class="wish-panggilan">
-            ${escapeHTML(wish.panggilan)}
-          </span>
-
-          <span class="wish-name">
+          <div class="wish-name">
             ${escapeHTML(wish.nama)}
+          </div>
+
+
+          <span
+            class="wish-status ${statusClass}"
+          >
+            ${escapeHTML(wish.kehadiran)}
           </span>
 
         </div>
 
 
-        <span
-          class="wish-status ${statusClass}"
-        >
-          ${escapeHTML(wish.kehadiran)}
-        </span>
+        <p class="wish-comment">
+          ${escapeHTML(wish.komentar)}
+        </p>
 
-      </div>
-
-
-      <p class="wish-comment">
-        ${escapeHTML(wish.komentar)}
-      </p>
-
-    `;
+      `;
 
     // =================================================
     // ANIMATION DELAY
@@ -1147,6 +1194,8 @@ function renderWishes(wishes) {
 
 // =====================================================
 // ESCAPE HTML
+//
+// Mencegah input user dibaca sebagai HTML.
 // =====================================================
 
 function escapeHTML(value) {
@@ -1170,35 +1219,77 @@ if (wishForm) {
   wishForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // ===============================================
-    // VALIDASI GUEST
-    // ===============================================
+    // =================================================
+    // AMBIL NAMA
+    // =================================================
 
-    if (!currentGuest) {
-      showWishMessage("Data tamu belum berhasil dimuat.");
+    const nama = namaInput?.value.trim();
 
-      return;
-    }
-
-    // ===============================================
-    // AMBIL DATA
-    // ===============================================
+    // =================================================
+    // AMBIL UCAPAN
+    // =================================================
 
     const komentar = komentarInput?.value.trim();
+
+    // =================================================
+    // AMBIL KEHADIRAN
+    // =================================================
 
     const kehadiran = document.querySelector(
       'input[name="kehadiran"]:checked',
     )?.value;
 
-    // ===============================================
-    // VALIDASI
-    // ===============================================
+    // =================================================
+    // VALIDASI NAMA
+    // =================================================
+
+    if (!nama) {
+      showWishMessage("Nama belum diisi.");
+
+      if (namaInput) {
+        namaInput.focus();
+      }
+
+      return;
+    }
+
+    // =================================================
+    // VALIDASI PANJANG NAMA
+    // =================================================
+
+    if (nama.length > 60) {
+      showWishMessage("Nama maksimal 60 karakter.");
+
+      return;
+    }
+
+    // =================================================
+    // VALIDASI UCAPAN
+    // =================================================
 
     if (!komentar) {
       showWishMessage("Ucapan & doa belum diisi.");
 
+      if (komentarInput) {
+        komentarInput.focus();
+      }
+
       return;
     }
+
+    // =================================================
+    // VALIDASI PANJANG UCAPAN
+    // =================================================
+
+    if (komentar.length > 300) {
+      showWishMessage("Ucapan maksimal 300 karakter.");
+
+      return;
+    }
+
+    // =================================================
+    // VALIDASI KEHADIRAN
+    // =================================================
 
     if (!kehadiran) {
       showWishMessage("Silakan pilih kehadiran.");
@@ -1206,29 +1297,29 @@ if (wishForm) {
       return;
     }
 
-    // ===============================================
+    // =================================================
     // LOADING
-    // ===============================================
+    // =================================================
 
     setSubmitLoading(true);
 
     hideWishMessage();
 
-    // ===============================================
-    // DATA
-    // ===============================================
+    // =================================================
+    // DATA GOOGLE FORM
+    // =================================================
 
-    const data = {
-      guestId: currentGuest.guestId,
+    const body = new URLSearchParams();
 
-      panggilan: currentGuest.panggilan,
+    body.append(RSVP_FIELDS.nama, nama);
 
-      nama: currentGuest.nama,
+    body.append(RSVP_FIELDS.komentar, komentar);
 
-      komentar: komentar,
+    body.append(RSVP_FIELDS.kehadiran, kehadiran);
 
-      kehadiran: kehadiran,
-    };
+    // =================================================
+    // DEBUG
+    // =================================================
 
     console.log("=================================");
 
@@ -1236,124 +1327,77 @@ if (wishForm) {
 
     console.log("=================================");
 
-    console.log("Data:", data);
+    console.log({
+      nama,
+      komentar,
+      kehadiran,
+    });
 
     try {
-      // =============================================
-      // URL SEARCH PARAMS
-      // =============================================
+      // ===============================================
+      // KIRIM KE GOOGLE FORM
+      //
+      // no-cors diperlukan karena Google Form
+      // tidak menyediakan response CORS untuk
+      // website eksternal.
+      // ===============================================
 
-      const body = new URLSearchParams();
-
-      body.append("guestId", data.guestId);
-
-      body.append("panggilan", data.panggilan);
-
-      body.append("nama", data.nama);
-
-      body.append("komentar", data.komentar);
-
-      body.append("kehadiran", data.kehadiran);
-
-      console.log("Body:", body.toString());
-
-      // =============================================
-      // POST KE APPS SCRIPT
-      // =============================================
-
-      const response = await fetch(RSVP_API, {
+      await fetch(RSVP_FORM_URL, {
         method: "POST",
 
-        body: body,
+        mode: "no-cors",
+
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+
+        body: body.toString(),
       });
 
-      console.log("Response POST:", response);
-
-      // =============================================
-      // BACA RESPONSE
-      // =============================================
-
-      const result = await response.text();
-
-      console.log("Response dari Apps Script:", result);
-
-      if (!response.ok) {
-        throw new Error("Apps Script mengembalikan error.");
-      }
-
-      // =============================================
-      // CEK RESPONSE APPS SCRIPT
-      // =============================================
-
-      let resultData = null;
-
-      try {
-        resultData = JSON.parse(result);
-      } catch (error) {
-        console.warn("Response bukan JSON:", result);
-      }
-
-      // =============================================
-      // GUEST SUDAH PERNAH RSVP
-      // =============================================
-
-      if (resultData && resultData.alreadySubmitted === true) {
-        showWishMessage(
-          resultData.message || "Anda sudah pernah mengirim RSVP.",
-        );
-
-        return;
-      }
-
-      // =============================================
-      // ERROR LAIN
-      // =============================================
-
-      if (resultData && resultData.success === false) {
-        throw new Error(
-          resultData.error ||
-            resultData.message ||
-            "Apps Script gagal menyimpan data.",
-        );
-      }
-
-      // =============================================
+      // ===============================================
       // BERHASIL
-      // =============================================
+      // ===============================================
 
       showWishMessage("Terima kasih atas ucapan dan konfirmasi kehadirannya.");
 
-      // =============================================
-      // RESET KOMENTAR SAJA
-      // =============================================
+      // ===============================================
+      // RESET FORM
+      // ===============================================
 
-      if (komentarInput) {
-        komentarInput.value = "";
+      wishForm.reset();
+
+      // ===============================================
+      // HADIR KEMBALI MENJADI DEFAULT
+      // ===============================================
+
+      const hadirInput = document.querySelector(
+        'input[name="kehadiran"][value="Hadir"]',
+      );
+
+      if (hadirInput) {
+        hadirInput.checked = true;
       }
+
+      // ===============================================
+      // RESET CHARACTER COUNTER
+      // ===============================================
 
       if (wishCharacterCount) {
         wishCharacterCount.textContent = "0";
       }
 
-      // =============================================
-      // IDENTITAS TAMU TIDAK DI-RESET
-      // =============================================
+      // ===============================================
+      // REFRESH WISHES
+      //
+      // Hanya berjalan setelah WISHES_API
+      // nanti sudah kita isi.
+      // ===============================================
 
-      /*
-          Guest ID
-          Nama
-          Panggilan
-
-          tetap berasal dari currentGuest.
-        */
-
-      // =============================================
-      // LOAD DATA TERBARU
-      // =============================================
-
-      setTimeout(() => {
-        loadWishes();
-      }, 900);
+      if (WISHES_API) {
+        setTimeout(() => {
+          loadWishes();
+        }, 900);
+      }
     } catch (error) {
       console.error("GAGAL MENGIRIM RSVP:", error);
 
@@ -1385,7 +1429,7 @@ function setSubmitLoading(loading) {
 }
 
 // =====================================================
-// MESSAGE
+// SHOW MESSAGE
 // =====================================================
 
 function showWishMessage(message) {
@@ -1398,6 +1442,10 @@ function showWishMessage(message) {
   wishMessage.classList.add("show");
 }
 
+// =====================================================
+// HIDE MESSAGE
+// =====================================================
+
 function hideWishMessage() {
   if (!wishMessage) {
     return;
@@ -1408,7 +1456,9 @@ function hideWishMessage() {
 
 // =====================================================
 // LAZY LOAD WISHES
-// Baru fetch ketika user mendekati section Wishes
+//
+// Wishes baru dimuat ketika user
+// mendekati section Wishes.
 // =====================================================
 
 const wishesSection = document.querySelector(".wishes-section");
@@ -1421,13 +1471,17 @@ if (wishesSection) {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !wishesLoaded) {
           wishesLoaded = true;
+
           loadWishes();
+
           observer.unobserve(entry.target);
         }
       });
     },
+
     {
       threshold: 0,
+
       rootMargin: "500px 0px",
     },
   );
