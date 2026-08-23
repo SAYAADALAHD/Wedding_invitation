@@ -7,7 +7,7 @@
 
     <title>Ahmad & Diana</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -3612,7 +3612,7 @@
       /* =====================================================
    WISHES
 ===================================================== */
-  /* =====================================================
+/* =====================================================
    WISHES SECTION
 ===================================================== */
 
@@ -3697,7 +3697,6 @@
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 11px;
@@ -3727,7 +3726,6 @@
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
   flex-shrink: 0;
@@ -3815,11 +3813,15 @@
 ===================================================== */
 
 .wish-top-ornament {
- position: relative;
-    width: 250px;
-    margin: 10px auto -35px auto;
-    z-index: 3;
-    pointer-events: none;
+  position: relative;
+
+  width: 250px;
+
+  margin: 10px auto -35px;
+
+  z-index: 3;
+
+  pointer-events: none;
 }
 
 
@@ -3847,8 +3849,14 @@
   border-radius: 18px;
 
   background: var(--color-brown);
+  z-index: 100;
 
-  overflow: hidden;
+  /*
+    PENTING:
+    Jangan hidden karena sticker picker
+    harus bisa keluar dari area form.
+  */
+  overflow: visible;
 
   box-shadow:
     0 8px 22px rgba(117, 44, 48, 0.12);
@@ -3921,7 +3929,7 @@
 
   margin-bottom: 23px;
 
-  z-index: 2;
+  z-index: 4;
 }
 
 
@@ -3997,13 +4005,41 @@
 
 
 /* =====================================================
-   TEXTAREA WRAPPER
+   COMMENT / TEXTAREA WRAPPER
 ===================================================== */
 
 .wish-textarea-wrapper {
   position: relative;
 
   width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid transparent;
+
+  border-radius: 9px;
+
+  background: #f5f3f2;
+
+  /*
+    PENTING untuk floating sticker card.
+  */
+  overflow: visible;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.wish-textarea-wrapper:focus-within {
+  background: #ffffff;
+
+  border-color: var(--color-gold);
+
+  box-shadow:
+    0 0 0 3px rgba(192, 173, 117, 0.13);
 }
 
 
@@ -4015,21 +4051,21 @@
   display: block;
 
   width: 100%;
-  height: 105px;
+  height: 100px;
 
-  padding: 13px 14px 27px;
+  padding: 13px 14px 3px;
 
   box-sizing: border-box;
 
-  border: 1px solid transparent;
+  border: none;
 
-  border-radius: 7px;
+  border-radius: 9px 9px 0 0;
 
   outline: none;
 
   resize: none;
 
-  background: #f5f3f2;
+  background: transparent;
 
   color: var(--color-brown);
 
@@ -4037,12 +4073,7 @@
 
   font-size: 15px;
 
-  line-height: 1.3;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+  line-height: 1.35;
 }
 
 
@@ -4053,13 +4084,25 @@
 }
 
 
-.wish-field textarea:focus {
-  background: #ffffff;
+/* =====================================================
+   COMMENT TOOLBAR
+   STYLE MIRIP SOCIAL MEDIA / TIKTOK
+===================================================== */
 
-  border-color: var(--color-gold);
+.wish-comment-toolbar {
+  width: 100%;
+  min-height: 42px;
 
-  box-shadow:
-    0 0 0 3px rgba(192, 173, 117, 0.13);
+  padding: 4px 8px 7px 12px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
 }
 
 
@@ -4068,14 +4111,11 @@
 ===================================================== */
 
 .wish-character-count {
-  position: absolute;
-
-  right: 11px;
-  bottom: 8px;
-
   display: flex;
 
   align-items: center;
+
+  flex-shrink: 0;
 
   font-family: "Cormorant Garamond", serif;
 
@@ -4085,10 +4125,498 @@
 
   color: var(--color-brown);
 
-  opacity: 0.55;
+  opacity: 0.5;
 
   pointer-events: none;
 }
+
+
+/* =====================================================
+   TOOL BUTTON WRAPPER
+===================================================== */
+
+.wish-comment-tools {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 2px;
+}
+
+
+/* =====================================================
+   EMOJI + STICKER BUTTON
+===================================================== */
+
+.wish-tool-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: var(--color-brown);
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    color 0.2s ease;
+}
+
+
+.wish-tool-button i {
+  font-size: 19px;
+
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+
+.wish-tool-button:hover {
+  background:
+    rgba(117, 44, 48, 0.07);
+}
+
+
+.wish-tool-button:active {
+  transform: scale(0.88);
+}
+
+
+.wish-tool-button.active {
+  background:
+    rgba(192, 173, 117, 0.2);
+
+  color: var(--color-brown);
+}
+
+
+/* =====================================================
+   EMOJI FLOATING PANEL
+===================================================== */
+
+.wish-emoji-panel {
+  position: absolute;
+
+  right: 0;
+  left: 10px;
+  top: 150px;
+
+  width: 250px;
+
+  padding: 11px;
+
+  box-sizing: border-box;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(6, 1fr);
+
+  gap: 5px;
+
+  border:
+    1px solid rgba(117, 44, 48, 0.1);
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15);
+
+  z-index: 60;
+
+  animation:
+    wish-picker-in
+    0.2s
+    ease;
+}
+
+
+.wish-emoji-panel[hidden] {
+  display: none;
+}
+
+
+.wish-emoji {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #f8f5f5;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    transform 0.15s ease;
+}
+
+
+.wish-emoji:hover {
+  background:
+    rgba(255, 178, 193, 0.2);
+}
+
+
+.wish-emoji:active {
+  transform: scale(0.88);
+}
+
+
+/* =====================================================
+   STICKER FLOATING CARD
+   MIRIP REFERENSI YANG ANDA KIRIM
+===================================================== */
+
+.wish-sticker-panel {
+  position: absolute;
+
+  /*
+    Card muncul di atas toolbar sticker.
+  */
+  right: 0;
+  top: 150px;
+
+  width: 315px;
+  max-width: calc(100vw - 60px);
+
+  padding: 14px 12px 13px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid rgba(117, 44, 48, 0.11);
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.18);
+
+  z-index: 9999;
+
+  animation:
+    wish-picker-in
+    0.22s
+    ease;
+}
+
+
+.wish-sticker-panel[hidden] {
+  display: none;
+}
+
+
+/* =====================================================
+   PICKER ANIMATION
+===================================================== */
+
+@keyframes wish-picker-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(7px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   STICKER PANEL HEADER
+===================================================== */
+
+.wish-sticker-panel-header {
+  margin-bottom: 11px;
+
+  padding: 0 3px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  color: var(--color-brown);
+}
+
+
+/* =====================================================
+   STICKER GRID
+===================================================== */
+
+.wish-sticker-grid {
+  width: 100%;
+
+  max-height: 245px;
+
+  padding-right: 5px;
+
+  box-sizing: border-box;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 8px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  overscroll-behavior: contain;
+
+  -webkit-overflow-scrolling: touch;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(117, 44, 48, 0.45)
+    transparent;
+}
+
+
+/* =====================================================
+   STICKER SCROLLBAR
+===================================================== */
+
+.wish-sticker-grid::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+.wish-sticker-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.wish-sticker-grid::-webkit-scrollbar-thumb {
+  background:
+    rgba(117, 44, 48, 0.4);
+
+  border-radius: 999px;
+}
+
+
+/* =====================================================
+   STICKER ITEM
+===================================================== */
+
+.wish-sticker-item {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
+
+  padding: 5px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid rgba(117, 44, 48, 0.07);
+
+  border-radius: 12px;
+
+  background: #f7f7f7;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 0.16s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+
+.wish-sticker-item img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  pointer-events: none;
+}
+
+
+.wish-sticker-item:hover {
+  background:
+    rgba(255, 178, 193, 0.16);
+
+  border-color:
+    rgba(192, 173, 117, 0.45);
+}
+
+
+.wish-sticker-item:active {
+  transform: scale(0.9);
+}
+
+
+.wish-sticker-item.selected {
+  background:
+    rgba(192, 173, 117, 0.15);
+
+  border-color:
+    var(--color-gold);
+}
+
+
+/* =====================================================
+   SELECTED STICKER PREVIEW
+   STICKER YANG SUDAH DIPILIH
+===================================================== */
+
+.wish-selected-sticker {
+  width: 100%;
+
+  padding: 0 12px 5px;
+
+  box-sizing: border-box;
+}
+
+
+.wish-selected-sticker[hidden] {
+  display: none;
+}
+
+
+.wish-selected-sticker-inner {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 80px;
+  height: 80px;
+
+  padding: 4px;
+
+  box-sizing: border-box;
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 178, 193, 0.12);
+}
+
+
+.wish-selected-sticker img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+
+/* =====================================================
+   REMOVE SELECTED STICKER
+===================================================== */
+
+.wish-remove-sticker {
+  position: absolute;
+
+  top: -6px;
+  right: -6px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 21px;
+  height: 21px;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: var(--color-brown);
+
+  color: #ffffff;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 16px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.15);
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+.wish-remove-sticker:active {
+  transform: scale(0.9);
+}
+
 
 /* =====================================================
    ATTENDANCE
@@ -4133,7 +4661,8 @@
 .attendance {
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    1fr 1fr;
 
   gap: 8px;
 
@@ -4182,7 +4711,6 @@
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 7px;
@@ -4194,11 +4722,13 @@
 
   box-sizing: border-box;
 
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border:
+    1px solid rgba(255, 255, 255, 0.16);
 
   border-radius: 7px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background:
+    rgba(255, 255, 255, 0.08);
 
   transition:
     background 0.25s ease,
@@ -4207,18 +4737,10 @@
 }
 
 
-/* =====================================================
-   TAP EFFECT
-===================================================== */
-
 .attendance-option:active .attendance-box {
   transform: scale(0.97);
 }
 
-
-/* =====================================================
-   SELECTED OPTION
-===================================================== */
 
 .attendance-option input:checked + .attendance-box {
   background: var(--color-gold);
@@ -4241,7 +4763,8 @@
 
   border-radius: 50%;
 
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  border:
+    1px solid rgba(255, 255, 255, 0.75);
 
   box-sizing: border-box;
 }
@@ -4250,7 +4773,8 @@
 .attendance-option input:checked
 + .attendance-box
 .custom-radio {
-  border-color: var(--color-brown);
+  border-color:
+    var(--color-brown);
 }
 
 
@@ -4267,11 +4791,13 @@
   width: 6px;
   height: 6px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
   border-radius: 50%;
 
-  background: var(--color-brown);
+  background:
+    var(--color-brown);
 }
 
 
@@ -4299,6 +4825,8 @@
 .attendance-text {
   color: var(--color-brown);
 }
+
+
 /* =====================================================
    SUBMIT BUTTON
 ===================================================== */
@@ -4309,7 +4837,6 @@
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   min-width: 137px;
@@ -4408,7 +4935,8 @@
 
   opacity: 0;
 
-  transform: translateY(4px);
+  transform:
+    translateY(4px);
 
   z-index: 2;
 
@@ -4421,7 +4949,8 @@
 .wish-message.show {
   opacity: 1;
 
-  transform: translateY(0);
+  transform:
+    translateY(0);
 }
 
 
@@ -4500,7 +5029,7 @@
 
 
 /* =====================================================
-   SCROLLBAR
+   WISH LIST SCROLLBAR
 ===================================================== */
 
 .wish-list::-webkit-scrollbar {
@@ -4521,10 +5050,12 @@
 
 
 /* =====================================================
-   LOADING
+   LOADING / EMPTY / ERROR
 ===================================================== */
 
-.wish-loading {
+.wish-loading,
+.wish-empty,
+.wish-error {
   padding: 18px 10px;
 
   text-align: center;
@@ -4533,9 +5064,11 @@
 
   font-size: 14px;
 
+  line-height: 1.3;
+
   color: var(--color-brown);
 
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 
@@ -4567,7 +5100,8 @@
 
   opacity: 0;
 
-  transform: translateY(10px);
+  transform:
+    translateY(10px);
 
   animation:
     wish-card-in
@@ -4608,7 +5142,6 @@
   display: flex;
 
   align-items: center;
-
   justify-content: space-between;
 
   gap: 8px;
@@ -4654,28 +5187,26 @@
   overflow-wrap: anywhere;
 
   word-break: break-word;
+
+  white-space: pre-wrap;
 }
 
 
 /* =====================================================
-   EMPTY WISH
+   STICKER PADA WISH YANG SUDAH DIKIRIM
 ===================================================== */
 
-.wish-empty {
-  padding: 20px 12px;
+.wish-card-sticker {
+  display: block;
 
-  text-align: center;
+  width: 82px;
+  height: 82px;
 
-  font-family: "Cormorant Garamond", serif;
+  margin-top: 8px;
 
-  font-size: 14px;
-
-  line-height: 1.4;
-
-  color: var(--color-brown);
-
-  opacity: 0.7;
+  object-fit: contain;
 }
+
 
 /* =====================================================
    WISH STATUS
@@ -4699,11 +5230,15 @@
   color: var(--color-bg);
 }
 
+
 .wish-status.absent {
-  background: rgba(117, 44, 48, 0.08);
+  background:
+    rgba(117, 44, 48, 0.08);
 
   color: #8b7373;
 }
+
+
 /* =====================================================
    MOBILE
 ===================================================== */
@@ -4743,99 +5278,156 @@
     font-size: 26px;
   }
 
+
+  /* Floating card hampir memenuhi lebar textarea */
+
+  .wish-sticker-panel {
+    right: 0;
+
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  .wish-emoji-panel {
+    right: 0;
+
+    width: 230px;
+    max-width: 100%;
+  }
+
 }
 
-      /* =====================================================
-   LOADING / EMPTY / ERROR
-===================================================== */
 
-      .wish-loading,
-      .wish-empty,
-      .wish-error {
-        padding: 18px 10px;
-
-        text-align: center;
-
-        font-family: "Cormorant Garamond", serif;
-
-        font-size: 14px;
-
-        line-height: 1.3;
-
-        color: var(--color-brown);
-
-        opacity: 0.75;
-      }
-
-      /* =====================================================
+/* =====================================================
    VERY SMALL MOBILE
 ===================================================== */
 
-      @media (max-width: 360px) {
-        .wishes-section {
-          padding-left: 11px;
+@media (max-width: 360px) {
 
-          padding-right: 11px;
-        }
+  .wishes-section {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
 
-        .wishes-title h1 {
-          font-size: 36px;
-        }
 
-        .wishes-title h2 {
-          font-size: 25px;
-        }
+  .wishes-title h1 {
+    font-size: 36px;
+  }
 
-        .wishes-subtitle {
-          max-width: 300px;
 
-          font-size: 14px;
-        }
+  .wishes-title h2 {
+    font-size: 25px;
+  }
 
-        .wish-form {
-          padding: 26px 21px 27px;
-        }
 
-        .wish-guest-name {
-          font-size: 19px;
-        }
+  .wishes-subtitle {
+    max-width: 300px;
 
-        .wish-field textarea {
-          height: 100px;
-        }
+    font-size: 14px;
+  }
 
-        .attendance {
-          gap: 7px;
-        }
 
-        .attendance-box {
-          height: 37px;
+  .wish-form {
+    padding:
+      26px
+      21px
+      27px;
+  }
 
-          padding: 0 6px;
-        }
 
-        .attendance-text {
-          font-size: 13px;
-        }
+  .wish-guest-name {
+    font-size: 19px;
+  }
 
-        .wish-list {
-          max-height: 340px;
-        }
 
-        .wish-card {
-          min-height: 75px;
+  .wish-field textarea {
+    height: 95px;
+  }
 
-          padding: 12px 13px;
-        }
 
-        .wish-name {
-          font-size: 15px;
-        }
+  .wish-sticker-grid {
+    gap: 6px;
 
-        .wish-comment {
-          font-size: 12.5px;
-        }
-      }
+    max-height: 225px;
+  }
+
+
+  .wish-sticker-panel {
+    padding:
+      13px
+      10px
+      11px;
+  }
+
+
+  .wish-sticker-panel-header {
+    font-size: 14px;
+  }
+
+
+  .wish-selected-sticker-inner {
+    width: 72px;
+    height: 72px;
+  }
+
+
+  .wish-tool-button {
+    width: 32px;
+    height: 32px;
+  }
+
+
+  .wish-tool-button i {
+    font-size: 18px;
+  }
+
+
+  .attendance {
+    gap: 7px;
+  }
+
+
+  .attendance-box {
+    height: 37px;
+
+    padding: 0 6px;
+  }
+
+
+  .attendance-text {
+    font-size: 13px;
+  }
+
+
+  .wish-list {
+    max-height: 340px;
+  }
+
+
+  .wish-card {
+    min-height: 75px;
+
+    padding: 12px 13px;
+  }
+
+
+  .wish-name {
+    font-size: 15px;
+  }
+
+
+  .wish-comment {
+    font-size: 12.5px;
+  }
+
+
+  .wish-card-sticker {
+    width: 76px;
+    height: 76px;
+  }
+
+}
       /* =========================================================
    END SECTION
 ========================================================= */
@@ -5410,7 +6002,7 @@
   preload="metadata"
 >
   <source
-    src="assets/music/ANDMESH  - ANUGERAH TERINDAH (OFFICIAL MUSIC VIDEO).mp3"
+    src="/assets/music/ANDMESH  - ANUGERAH TERINDAH (OFFICIAL MUSIC VIDEO).mp3"
     type="audio/mpeg"
   />
 </audio>
@@ -5444,7 +6036,7 @@
       ================================================== -->
 
         <div class="opening-image">
-          <img src="assets/images/webp/Foto-011.webp" alt="Foto pengantin" fetchpriority="high" />
+          <img src="/assets/images/webp/Foto-011.webp" alt="Foto pengantin" fetchpriority="high" />
         </div>
 
         <!-- =================================================
@@ -5553,52 +6145,52 @@
         <span class="pink-glow pink-glow-3"></span>
         <!-- WAX SEAL -->
         <div class="kutipan-seal reveal-up">
-          <img src="assets/decorations/Wax Weal.webp" alt="Wedding Seal" loading="lazy" decoding="async" />
+          <img src="/assets/decorations/Wax Weal.webp" alt="Wedding Seal" loading="lazy" decoding="async" />
         </div>
 
         <!-- FOTO SLIDER -->
         <div class="kutipan-slider">
           <div class="kutipan-slider-track">
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <!-- DUPLIKASI UNTUK INFINITE LOOP -->
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -5625,7 +6217,7 @@
         <span class="pink-glow pink-glow-3"></span>
         <!-- ORNAMEN ATAS -->
         <div class="groom-bride-ornament">
-          <img src="assets/decorations/Ornament_bingkai_1.webp" alt="" loading="lazy" decoding="async" />
+          <img src="/assets/decorations/Ornament_bingkai_1.webp" alt="" loading="lazy" decoding="async" />
         </div>
 
         <!-- GREETING -->
@@ -5641,7 +6233,7 @@
 
          <!-- ORNAMEN -->
         <div class="groom-bride-small-ornament reveal-scroll reveal-delay-3">
-          <img src="assets/decorations/Ornament_bingkai.webp" style="margin-bottom: -15px;"  alt="" loading="lazy" decoding="async" />
+          <img src="/assets/decorations/Ornament_bingkai.webp" style="margin-bottom: -15px;"  alt="" loading="lazy" decoding="async" />
         </div>
 
         <!-- =========================
@@ -5651,7 +6243,7 @@
         <div class="groom">
           <div class="groom-photo">
             <img
-              src="assets/images/webp/Foto_pride.webp"
+              src="/assets/images/webp/Foto_pride.webp"
               alt="Ahmad Hamkal Lajura"
               class="reveal-scroll reveal-delay-3" loading="lazy" decoding="async" />
           </div>
@@ -5681,7 +6273,7 @@
 
         <!-- ORNAMEN -->
         <div class="groom-bride-small-ornament reveal-scroll reveal-delay-3">
-          <img src="assets/decorations/Ornament_bingkai.webp" style="margin-bottom: -10px; margin-top: 10px;" alt="" loading="lazy" decoding="async" />
+          <img src="/assets/decorations/Ornament_bingkai.webp" style="margin-bottom: -10px; margin-top: 10px;" alt="" loading="lazy" decoding="async" />
         </div>
 
         <!-- =========================
@@ -5691,7 +6283,7 @@
         <div class="bride">
           <div class="bride-photo">
             <img
-              src="assets/images/webp/Foto_bridge.webp"
+              src="/assets/images/webp/Foto_bridge.webp"
               alt="Bripda Ros Diana Sari"
              class="reveal-scroll reveal-delay-3 loading="lazy" decoding="async" />
           </div>
@@ -5724,7 +6316,7 @@
 
             <!-- ORNAMENT -->
           <img
-            src="assets/decorations/Ornament_bingkai_1.webp"
+            src="/assets/decorations/Ornament_bingkai_1.webp"
             class="story-ornament"
             alt=""
             style="margin-bottom: -25px;" loading="lazy" decoding="async" />
@@ -5745,7 +6337,7 @@
 
               <div class="story-content">
                 <img
-                  src="assets/images/webp/Foto-005.webp"
+                  src="/assets/images/webp/Foto-005.webp"
                   class="story-image reveal-up reveal-delay-3"
                   alt="Our Story 2022" loading="lazy" decoding="async" />
 
@@ -5770,7 +6362,7 @@
 
               <div class="story-content">
                 <img
-                  src="assets/images/webp/Foto-003.webp"
+                  src="/assets/images/webp/Foto-003.webp"
                   class="story-image reveal-up reveal-delay-3"
                   alt="Our Story 2025" loading="lazy" decoding="async" />
 
@@ -5800,7 +6392,7 @@
 
               <div class="story-content">
                 <img
-                  src="assets/images/webp/Foto-008.webp"
+                  src="/assets/images/webp/Foto-008.webp"
                   class="story-image reveal-up reveal-delay-7"
                   alt="Our Story 2026" loading="lazy" decoding="async" />
 
@@ -5849,11 +6441,11 @@
   ==================================================== -->
 
         <div class="event-flowers-right">
-          <img src="assets/decorations/Flowers 1.webp" alt="flowers" class="reveal-left reveal-delay-1" loading="lazy" decoding="async" />
+          <img src="/assets/decorations/Flowers 1.webp" alt="flowers" class="reveal-left reveal-delay-1" loading="lazy" decoding="async" />
         </div>
 
         <div class="event-flowers-left reveal-left reveal-delay-1">
-          <img src="assets/decorations/Flowers 1.webp" alt="flowers" loading="lazy" decoding="async" />
+          <img src="/assets/decorations/Flowers 1.webp" alt="flowers" loading="lazy" decoding="async" />
         </div>
 
         <!-- ===================================================
@@ -5868,12 +6460,12 @@
           <div class="event-gallery">
             <!-- PHOTO 1 -->
             <div class="event-photo event-photo-left">
-              <img src="assets/images/webp/Foto-008.webp" alt="Wedding Event" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-008.webp" alt="Wedding Event" loading="lazy" decoding="async" />
             </div>
 
             <!-- PHOTO 2 -->
             <div class="event-photo event-photo-right">
-              <img src="assets/images/webp/Foto-007.webp" alt="Wedding Event" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-007.webp" alt="Wedding Event" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -5982,11 +6574,11 @@
 
           <div class="gallery-row gallery-row-two">
             <div class="gallery-item gallery-reveal">
-              <img src="assets/images/webp/Foto-001.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-001.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
 
             <div class="gallery-item gallery-reveal">
-              <img src="assets/images/webp/Foto-005.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-005.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -5995,7 +6587,7 @@
     ================================================== -->
 
           <div class="gallery-item gallery-wide gallery-reveal">
-            <img src="assets/images/webp/Foto-004.webp" alt="Our Moment" loading="lazy" decoding="async" />
+            <img src="/assets/images/webp/Foto-004.webp" alt="Our Moment" loading="lazy" decoding="async" />
           </div>
 
           <!-- =================================================
@@ -6004,11 +6596,11 @@
 
           <div class="gallery-row gallery-row-two">
             <div class="gallery-item gallery-reveal">
-              <img src="assets/images/webp/Foto-010.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-010.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
 
             <div class="gallery-item gallery-reveal">
-              <img src="assets/images/webp/Foto-009.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-009.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -6017,7 +6609,7 @@
     ================================================== -->
 
           <div class="gallery-item gallery-wide gallery-reveal">
-            <img src="assets/images/webp/Foto-011.webp" alt="Our Moment" loading="lazy" decoding="async" />
+            <img src="/assets/images/webp/Foto-011.webp" alt="Our Moment" loading="lazy" decoding="async" />
           </div>
 
           <!-- =================================================
@@ -6026,11 +6618,11 @@
 
           <div class="gallery-row gallery-row-two">
             <div class="gallery-item gallery-reveal">
-              <img src="assets/images/webp/Foto-007.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-007.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
 
             <div class="gallery-item gallery-reveal">
-              <img src="assets/images/webp/Foto-008.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-008.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -6039,7 +6631,7 @@
     ================================================== -->
 
           <div class="gallery-item gallery-wide gallery-reveal">
-            <img src="assets/images/webp/Foto-007.webp" alt="Our Moment" loading="lazy" decoding="async" />
+            <img src="/assets/images/webp/Foto-007.webp" alt="Our Moment" loading="lazy" decoding="async" />
           </div>
           <!-- =================================================
      VIDEO
@@ -6160,20 +6752,20 @@
           <div class="gift-item">
             <!-- FLOWER LEFT -->
             <img
-              src="assets/decorations/Flowers 2.webp"
+              src="/assets/decorations/Flowers 2.webp"
               class="gift-flower gift-flower-left"
               alt="" loading="lazy" decoding="async" />
 
             <!-- FLOWER RIGHT -->
             <img
-              src="assets/decorations/Flowers 2.webp"
+              src="/assets/decorations/Flowers 2.webp"
               class="gift-flower gift-flower-right"
               alt="" loading="lazy" decoding="async" />
 
             <div class="gift-card gift-payment-card">
               <!-- CARD BACKGROUND -->
               <img
-                src="assets/decorations/Card.webp"
+                src="/assets/decorations/Card.webp"
                 class="gift-card-background"
                 alt="" loading="lazy" decoding="async" />
 
@@ -6191,7 +6783,7 @@
 
                   <!-- PROVIDER LOGO -->
                   <div class="gift-provider-logo">
-                    <img src="assets/decorations/Bank Logo.webp" alt="Bank" decoding="async" />
+                    <img src="/assets/decorations/Bank Logo.webp" alt="Bank" decoding="async" />
                   </div>
                 </div>
 
@@ -6228,20 +6820,20 @@
           <div class="gift-item">
             <!-- FLOWER LEFT -->
             <img
-              src="assets/decorations/Flowers 2.webp"
+              src="/assets/decorations/Flowers 2.webp"
               class="gift-flower gift-flower-left"
               alt="" loading="lazy" decoding="async" />
 
             <!-- FLOWER RIGHT -->
             <img
-              src="assets/decorations/Flowers 2.webp"
+              src="/assets/decorations/Flowers 2.webp"
               class="gift-flower gift-flower-right"
               alt="" loading="lazy" decoding="async" />
 
             <div class="gift-card gift-payment-card">
               <!-- CARD BACKGROUND -->
               <img
-                src="assets/decorations/Card.webp"
+                src="/assets/decorations/Card.webp"
                 class="gift-card-background"
                 alt="" loading="lazy" decoding="async" />
 
@@ -6253,7 +6845,7 @@
 
                 <div class="gift-card-top gift-card-top-wallet">
                   <div class="gift-provider-logo">
-                    <img src="assets/decorations/Dana Logo.webp" alt="DANA" decoding="async" />
+                    <img src="/assets/decorations/Dana Logo.webp" alt="DANA" decoding="async" />
                   </div>
                 </div>
 
@@ -6290,20 +6882,20 @@
           <div class="gift-item">
             <!-- FLOWER LEFT -->
             <img
-              src="assets/decorations/Flowers 2.webp"
+              src="/assets/decorations/Flowers 2.webp"
               class="gift-flower gift-flower-left"
               alt="" loading="lazy" decoding="async" />
 
             <!-- FLOWER RIGHT -->
             <img
-              src="assets/decorations/Flowers 2.webp"
+              src="/ssets/decorations/Flowers 2.webp"
               class="gift-flower gift-flower-right"
               alt="" loading="lazy" decoding="async" />
 
             <div class="gift-card gift-address-card">
               <!-- CARD BACKGROUND -->
               <img
-                src="assets/decorations/Card.webp"
+                src="/assets/decorations/Card.webp"
                 class="gift-card-background"
                 alt="" loading="lazy" decoding="async" />
 
@@ -6314,7 +6906,7 @@
           ========================================== -->
 
                 <img
-                  src="assets/decorations/Wedding Gift.webp"
+                  src="/assets/decorations/Wedding Gift.webp"
                   class="gift-icon"
                   alt="Wedding Gift" decoding="async" />
 
@@ -6390,6 +6982,7 @@
 
   </div>
 
+
   <!-- =================================================
        SUBTITLE
   ================================================== -->
@@ -6398,20 +6991,30 @@
     Doa dan ucapan terbaik Anda menjadi bagian indah
     dalam perjalanan kami.
   </p>
+
+
+  <!-- =================================================
+       TOP ORNAMENT
+  ================================================== -->
+
+  <div class="wish-top-ornament">
+
+    <img
+      src="/assets/decorations/Ornament_bingkai_1.webp"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+
+  </div>
+
+
   <!-- =================================================
        WRAPPER
   ================================================== -->
-<div class="wish-top-ornament">
 
-      <img
-        src="assets/decorations/Ornament_bingkai_1.webp"
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
-
-    </div>
   <div class="wishes-wrapper">
+
 
     <!-- =================================================
          WISH FORM
@@ -6421,6 +7024,8 @@
       id="wishForm"
       class="wish-form reveal-scroll"
     >
+
+
       <!-- ===============================================
            FORM INTRO
       ================================================ -->
@@ -6439,7 +7044,7 @@
 
 
       <!-- ===============================================
-           NAME FIELD
+           NAME
       ================================================ -->
 
       <div class="wish-field">
@@ -6462,7 +7067,7 @@
 
 
       <!-- ===============================================
-           WISH FIELD
+           COMMENT
       ================================================ -->
 
       <div class="wish-field">
@@ -6471,27 +7076,208 @@
           Ucapan &amp; Doa
         </label>
 
+
+        <!-- COMMENT BOX -->
+
         <div class="wish-textarea-wrapper">
+
+
+          <!-- TEXTAREA -->
 
           <textarea
             id="komentar"
             name="komentar"
             placeholder="Tuliskan ucapan dan doa terbaik Anda..."
             maxlength="300"
-            required
           ></textarea>
 
-          <div class="wish-character-count">
 
-            <span id="wishCharacterCount">
-              0
-            </span>
+          <!-- ===========================================
+               STICKER PREVIEW
+          ============================================ -->
 
-            <span>
-              /300
-            </span>
+          <div
+            id="selectedStickerPreview"
+            class="wish-selected-sticker"
+            hidden
+          >
+
+            <div class="wish-selected-sticker-inner">
+
+              <img
+                id="selectedStickerImage"
+                src=""
+                alt="Sticker dipilih"
+              />
+
+              <button
+                type="button"
+                id="removeStickerButton"
+                class="wish-remove-sticker"
+                aria-label="Hapus sticker"
+              >
+                &times;
+              </button>
+
+            </div>
 
           </div>
+
+
+          <!-- ===========================================
+               COMMENT TOOLBAR
+          ============================================ -->
+
+          <div class="wish-comment-toolbar">
+
+
+            <!-- CHARACTER COUNT -->
+
+            <div class="wish-character-count">
+
+              <span id="wishCharacterCount">
+                0
+              </span>
+
+              <span>
+                /300
+              </span>
+
+            </div>
+
+
+            <!-- TOOLS -->
+
+            <div class="wish-comment-tools">
+
+
+              <!-- EMOJI BUTTON -->
+
+              <button
+                type="button"
+                id="emojiToggleButton"
+                class="wish-tool-button"
+                aria-label="Tambahkan emoji"
+                aria-expanded="false"
+                aria-controls="emojiPanel"
+              >
+
+                <i class="bi bi-emoji-smile"></i>
+
+              </button>
+
+
+              <!-- STICKER BUTTON -->
+
+              <button
+                type="button"
+                id="stickerToggleButton"
+                class="wish-tool-button"
+                aria-label="Tambahkan sticker"
+                aria-expanded="false"
+                aria-controls="stickerPanel"
+              >
+
+                <i class="bi bi-sticky"></i>
+
+              </button>
+
+
+            </div>
+
+          </div>
+
+
+          <!-- ===========================================
+               EMOJI FLOATING CARD
+          ============================================ -->
+
+          <div
+            id="emojiPanel"
+            class="wish-emoji-panel"
+            hidden
+          >
+
+            <button type="button" class="wish-emoji" data-emoji="❤️">
+              ❤️
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="🥰">
+              🥰
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="😍">
+              😍
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="😘">
+              😘
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="🥳">
+              🥳
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="🎉">
+              🎉
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="✨">
+              ✨
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="🤍">
+              🤍
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="💐">
+              💐
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="🙏">
+              🙏
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="😊">
+              😊
+            </button>
+
+            <button type="button" class="wish-emoji" data-emoji="💖">
+              💖
+            </button>
+
+          </div>
+
+
+          <!-- ===========================================
+               STICKER FLOATING CARD
+          ============================================ -->
+
+          <div
+            id="stickerPanel"
+            class="wish-sticker-panel"
+            hidden
+          >
+
+            <div class="wish-sticker-panel-header">
+
+              Pilih sticker untuk ucapan
+
+            </div>
+
+
+            <!--
+              Sticker dibuat otomatis
+              lewat JavaScript.
+            -->
+
+            <div
+              id="stickerGrid"
+              class="wish-sticker-grid"
+            ></div>
+
+          </div>
+
 
         </div>
 
@@ -6499,65 +7285,72 @@
 
 
       <!-- ===============================================
-     ATTENDANCE
-================================================ -->
+           ATTENDANCE
+      ================================================ -->
 
-<div class="wish-attendance">
+      <div class="wish-attendance">
 
-  <span class="wish-field-label">
-    Konfirmasi Kehadiran
-  </span>
-
-  <div class="attendance">
-
-    <!-- HADIR -->
-    <label class="attendance-option">
-
-      <input
-        type="radio"
-        name="kehadiran"
-        value="Hadir"
-        checked
-        required
-      />
-
-      <span class="attendance-box">
-
-        <span class="custom-radio"></span>
-
-        <span class="attendance-text">
-          Hadir
+        <span class="wish-field-label">
+          Konfirmasi Kehadiran
         </span>
 
-      </span>
 
-    </label>
+        <div class="attendance">
 
 
-    <!-- TIDAK HADIR -->
-    <label class="attendance-option">
+          <!-- HADIR -->
 
-      <input
-        type="radio"
-        name="kehadiran"
-        value="Tidak Hadir"
-      />
+          <label class="attendance-option">
 
-      <span class="attendance-box">
+            <input
+              type="radio"
+              name="kehadiran"
+              value="Hadir"
+              checked
+              required
+            />
 
-        <span class="custom-radio"></span>
+            <span class="attendance-box">
 
-        <span class="attendance-text">
-          Tidak Hadir
-        </span>
+              <span class="custom-radio"></span>
 
-      </span>
+              <span class="attendance-text">
+                Hadir
+              </span>
 
-    </label>
+            </span>
 
-  </div>
+          </label>
 
-</div>
+
+          <!-- TIDAK HADIR -->
+
+          <label class="attendance-option">
+
+            <input
+              type="radio"
+              name="kehadiran"
+              value="Tidak Hadir"
+            />
+
+            <span class="attendance-box">
+
+              <span class="custom-radio"></span>
+
+              <span class="attendance-text">
+                Tidak Hadir
+              </span>
+
+            </span>
+
+          </label>
+
+
+        </div>
+
+      </div>
+
+
       <!-- ===============================================
            SUBMIT
       ================================================ -->
@@ -6580,7 +7373,7 @@
 
 
       <!-- ===============================================
-           RESPONSE MESSAGE
+           MESSAGE
       ================================================ -->
 
       <div
@@ -6600,7 +7393,7 @@
     <div class="wish-bottom-ornament">
 
       <img
-        src="assets/decorations/Ornament_bingkai.webp"
+        src="/assets/decorations/Ornament_bingkai.webp"
         alt=""
         loading="lazy"
         decoding="async"
@@ -6645,23 +7438,23 @@
         <div class="kutipan-slider end-slider">
           <div class="kutipan-slider-track">
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <!-- =============================================
@@ -6669,23 +7462,23 @@
       ============================================== -->
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-002.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-003.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-004.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-005.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
 
             <div class="kutipan-slide">
-              <img src="assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-006.webp" alt="Foto pasangan" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -6700,7 +7493,7 @@
     ================================================ -->
 
           <img
-            src="assets/images/webp/Foto-012.webp"
+            src="/assets/images/webp/Foto-012.webp"
             class="end-main-image"
             alt="Ahmad dan Diana" loading="lazy" decoding="async" />
     <div class="sakura-falling"></div>
@@ -6790,6 +7583,6 @@
 
     <script src="https://cdn.jsdelivr.net/gh/timoschaefer/jQuery-Sakura/jquery-sakura.min.js"></script>
 
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
   </body>
 </html>

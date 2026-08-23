@@ -21,25 +21,14 @@ if (openButton) {
 
     // Tunggu animasi selesai
     setTimeout(() => {
-      // Bawa semua parameter URL tamu
+      // Pertahankan parameter nama tamu
       const queryString = window.location.search;
 
-      // Saat development dengan Live Server
-      if (
-        window.location.hostname === "127.0.0.1" ||
-        window.location.hostname === "localhost"
-      ) {
-        window.location.href = `fullpage.html${queryString}`;
-
-        return;
-      }
-
-      // Saat sudah online di Netlify
-      window.location.href = `/undangan${queryString}`;
+      // Masuk ke halaman undangan
+      window.location.href = `/undangan/${queryString}`;
     }, 1400);
   });
 }
-
 // =====================================================
 // GUEST DATABASE
 // =====================================================
@@ -937,7 +926,111 @@ const WISHES_API =
   "https://script.google.com/macros/s/AKfycbx0Wmc4Pd3TVJzgRr_xPMpXywpaJ4xCx9stPjVymIyumnNT0J1-5v3-Pq-cxWiZGHqt_g/exec";
 
 // =====================================================
-// ELEMENT
+// STICKER DATABASE
+// =====================================================
+//
+// Kalau nama file GIF Anda berbeda,
+// cukup ubah bagian ini.
+//
+// Tidak perlu mengubah Google Form.
+// =====================================================
+
+const STICKERS = [
+  {
+    key: "cute",
+    src: "/assets/stickers/I Love You Hearts GIF by Bichi Mao.gif",
+    label: "Cute",
+  },
+
+  {
+    key: "cute",
+    src: "/assets/stickers/Sad Cry Sticker by Bichi Mao.gif",
+    label: "Cute",
+  },
+
+  {
+    key: "love",
+    src: "/assets/stickers/Animation Dancing Sticker by Keith Garces.gif",
+    label: "Love",
+  },
+
+  {
+    key: "party",
+    src: "/assets/stickers/Cat Flowers GIF.gif",
+    label: "Party",
+  },
+
+  {
+    key: "congrats",
+    src: "/assets/stickers/Flowers Love GIF.gif",
+    label: "Congratulations",
+  },
+
+  {
+    key: "heart",
+    src: "/assets/stickers/gif.gif",
+    label: "Heart",
+  },
+
+  {
+    key: "hug",
+    src: "/assets/stickers/Happy In Love Sticker.gif",
+    label: "Hug",
+  },
+
+  {
+    key: "happy",
+    src: "/assets/stickers/Happy Kathryn Hahn Sticker by Justin.gif",
+    label: "Happy",
+  },
+
+  {
+    key: "flower",
+    src: "/assets/stickers/Sad Pink Sticker.gif",
+    label: "Flower",
+  },
+
+  {
+    key: "cute",
+    src: "/assets/stickers/Shocked Slow Down Sticker.gif",
+    label: "Cute",
+  },
+
+  {
+    key: "cute",
+    src: "/assets/stickers/Valentines Day Love GIF.gif",
+    label: "Cute",
+  },
+
+  {
+    key: "cute",
+    src: "/assets/stickers/Text Brat GIF.gif",
+    label: "Cute",
+  },
+
+  {
+    key: "cute",
+    src: "/assets/stickers/Hooked On A Feeling Dancing Sticker by AnimatedText.gif",
+    label: "Cute",
+  },
+
+  {
+    key: "cute",
+    src: "/assets/stickers/Sad Black Cat Sticker.gif",
+    label: "Cute",
+  },
+];
+
+// =====================================================
+// STICKER MAP
+// =====================================================
+
+const STICKER_MAP = Object.fromEntries(
+  STICKERS.map((sticker) => [sticker.key, sticker]),
+);
+
+// =====================================================
+// ELEMENTS
 // =====================================================
 
 const wishForm = document.getElementById("wishForm");
@@ -957,13 +1050,325 @@ const komentarInput = document.getElementById("komentar");
 const wishCharacterCount = document.getElementById("wishCharacterCount");
 
 // =====================================================
+// EMOJI ELEMENTS
+// =====================================================
+
+const emojiToggleButton = document.getElementById("emojiToggleButton");
+
+const emojiPanel = document.getElementById("emojiPanel");
+
+const emojiButtons = document.querySelectorAll(".wish-emoji");
+
+// =====================================================
+// STICKER ELEMENTS
+// =====================================================
+
+const stickerToggleButton = document.getElementById("stickerToggleButton");
+
+const stickerPanel = document.getElementById("stickerPanel");
+
+const stickerGrid = document.getElementById("stickerGrid");
+
+const selectedStickerPreview = document.getElementById(
+  "selectedStickerPreview",
+);
+
+const selectedStickerImage = document.getElementById("selectedStickerImage");
+
+const removeStickerButton = document.getElementById("removeStickerButton");
+
+// =====================================================
+// CURRENT SELECTED STICKER
+// =====================================================
+
+let selectedStickerKey = "";
+
+// =====================================================
 // CHARACTER COUNTER
 // =====================================================
 
+function updateWishCharacterCount() {
+  if (!komentarInput || !wishCharacterCount) {
+    return;
+  }
+
+  wishCharacterCount.textContent = komentarInput.value.length;
+}
+
 if (komentarInput && wishCharacterCount) {
-  komentarInput.addEventListener("input", () => {
-    wishCharacterCount.textContent = komentarInput.value.length;
+  komentarInput.addEventListener("input", updateWishCharacterCount);
+}
+
+// =====================================================
+// CREATE STICKER LIST
+// =====================================================
+
+function createStickerList() {
+  if (!stickerGrid) {
+    return;
+  }
+
+  stickerGrid.innerHTML = "";
+
+  STICKERS.forEach((sticker) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+
+    button.className = "wish-sticker-item";
+
+    button.dataset.sticker = sticker.key;
+
+    button.setAttribute("aria-label", `Pilih sticker ${sticker.label}`);
+
+    const image = document.createElement("img");
+
+    image.src = sticker.src;
+
+    image.alt = sticker.label;
+
+    image.loading = "lazy";
+
+    image.decoding = "async";
+
+    button.appendChild(image);
+
+    button.addEventListener("click", () => {
+      selectSticker(sticker.key);
+    });
+
+    stickerGrid.appendChild(button);
   });
+}
+
+// =====================================================
+// SELECT STICKER
+// =====================================================
+
+function selectSticker(key) {
+  const sticker = STICKER_MAP[key];
+
+  if (!sticker) {
+    return;
+  }
+
+  selectedStickerKey = key;
+
+  if (selectedStickerImage && selectedStickerPreview) {
+    selectedStickerImage.src = sticker.src;
+
+    selectedStickerImage.alt = sticker.label;
+
+    selectedStickerPreview.hidden = false;
+  }
+
+  document.querySelectorAll(".wish-sticker-item").forEach((button) => {
+    button.classList.toggle("selected", button.dataset.sticker === key);
+  });
+
+  closeStickerPanel();
+}
+
+// =====================================================
+// REMOVE STICKER
+// =====================================================
+
+function removeSelectedSticker() {
+  selectedStickerKey = "";
+
+  if (selectedStickerPreview) {
+    selectedStickerPreview.hidden = true;
+  }
+
+  if (selectedStickerImage) {
+    selectedStickerImage.src = "";
+  }
+
+  document.querySelectorAll(".wish-sticker-item").forEach((button) => {
+    button.classList.remove("selected");
+  });
+}
+
+if (removeStickerButton) {
+  removeStickerButton.addEventListener("click", removeSelectedSticker);
+}
+
+// =====================================================
+// EMOJI PANEL
+// =====================================================
+
+function openEmojiPanel() {
+  if (!emojiPanel) {
+    return;
+  }
+
+  emojiPanel.hidden = false;
+
+  emojiToggleButton?.classList.add("active");
+
+  emojiToggleButton?.setAttribute("aria-expanded", "true");
+
+  closeStickerPanel();
+}
+
+function closeEmojiPanel() {
+  if (!emojiPanel) {
+    return;
+  }
+
+  emojiPanel.hidden = true;
+
+  emojiToggleButton?.classList.remove("active");
+
+  emojiToggleButton?.setAttribute("aria-expanded", "false");
+}
+
+if (emojiToggleButton) {
+  emojiToggleButton.addEventListener("click", () => {
+    if (emojiPanel?.hidden) {
+      openEmojiPanel();
+    } else {
+      closeEmojiPanel();
+    }
+  });
+}
+
+// =====================================================
+// INSERT EMOJI
+// =====================================================
+
+function insertEmoji(emoji) {
+  if (!komentarInput) {
+    return;
+  }
+
+  const maxLength = Number(komentarInput.maxLength) || 300;
+
+  const currentValue = komentarInput.value;
+
+  const start = komentarInput.selectionStart ?? currentValue.length;
+
+  const end = komentarInput.selectionEnd ?? start;
+
+  const newValue =
+    currentValue.slice(0, start) + emoji + currentValue.slice(end);
+
+  if (newValue.length > maxLength) {
+    return;
+  }
+
+  komentarInput.value = newValue;
+
+  const newCursorPosition = start + emoji.length;
+
+  komentarInput.focus();
+
+  komentarInput.setSelectionRange(newCursorPosition, newCursorPosition);
+
+  updateWishCharacterCount();
+}
+
+emojiButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const emoji = button.dataset.emoji || "";
+
+    insertEmoji(emoji);
+  });
+});
+
+// =====================================================
+// STICKER PANEL
+// =====================================================
+
+function openStickerPanel() {
+  if (!stickerPanel) {
+    return;
+  }
+
+  stickerPanel.hidden = false;
+
+  stickerToggleButton?.classList.add("active");
+
+  stickerToggleButton?.setAttribute("aria-expanded", "true");
+
+  closeEmojiPanel();
+}
+
+function closeStickerPanel() {
+  if (!stickerPanel) {
+    return;
+  }
+
+  stickerPanel.hidden = true;
+
+  stickerToggleButton?.classList.remove("active");
+
+  stickerToggleButton?.setAttribute("aria-expanded", "false");
+}
+
+if (stickerToggleButton) {
+  stickerToggleButton.addEventListener("click", () => {
+    if (stickerPanel?.hidden) {
+      openStickerPanel();
+    } else {
+      closeStickerPanel();
+    }
+  });
+}
+
+// =====================================================
+// BUILD COMMENT FOR GOOGLE FORM
+// =====================================================
+//
+// Contoh:
+//
+// Selamat menikah ❤️ [[sticker:love]]
+//
+// Google Form melihatnya sebagai komentar biasa.
+// =====================================================
+
+function buildWishCommentPayload(text, stickerKey) {
+  let result = String(text || "").trim();
+
+  if (stickerKey && STICKER_MAP[stickerKey]) {
+    if (result) {
+      result += " ";
+    }
+
+    result += `[[sticker:${stickerKey}]]`;
+  }
+
+  return result;
+}
+
+// =====================================================
+// PARSE COMMENT FROM GOOGLE SHEET
+// =====================================================
+
+function parseWishComment(value) {
+  const raw = String(value ?? "");
+
+  const stickerRegex = /\[\[sticker:([a-zA-Z0-9_-]+)\]\]/g;
+
+  let stickerKey = "";
+
+  let match;
+
+  while ((match = stickerRegex.exec(raw)) !== null) {
+    const key = match[1];
+
+    if (STICKER_MAP[key]) {
+      stickerKey = key;
+    }
+  }
+
+  const cleanText = raw.replace(stickerRegex, "").trim();
+
+  return {
+    text: cleanText,
+
+    sticker: stickerKey,
+  };
 }
 
 // =====================================================
@@ -971,10 +1376,6 @@ if (komentarInput && wishCharacterCount) {
 // =====================================================
 
 async function loadWishes() {
-  // ===================================================
-  // API BELUM DIBUAT
-  // ===================================================
-
   if (!WISHES_API) {
     if (wishLoading) {
       wishLoading.style.display = "none";
@@ -991,10 +1392,6 @@ async function loadWishes() {
     return;
   }
 
-  // ===================================================
-  // LOAD DATA
-  // ===================================================
-
   try {
     if (wishLoading) {
       wishLoading.style.display = "block";
@@ -1009,6 +1406,7 @@ async function loadWishes() {
     const data = await response.json();
 
     console.log("Wishes dari Apps Script:", data);
+
     const wishes = Array.isArray(data) ? data : data.wishes;
 
     renderWishes(wishes);
@@ -1038,15 +1436,7 @@ function renderWishes(wishes) {
     return;
   }
 
-  // ===================================================
-  // RESET LIST
-  // ===================================================
-
   wishList.innerHTML = "";
-
-  // ===================================================
-  // TIDAK ADA DATA
-  // ===================================================
 
   if (!Array.isArray(wishes) || wishes.length === 0) {
     wishList.innerHTML = `
@@ -1058,74 +1448,101 @@ function renderWishes(wishes) {
     return;
   }
 
-  // ===================================================
-  // BUAT CARD
-  // ===================================================
-
   wishes.forEach((wish, index) => {
+    // ===============================================
+    // CARD
+    // ===============================================
+
     const card = document.createElement("div");
 
     card.className = "wish-card";
 
-    // =================================================
-    // STATUS KEHADIRAN
-    // =================================================
-
-    const statusClass = wish.kehadiran === "Tidak Hadir" ? "absent" : "";
-
-    // =================================================
-    // CARD HTML
-    // =================================================
-
-    card.innerHTML = `
-
-        <div class="wish-card-top">
-
-          <div class="wish-name">
-            ${escapeHTML(wish.nama)}
-          </div>
-
-
-          <span
-            class="wish-status ${statusClass}"
-          >
-            ${escapeHTML(wish.kehadiran)}
-          </span>
-
-        </div>
-
-
-        <p class="wish-comment">
-          ${escapeHTML(wish.komentar)}
-        </p>
-
-      `;
-
-    // =================================================
-    // ANIMATION DELAY
-    // =================================================
-
     card.style.animationDelay = `${index * 0.06}s`;
+
+    // ===============================================
+    // TOP
+    // ===============================================
+
+    const cardTop = document.createElement("div");
+
+    cardTop.className = "wish-card-top";
+
+    // ===============================================
+    // NAME
+    // ===============================================
+
+    const name = document.createElement("div");
+
+    name.className = "wish-name";
+
+    name.textContent = String(wish.nama ?? "");
+
+    // ===============================================
+    // STATUS
+    // ===============================================
+
+    const status = document.createElement("span");
+
+    status.className = "wish-status";
+
+    if (wish.kehadiran === "Tidak Hadir") {
+      status.classList.add("absent");
+    }
+
+    status.textContent = String(wish.kehadiran ?? "");
+
+    cardTop.appendChild(name);
+
+    cardTop.appendChild(status);
+
+    card.appendChild(cardTop);
+
+    // ===============================================
+    // PARSE COMMENT
+    // ===============================================
+
+    const parsedComment = parseWishComment(wish.komentar);
+
+    // ===============================================
+    // COMMENT TEXT
+    // ===============================================
+
+    if (parsedComment.text) {
+      const comment = document.createElement("p");
+
+      comment.className = "wish-comment";
+
+      comment.textContent = parsedComment.text;
+
+      card.appendChild(comment);
+    }
+
+    // ===============================================
+    // STICKER
+    // ===============================================
+
+    if (parsedComment.sticker) {
+      const stickerData = STICKER_MAP[parsedComment.sticker];
+
+      if (stickerData) {
+        const sticker = document.createElement("img");
+
+        sticker.className = "wish-card-sticker";
+
+        sticker.src = stickerData.src;
+
+        sticker.alt = stickerData.label;
+
+        sticker.loading = "lazy";
+
+        sticker.decoding = "async";
+
+        card.appendChild(sticker);
+      }
+    }
 
     wishList.appendChild(card);
   });
-}
-
-// =====================================================
-// ESCAPE HTML
-// =====================================================
-
-function escapeHTML(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-
-    .replace(/</g, "&lt;")
-
-    .replace(/>/g, "&gt;")
-
-    .replace(/"/g, "&quot;")
-
-    .replace(/'/g, "&#039;");
 }
 
 // =====================================================
@@ -1136,43 +1553,36 @@ if (wishForm) {
   wishForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // =================================================
-    // AMBIL NAMA
-    // =================================================
+    // ===============================================
+    // NAME
+    // ===============================================
 
-    const nama = namaInput?.value.trim();
+    const nama = namaInput?.value.trim() || "";
 
-    // =================================================
-    // AMBIL UCAPAN
-    // =================================================
+    // ===============================================
+    // COMMENT TEXT
+    // ===============================================
 
-    const komentar = komentarInput?.value.trim();
+    const komentarText = komentarInput?.value.trim() || "";
 
-    // =================================================
-    // AMBIL KEHADIRAN
-    // =================================================
+    // ===============================================
+    // ATTENDANCE
+    // ===============================================
 
-    const kehadiran = document.querySelector(
-      'input[name="kehadiran"]:checked',
-    )?.value;
+    const kehadiran =
+      document.querySelector('input[name="kehadiran"]:checked')?.value || "";
 
-    // =================================================
-    // VALIDASI NAMA
-    // =================================================
+    // ===============================================
+    // NAME VALIDATION
+    // ===============================================
 
     if (!nama) {
       showWishMessage("Nama belum diisi.");
 
-      if (namaInput) {
-        namaInput.focus();
-      }
+      namaInput?.focus();
 
       return;
     }
-
-    // =================================================
-    // VALIDASI PANJANG NAMA
-    // =================================================
 
     if (nama.length > 60) {
       showWishMessage("Nama maksimal 60 karakter.");
@@ -1180,33 +1590,30 @@ if (wishForm) {
       return;
     }
 
-    // =================================================
-    // VALIDASI UCAPAN
-    // =================================================
+    // ===============================================
+    // COMMENT VALIDATION
+    //
+    // Teks BOLEH kosong apabila ada sticker.
+    // Artinya tamu dapat mengirim sticker saja.
+    // ===============================================
 
-    if (!komentar) {
-      showWishMessage("Ucapan & doa belum diisi.");
+    if (!komentarText && !selectedStickerKey) {
+      showWishMessage("Tuliskan ucapan atau pilih sticker.");
 
-      if (komentarInput) {
-        komentarInput.focus();
-      }
+      komentarInput?.focus();
 
       return;
     }
 
-    // =================================================
-    // VALIDASI PANJANG UCAPAN
-    // =================================================
-
-    if (komentar.length > 300) {
+    if (komentarText.length > 300) {
       showWishMessage("Ucapan maksimal 300 karakter.");
 
       return;
     }
 
-    // =================================================
-    // VALIDASI KEHADIRAN
-    // =================================================
+    // ===============================================
+    // ATTENDANCE VALIDATION
+    // ===============================================
 
     if (!kehadiran) {
       showWishMessage("Silakan pilih kehadiran.");
@@ -1214,17 +1621,23 @@ if (wishForm) {
       return;
     }
 
-    // =================================================
+    // ===============================================
+    // BUILD FINAL COMMENT
+    // ===============================================
+
+    const komentar = buildWishCommentPayload(komentarText, selectedStickerKey);
+
+    // ===============================================
     // LOADING
-    // =================================================
+    // ===============================================
 
     setSubmitLoading(true);
 
     hideWishMessage();
 
-    // =================================================
-    // DATA GOOGLE FORM
-    // =================================================
+    // ===============================================
+    // GOOGLE FORM BODY
+    // ===============================================
 
     const body = new URLSearchParams();
 
@@ -1234,9 +1647,9 @@ if (wishForm) {
 
     body.append(RSVP_FIELDS.kehadiran, kehadiran);
 
-    // =================================================
+    // ===============================================
     // DEBUG
-    // =================================================
+    // ===============================================
 
     console.log("=================================");
 
@@ -1246,14 +1659,20 @@ if (wishForm) {
 
     console.log({
       nama,
+
+      komentarText,
+
+      selectedStickerKey,
+
       komentar,
+
       kehadiran,
     });
 
     try {
-      // ===============================================
-      // KIRIM KE GOOGLE FORM
-      // ===============================================
+      // =============================================
+      // SEND GOOGLE FORM
+      // =============================================
 
       await fetch(RSVP_FORM_URL, {
         method: "POST",
@@ -1267,21 +1686,31 @@ if (wishForm) {
         body: body.toString(),
       });
 
-      // ===============================================
-      // BERHASIL
-      // ===============================================
+      // =============================================
+      // SUCCESS
+      // =============================================
 
       showWishMessage("Terima kasih atas ucapan dan konfirmasi kehadirannya.");
 
-      // ===============================================
+      // =============================================
       // RESET FORM
-      // ===============================================
+      // =============================================
 
       wishForm.reset();
 
-      // ===============================================
-      // HADIR KEMBALI MENJADI DEFAULT
-      // ===============================================
+      // =============================================
+      // RESET STICKER
+      // =============================================
+
+      removeSelectedSticker();
+
+      closeEmojiPanel();
+
+      closeStickerPanel();
+
+      // =============================================
+      // DEFAULT HADIR
+      // =============================================
 
       const hadirInput = document.querySelector(
         'input[name="kehadiran"][value="Hadir"]',
@@ -1291,22 +1720,20 @@ if (wishForm) {
         hadirInput.checked = true;
       }
 
-      // ===============================================
-      // RESET CHARACTER COUNTER
-      // ===============================================
+      // =============================================
+      // CHARACTER COUNTER
+      // =============================================
 
-      if (wishCharacterCount) {
-        wishCharacterCount.textContent = "0";
-      }
+      updateWishCharacterCount();
 
-      // ===============================================
+      // =============================================
       // REFRESH WISHES
-      // ===============================================
+      // =============================================
 
       if (WISHES_API) {
         setTimeout(() => {
           loadWishes();
-        }, 900);
+        }, 1200);
       }
     } catch (error) {
       console.error("GAGAL MENGIRIM RSVP:", error);
@@ -1365,6 +1792,12 @@ function hideWishMessage() {
 }
 
 // =====================================================
+// CREATE STICKERS
+// =====================================================
+
+createStickerList();
+
+// =====================================================
 // LAZY LOAD WISHES
 // =====================================================
 
@@ -1395,146 +1828,6 @@ if (wishesSection) {
 
   wishesObserver.observe(wishesSection);
 }
-// =========================================================
-// WEDDING GIFT
-// COPY DATA
-// =========================================================
-
-const giftCopyButtons = document.querySelectorAll(".gift-copy-button");
-
-const giftCopyMessage = document.getElementById("giftCopyMessage");
-
-let giftCopyTimer = null;
-
-// =========================================================
-// SHOW COPY MESSAGE
-// =========================================================
-
-function showGiftCopyMessage(message) {
-  if (!giftCopyMessage) {
-    return;
-  }
-
-  giftCopyMessage.textContent = message;
-
-  giftCopyMessage.classList.add("show");
-
-  clearTimeout(giftCopyTimer);
-
-  giftCopyTimer = setTimeout(() => {
-    giftCopyMessage.classList.remove("show");
-  }, 2000);
-}
-
-// =========================================================
-// FALLBACK COPY
-// Safari / browser mobile compatibility
-// =========================================================
-
-function fallbackGiftCopy(value) {
-  const textarea = document.createElement("textarea");
-
-  textarea.value = value;
-
-  textarea.setAttribute("readonly", "");
-
-  textarea.style.position = "fixed";
-  textarea.style.top = "0";
-  textarea.style.left = "0";
-  textarea.style.width = "1px";
-  textarea.style.height = "1px";
-  textarea.style.opacity = "0";
-  textarea.style.pointerEvents = "none";
-
-  document.body.appendChild(textarea);
-
-  textarea.focus();
-
-  textarea.select();
-
-  textarea.setSelectionRange(0, textarea.value.length);
-
-  let success = false;
-
-  try {
-    success = document.execCommand("copy");
-  } catch (error) {
-    console.log("Legacy copy gagal:", error);
-
-    success = false;
-  }
-
-  textarea.remove();
-
-  return success;
-}
-
-// =========================================================
-// COPY FUNCTION
-// =========================================================
-
-async function copyGiftValue(value) {
-  const fallbackSuccess = fallbackGiftCopy(value);
-
-  if (fallbackSuccess) {
-    return true;
-  }
-
-  if (navigator.clipboard && window.isSecureContext) {
-    try {
-      await navigator.clipboard.writeText(value);
-
-      return true;
-    } catch (error) {
-      console.log("Clipboard API gagal:", error);
-    }
-  }
-
-  return false;
-}
-
-// =========================================================
-// COPY BUTTON EVENT
-// =========================================================
-
-giftCopyButtons.forEach((button) => {
-  button.addEventListener("click", async (event) => {
-    event.preventDefault();
-
-    // =============================================
-    // DATA COPY
-    // =============================================
-
-    const copyValue = String(button.dataset.copy || "").trim();
-
-    // =============================================
-    // SUCCESS MESSAGE
-    // =============================================
-
-    const copyMessage = button.dataset.message || "Berhasil disalin";
-
-    if (!copyValue) {
-      return;
-    }
-
-    // =============================================
-    // COPY
-    // =============================================
-
-    const success = await copyGiftValue(copyValue);
-
-    // =============================================
-    // RESULT
-    // =============================================
-
-    if (success) {
-      showGiftCopyMessage(copyMessage);
-    } else {
-      showGiftCopyMessage("Gagal menyalin. Silakan salin secara manual.");
-    }
-  });
-});
-
 // =========================================================
 // BACKGROUND MUSIC SYSTEM
 // + CUSTOM LOOP
