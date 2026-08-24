@@ -9,6 +9,7 @@ SISTEM TETAP:
 - mode: max-only / band
 - support JPG / JPEG / PNG / WEBP
 - output ke folder baru
+- jika dijalankan tanpa argumen, muncul pemilih folder
 - struktur subfolder dipertahankan
 - JPG/JPEG hanya menjadi WEBP jika memakai --convert-jpeg-to-webp
 - tidak menimpa file asli
@@ -616,6 +617,82 @@ def process_one(
 
 
 # =========================================================
+# FOLDER PICKER
+# =========================================================
+
+def choose_input_folder() -> Path:
+    """
+    Tampilkan dialog Windows/macOS/Linux untuk memilih folder gambar.
+    Dipakai otomatis jika script dijalankan tanpa argumen folder input.
+    """
+    try:
+        import tkinter as tk
+        from tkinter import filedialog
+    except ImportError:
+        raise SystemExit(
+            "Tkinter tidak tersedia di instalasi Python ini.\n"
+            "Jalankan script dengan folder lewat terminal atau instal Tkinter."
+        )
+
+    root = tk.Tk()
+    root.withdraw()
+
+    try:
+        root.attributes("-topmost", True)
+    except tk.TclError:
+        pass
+
+    folder = filedialog.askdirectory(
+        parent=root,
+        title="Pilih folder gambar yang ingin dikompres",
+        mustexist=True,
+    )
+
+    root.destroy()
+
+    if not folder:
+        raise SystemExit("Pemilihan folder dibatalkan.")
+
+    return Path(folder)
+
+
+def show_finished_dialog(
+    output_root: Path,
+    processed_count: int,
+) -> None:
+    """
+    Beri notifikasi selesai ketika script dijalankan melalui folder picker.
+    """
+    try:
+        import tkinter as tk
+        from tkinter import messagebox
+
+        root = tk.Tk()
+        root.withdraw()
+
+        try:
+            root.attributes("-topmost", True)
+        except tk.TclError:
+            pass
+
+        messagebox.showinfo(
+            "Kompresi selesai",
+            (
+                f"{processed_count} gambar selesai diproses.\n\n"
+                f"Folder hasil:\n{output_root}"
+            ),
+            parent=root,
+        )
+
+        root.destroy()
+
+    except Exception:
+        # Dialog selesai hanya fitur tambahan.
+        # Kegagalan dialog tidak boleh membuat proses utama gagal.
+        pass
+
+
+# =========================================================
 # MAIN
 # =========================================================
 
@@ -630,16 +707,21 @@ def main():
     parser.add_argument(
         "input",
         type=Path,
-        help="Folder input gambar",
+        nargs="?",
+        default=None,
+        help=(
+            "Folder input gambar. "
+            "Jika tidak diisi, dialog pemilih folder akan muncul."
+        ),
     )
 
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("optimized_images"),
+        default=None,
         help=(
-            "Folder output "
-            "(default: optimized_images)"
+            "Folder output. Jika tidak diisi, dibuat otomatis "
+            "di samping folder input dengan nama <folder>_optimized."
         ),
     )
 
@@ -727,8 +809,35 @@ def main():
             "min-kb < target-kb < max-kb"
         )
 
-    input_root = args.input.resolve()
-    output_root = args.output.resolve()
+    # =====================================================
+    # PILIH FOLDER INPUT
+    # =====================================================
+
+    used_folder_picker = args.input is None
+
+    if used_folder_picker:
+        input_root = choose_input_folder().resolve()
+    else:
+        input_root = args.input.resolve()
+
+    # =====================================================
+    # FOLDER OUTPUT
+    # =====================================================
+    #
+    # Contoh:
+    #   Input  : D:\Project\assets\images
+    #   Output : D:\Project\assets\images_optimized
+    #
+    # Tetap tidak menimpa folder gambar asli.
+    # =====================================================
+
+    if args.output is not None:
+        output_root = args.output.resolve()
+    else:
+        output_root = (
+            input_root.parent
+            / f"{input_root.name}_optimized"
+        ).resolve()
 
     if not input_root.exists():
         raise SystemExit(
@@ -959,6 +1068,14 @@ def main():
     )
 
     print("=" * 80)
+
+    # Jika dijalankan tanpa argumen dan memakai folder picker,
+    # tampilkan notifikasi selesai agar nyaman saat script di-double-click.
+    if used_folder_picker:
+        show_finished_dialog(
+            output_root=output_root,
+            processed_count=processed_count,
+        )
 
 
 if __name__ == "__main__":

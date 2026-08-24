@@ -53,7 +53,7 @@
 
         object-fit: cover;
 
-        object-position: center;
+        object-position: 80%;
       }
 
       /* =====================================================
@@ -657,6 +657,13 @@
 
         object-fit: cover;
       }
+    
+
+      .bride-photo img {
+        transform: scale(1.3);
+        transform-origin: 21% 30%;
+     
+      }
 
       /* =====================================================
    ORNAMENT BELOW PHOTO
@@ -885,7 +892,7 @@
 
         background: var(--color-brown);
 
-        border-radius: 42px;
+        border-radius: 22px;
 
         padding: 40px 32px 70px;
 
@@ -1230,7 +1237,7 @@
           padding-left: 28px;
           padding-right: 28px;
 
-          border-radius: 65px;
+          border-radius: 22px;
         }
 
         .story-item {
@@ -1544,15 +1551,10 @@
       .event-card-header h3 {
         margin: 0;
 
-        font-family: "Cormorant Garamond", serif;
+        font-family: "Great Vibes";
 
-        font-size: 29px;
-
-        font-weight: 600;
-
-        line-height: 1;
-
-        letter-spacing: 0.3px;
+        font-size: 42px;
+        font-weight: 100;
 
         color: var(--color-gold);
 
@@ -1566,15 +1568,13 @@
       .event-card-body {
         position: relative;
 
-        display: grid;
+        display: flex;
+        flex-direction: column;
+  
 
-        grid-template-columns:
-          1fr
-          1.25fr;
+        align-items: center;
+        gap: 30px;
 
-        column-gap: 20px;
-
-        row-gap: 0;
 
         padding: 27px 24px 20px;
 
@@ -1586,81 +1586,27 @@
 ========================================================= */
 
       .event-date {
-        grid-column: 1;
-
-        grid-row: 1;
-
+       
         display: flex;
 
         flex-direction: column;
 
-        align-items: start;
+        align-items: center;
+        font-size: 22px;
 
-        justify-content: flex-start;
+        justify-content: center;
 
         text-align: center;
 
         padding-top: 2px;
       }
-
-      .event-date-main {
-        font-family: "Cormorant Garamond", serif;
-
-        font-size: 30px;
-
-        font-weight: 600;
-
-        line-height: 0.95;
-
-        color: var(--color-gold);
-
-        white-space: nowrap;
-      }
-
-      .event-date-month {
-        margin-top: 2px;
-
-        font-family: "Cormorant Garamond", serif;
-
-        font-size: 24px;
-
-        font-weight: 600;
-
-        line-height: 1;
-
-        color: var(--color-gold);
-      }
-
-      /* =========================================================
-   SCHEDULE
-========================================================= */
-
-      .event-schedule {
-        display: flex;
-
-        flex-direction: column;
-      }
-
-      .event-schedule h4 {
-        margin: 0;
-
-        font-family: "Cormorant Garamond", serif;
-
-        font-size: 25px;
-
-        font-weight: 600;
-
-        line-height: 1;
-
-        color: var(--color-gold);
-      }
-
+  
       .event-schedule p {
         margin: 6px 0 0;
 
         font-family: "Cormorant Garamond", serif;
 
-        font-size: 15px;
+        font-size: 16px;
 
         font-weight: 400;
 
@@ -1671,25 +1617,16 @@
         white-space: nowrap;
       }
 
-      /* =========================================================
-   AKAD
-========================================================= */
-
-      .event-schedule-akad {
-        grid-column: 2;
-
-        grid-row: 1;
-      }
-
+ 
       /* =========================================================
    LOCATION
 ========================================================= */
 
       .event-location {
-        grid-column: 1;
-
-        grid-row: 2;
-
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         margin-top: 18px;
 
         padding-right: 4px;
@@ -1700,7 +1637,7 @@
 
         font-family: "Cormorant Garamond", serif;
 
-        font-size: 12px;
+        font-size: 16px;
 
         font-weight: 600;
 
@@ -1714,7 +1651,7 @@
 
         font-family: "Cormorant Garamond", serif;
 
-        font-size: 12px;
+        font-size: 16px;
 
         font-weight: 400;
 
@@ -1844,20 +1781,9 @@
           column-gap: 14px;
 
           padding: 25px 20px 18px;
-        }
+        }  
 
-        .event-date-main {
-          font-size: 27px;
-        }
-
-        .event-date-month {
-          font-size: 22px;
-        }
-
-        .event-schedule h4 {
-          font-size: 23px;
-        }
-
+       
         .event-schedule p {
           font-size: 14px;
         }
@@ -2050,6 +1976,15 @@
         object-fit: cover;
       }
 
+      .gallery-item img[src$="Foto-013.webp"] {
+        transform: scale(1.4);
+        transform-origin: 50% 0%;
+      }
+
+        .gallery-item img[src$="Foto-016.webp"] {
+        transform: scale(1.4);
+        transform-origin: 50% 100%;
+      }
       /* =========================================================
    IMAGE POSITION
 ========================================================= */
@@ -5468,7 +5403,7 @@
 
         width: 100%;
 
-        height: 430px;
+        height: 630px;
 
         overflow: hidden;
 
@@ -5491,7 +5426,7 @@
 
         object-fit: cover;
 
-        object-position: 50% 0%;
+        object-position: 20% 15%;
 
         z-index: 0;
       }
@@ -6036,7 +5971,7 @@
       ================================================== -->
 
         <div class="opening-image">
-          <img src="/assets/images/webp/Foto-011.webp" alt="Foto pengantin" fetchpriority="high" />
+          <img src="/assets/images/webp/Foto-014.webp" alt="Foto pengantin" fetchpriority="high" />
         </div>
 
         <!-- =================================================
@@ -6392,7 +6327,7 @@
 
               <div class="story-content">
                 <img
-                  src="/assets/images/webp/Foto-008.webp"
+                  src="/assets/images/webp/Foto-016.webp"
                   class="story-image reveal-up reveal-delay-7"
                   alt="Our Story 2026" loading="lazy" decoding="async" />
 
@@ -6425,7 +6360,7 @@
   ==================================================== -->
 
         <div class="event-header">
-          <div class="event-header-line reveal-left reveal-delay-3"></div>
+          <div class="event-header-line reveal-up reveal-delay-3"></div>
 
           <div class="event-heading">
             <h2 class="reveal-up reveal-delay-3">Wedding</h2>
@@ -6472,14 +6407,14 @@
           <!-- =================================================
          EVENT CARD
     ================================================== -->
-
+          <!-- AKAD NIKAH -->
           <div class="event-card reveal-scroll">
             <!-- ===============================================
            CARD HEADER
       ================================================ -->
 
             <div class="event-card-header">
-              <h3 class="reveal-up reveal-delay-3">AKAD &amp; RESEPSI</h3>
+              <h3 class="reveal-up reveal-delay-3">Akad Nikah</h3>
             </div>
 
             <!-- ===============================================
@@ -6491,45 +6426,31 @@
              DATE
         ============================================== -->
 
-              <div class="event-date reveal-left reveal-delay-3">
-                <div class="event-date-main">16, Rabu</div>
-
-                <div class="event-date-month">September</div>
-              </div>
-
-              <!-- =============================================
+              <div class="event-date reveal-up reveal-delay-3">
+                <div class="event-date">Rabu, 16 September</div>
+                 <!-- =============================================
              AKAD
         ============================================== -->
 
-              <div class="event-schedule event-schedule-akad reveal-right reveal-delay-3">
-                <h4>Akad</h4>
+              <div class="event-schedule reveal-up reveal-delay-3">
 
-                <p>09.00 WIT - 10.30 WIT</p>
+                <p>Pukul : 09.00 WIT - Selesai</p>
               </div>
 
+              </div>
+
+             
               <!-- =============================================
              LOCATION
         ============================================== -->
 
-              <div class="event-location reveal-left reveal-delay-3">
+              <div class="event-location reveal-up reveal-delay-3">
                 <div class="event-location-title">
                   GEDUNG POLTEKES KOTA SORONG
                 </div>
 
                 <p>Jl. Basuki Rahmat Km. 11,5 Kota Sorong</p>
-              </div>
-
-              <!-- =============================================
-             RESEPSI
-        ============================================== -->
-
-              <div class="event-schedule event-schedule-resepsi reveal-right reveal-delay-3">
-                <h4>Resepsi</h4>
-
-                <p>12.30 WIT - Selesai</p>
-              </div>
-
-              <!-- =============================================
+                   <!-- =============================================
              GOOGLE MAPS
         ============================================== -->
 
@@ -6541,7 +6462,75 @@
               >
                 Open with Google Maps
               </a>
+              </div>
+
+           
             </div>
+
+            
+          </div>
+
+          <!-- RESEPSI -->
+          <div class="event-card reveal-scroll">
+            <!-- ===============================================
+           CARD HEADER
+      ================================================ -->
+
+            <div class="event-card-header">
+              <h3 class="reveal-up reveal-delay-3">Resepsi</h3>
+            </div>
+
+            <!-- ===============================================
+           EVENT BODY
+      ================================================ -->
+
+            <div class="event-card-body">
+              <!-- =============================================
+             DATE
+        ============================================== -->
+
+              <div class="event-date reveal-up reveal-delay-3">
+                <div class="event-date">Rabu, 16 September</div>
+                 <!-- =============================================
+             AKAD
+        ============================================== -->
+
+              <div class="event-schedule reveal-up reveal-delay-3">
+
+                <p>Pukul : 12.30 WIT - Selesai</p>
+              </div>
+
+              </div>
+
+             
+              <!-- =============================================
+             LOCATION
+        ============================================== -->
+
+              <div class="event-location reveal-up reveal-delay-3">
+                <div class="event-location-title">
+                  GEDUNG POLTEKES KOTA SORONG
+                </div>
+
+                <p>Jl. Basuki Rahmat Km. 11,5 Kota Sorong</p>
+                   <!-- =============================================
+             GOOGLE MAPS
+        ============================================== -->
+
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=GEDUNG+POLTEKES+KOTA+SORONG"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="event-maps-button reveal-up reveal-delay-5"
+              >
+                Open with Google Maps
+              </a>
+              </div>
+
+           
+            </div>
+
+            
           </div>
         </div>
       </section>
@@ -6596,7 +6585,7 @@
 
           <div class="gallery-row gallery-row-two">
             <div class="gallery-item gallery-reveal">
-              <img src="/assets/images/webp/Foto-010.webp" alt="Our Moment" loading="lazy" decoding="async" />
+              <img src="/assets/images/webp/Foto-013.webp" alt="Our Moment" loading="lazy" decoding="async" />
             </div>
 
             <div class="gallery-item gallery-reveal">
@@ -6631,7 +6620,7 @@
     ================================================== -->
 
           <div class="gallery-item gallery-wide gallery-reveal">
-            <img src="/assets/images/webp/Foto-007.webp" alt="Our Moment" loading="lazy" decoding="async" />
+            <img src="/assets/images/webp/Foto-016.webp" alt="Our Moment" loading="lazy" decoding="async" />
           </div>
           <!-- =================================================
      VIDEO
@@ -7493,7 +7482,7 @@
     ================================================ -->
 
           <img
-            src="/assets/images/webp/Foto-012.webp"
+            src="/assets/images/webp/Foto-017.webp"
             class="end-main-image"
             alt="Ahmad dan Diana" loading="lazy" decoding="async" />
     <div class="sakura-falling"></div>
