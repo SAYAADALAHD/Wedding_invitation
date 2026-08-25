@@ -45,16 +45,28 @@
         animation: hero-image-in 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       }
 
-      .hero .opening-image img {
-        display: block;
+      .hero .hero-image img {
+       display: block;
+  position: absolute;
 
-        width: 100%;
-        height: 100%;
+  height: 100%;
+  width: auto;
 
-        object-fit: cover;
+  left: 50%;
+  top: 50%;
 
-        object-position: center;
-      }
+  transform: translate(-52%, -50%) scale(1);
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 65%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
+}
+      
 
       /* =====================================================
        HERO IMAGE ANIMATION
@@ -5971,7 +5983,7 @@
            HERO IMAGE
       ================================================== -->
 
-        <div class="opening-image">
+        <div class="hero-image">
           <img src="/assets/images/webp/Foto-014.webp" alt="Foto pengantin" fetchpriority="high" />
         </div>
 
