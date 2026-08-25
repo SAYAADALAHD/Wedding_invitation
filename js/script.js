@@ -1315,7 +1315,140 @@ if (stickerToggleButton) {
     }
   });
 }
+// =========================================================
+// WEDDING GIFT
+// COPY DATA
+// =========================================================
 
+const giftCopyButtons = document.querySelectorAll(".gift-copy-button");
+
+const giftCopyMessage = document.getElementById("giftCopyMessage");
+
+let giftCopyTimer = null;
+
+// =========================================================
+// SHOW COPY MESSAGE
+// =========================================================
+
+function showGiftCopyMessage(message) {
+  if (!giftCopyMessage) {
+    return;
+  }
+
+  // ===============================================
+  // SET MESSAGE
+  // ===============================================
+
+  giftCopyMessage.textContent = message;
+
+  // ===============================================
+  // SHOW
+  // ===============================================
+
+  giftCopyMessage.classList.add("show");
+
+  // ===============================================
+  // RESET OLD TIMER
+  // ===============================================
+
+  clearTimeout(giftCopyTimer);
+
+  // ===============================================
+  // AUTO HIDE
+  // ===============================================
+
+  giftCopyTimer = setTimeout(() => {
+    giftCopyMessage.classList.remove("show");
+  }, 2000);
+}
+
+// =========================================================
+// FALLBACK COPY
+// =========================================================
+
+function fallbackGiftCopy(value) {
+  const textarea = document.createElement("textarea");
+
+  textarea.value = value;
+
+  textarea.style.position = "fixed";
+
+  textarea.style.left = "-9999px";
+  textarea.style.top = "-9999px";
+
+  document.body.appendChild(textarea);
+
+  textarea.focus();
+  textarea.select();
+
+  document.execCommand("copy");
+
+  textarea.remove();
+}
+
+// =========================================================
+// COPY BUTTON EVENT
+// =========================================================
+
+giftCopyButtons.forEach((button) => {
+  button.addEventListener("click", async () => {
+    // =============================================
+    // DATA YANG AKAN DISALIN
+    // =============================================
+
+    const copyValue = button.dataset.copy || "";
+
+    // =============================================
+    // MESSAGE
+    // =============================================
+
+    const copyMessage = button.dataset.message || "Berhasil disalin";
+
+    // =============================================
+    // EMPTY VALUE
+    // =============================================
+
+    if (!copyValue) {
+      return;
+    }
+
+    try {
+      // ===========================================
+      // MODERN CLIPBOARD API
+      // ===========================================
+
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(copyValue);
+      } else {
+        // =========================================
+        // FALLBACK
+        // =========================================
+
+        fallbackGiftCopy(copyValue);
+      }
+
+      // ===========================================
+      // SUCCESS MESSAGE
+      // ===========================================
+
+      showGiftCopyMessage(copyMessage);
+    } catch (error) {
+      console.log("Gagal menyalin:", error);
+
+      // ===========================================
+      // SECOND FALLBACK
+      // ===========================================
+
+      try {
+        fallbackGiftCopy(copyValue);
+
+        showGiftCopyMessage(copyMessage);
+      } catch (fallbackError) {
+        console.log("Fallback copy gagal:", fallbackError);
+      }
+    }
+  });
+});
 // =====================================================
 // BUILD COMMENT FOR GOOGLE FORM
 // =====================================================
