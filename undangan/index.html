@@ -2922,7 +2922,10 @@
         pointer-events: none;
 
         z-index: 1;
+
       }
+
+  
 
       /*
   File asli Flowers 2.png
@@ -3039,9 +3042,9 @@
 ========================================================= */
 
       .gift-provider-logo {
-        width: 95px;
+        width: 195px;
 
-        height: 42px;
+        height: 80px;
 
         display: flex;
 
@@ -3069,6 +3072,7 @@
 
         object-fit: contain;
       }
+
 
       /* =========================================================
    BANK CHIP
@@ -5940,6 +5944,30 @@
 }
     </style>
   </head>
+  <svg
+  width="0"
+  height="0"
+  style="position: absolute"
+  aria-hidden="true"
+>
+  <filter
+    id="gift-color-overlay"
+    color-interpolation-filters="sRGB"
+  >
+    <feFlood
+      style="flood-color: var(--color-brown)"
+      flood-opacity="1"
+      result="color"
+    />
+
+    <feComposite
+      in="color"
+      in2="SourceAlpha"
+      operator="in"
+      result="overlay"
+    />
+  </filter>
+</svg>
   <body>
 <!-- =====================================================
      BACKGROUND MUSIC
@@ -6780,7 +6808,7 @@ Sebagaimana perkataan Ali bin Abi Thalib : “Apa yang menjadi takdirmu, akan me
 
                   <!-- PROVIDER LOGO -->
                   <div class="gift-provider-logo">
-                    <img src="/assets/decorations/Bank Logo.webp" alt="Bank" decoding="async" />
+                    <img src="/assets/decorations/Logo-bank-mandiri.webp" alt="Bank" decoding="async" />
                   </div>
                 </div>
 
@@ -6789,9 +6817,9 @@ Sebagaimana perkataan Ali bin Abi Thalib : “Apa yang menjadi takdirmu, akan me
           ========================================== -->
 
                 <div class="gift-payment-info">
-                  <p class="gift-number">1356 5678 9093 1235 6</p>
+                  <p class="gift-number">1600 0052 5713 0</p>
 
-                  <p class="gift-owner">Sari Wulanti</p>
+                  <p class="gift-owner">a.n. Ahmad Ashrul Hamkal</p>
                 </div>
 
                 <!-- =========================================
@@ -6801,7 +6829,71 @@ Sebagaimana perkataan Ali bin Abi Thalib : “Apa yang menjadi takdirmu, akan me
                 <button
                   class="gift-copy-button"
                   type="button"
-                  data-copy="13565678909312356"
+                  data-copy="1600005257130"
+                  data-message="Nomor rekening berhasil disalin"
+                >
+                  Salin no Rek
+                </button>
+              </div>
+            </div>
+          </div>
+
+           <div class="gift-item">
+            <!-- FLOWER LEFT -->
+            <img
+              src="/assets/decorations/Flowers 2.webp"
+              class="gift-flower gift-flower-left"
+              alt="" loading="lazy" decoding="async" />
+
+            <!-- FLOWER RIGHT -->
+            <img
+              src="/assets/decorations/Flowers 2.webp"
+              class="gift-flower gift-flower-right"
+              alt="" loading="lazy" decoding="async" />
+
+            <div class="gift-card gift-payment-card">
+              <!-- CARD BACKGROUND -->
+              <img
+                src="/assets/decorations/Card.webp"
+                class="gift-card-background"
+                alt="" loading="lazy" decoding="async" />
+
+              <!-- CARD CONTENT -->
+              <div class="gift-card-content">
+                <!-- =========================================
+               TOP
+          ========================================== -->
+
+                <div class="gift-card-top">
+                  <!-- CHIP -->
+                  <div class="gift-chip">
+                    <span></span>
+                  </div>
+
+                  <!-- PROVIDER LOGO -->
+                  <div class="gift-provider-logo">
+                    <img src="/assets/decorations/Bank Logo.webp" alt="Bank" decoding="async" />
+                  </div>
+                </div>
+
+                <!-- =========================================
+               ACCOUNT INFO
+          ========================================== -->
+
+                <div class="gift-payment-info">
+                  <p class="gift-number">0353 0110 2989 505</p>
+
+                  <p class="gift-owner">a.n. Ros Diana Sari</p>
+                </div>
+
+                <!-- =========================================
+               COPY BUTTON
+          ========================================== -->
+
+                <button
+                  class="gift-copy-button"
+                  type="button"
+                  data-copy="035301102989505"
                   data-message="Nomor rekening berhasil disalin"
                 >
                   Salin no Rek
@@ -6851,9 +6943,9 @@ Sebagaimana perkataan Ali bin Abi Thalib : “Apa yang menjadi takdirmu, akan me
           ========================================== -->
 
                 <div class="gift-payment-info">
-                  <p class="gift-number">08123456821211</p>
+                  <p class="gift-number">082271593156</p>
 
-                  <p class="gift-owner">Sari Wulianti</p>
+                  <p class="gift-owner">a.n Ahmad Ashrul Hamkal</p>
                 </div>
 
                 <!-- =========================================
